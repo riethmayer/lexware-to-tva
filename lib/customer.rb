@@ -13,18 +13,24 @@ class Customer
   attr_accessor :invoice_address, :delivery_address
   attr_accessor :payment_term, :payment_method, :delivery_term, :delivery_method, :inclusive_taxes
 
-  def initialize(cid, currency = 1, delivery_cc = 49, invoice_cc = 49, language = 0, opts = {})
-    self.customer_id           = cid
-    self.currency_code         = currency
-    self.delivery_country_code = delivery_cc
-    self.invoice_country_code  = invoice_cc
-    self.language_id           = language
-    self.invoice_address       = opts[:invoice_address]
-    self.delivery_address      = opts[:delivery_address]
-    self.payment_term          = opts[:payment_term]
-    self.delivery_term         = opts[:delivery_term]
-    self.delivery_method       = opts[:delivery_method]
-    self.inclusive_taxes       = opts[:inclusive_taxes] # fSteuerbar? #FIXME
+  # extracts customer data from file
+  # for each order only one customer is involved
+  # one file may contain several orders
+  def initialize(order)
+    address = Address.new(order.at('Adresse'))
+    delivery_address = DeliveryAddress.new(order.at('Lieferadresse'))
+    infoblock = Infoblock.new(order.at('Infoblock'))
+    self.customer_id           = infoblock.customer_id
+    self.currency_code         = 1   # TODO is payment in usd possible?
+    self.delivery_country_code = 49  # TODO delivery outside of germany?
+    self.invoice_country_code  = 49  # TODO invoice address outside germany?
+    self.language_id           = 0   # TODO do we support more languages?
+    self.invoice_address       = address
+    self.delivery_address      = delivery_address
+    self.payment_term          = order.at('Zahlungsbedingung').innerHTML
+    self.delivery_term         = nil # TODO do we have delivery terms?
+    self.delivery_method       = order.at('Lieferart').innerHTML
+    self.inclusive_taxes       = 0   # wird unterschieden?
   end
 
   def to_xml

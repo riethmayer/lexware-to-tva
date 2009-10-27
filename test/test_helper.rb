@@ -1,5 +1,6 @@
 require 'test/unit'
-require 'mocha'
+# require 'mocha'
 require File.dirname(__FILE__) + '/../lib/address'
 require File.dirname(__FILE__) + '/../lib/customer'
 require File.dirname(__FILE__) + '/../lib/converter'
+require File.dirname(__FILE__) + '/../lib/infoblock'

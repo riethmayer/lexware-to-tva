@@ -1,14 +1,19 @@
 # Conversion tool for xml data
 
-    todo
+This tool converts xml data from the laxware online shop to xml data for the logistic company tva.
+
+Laxware has an export tool, that generates one file with all transactions. As TVA needs each customer, item and order in a different resource, this script generates these resources based on the exporter.
 
 # Installation
 
-    todo
+  To install this Software on your system, you've got to install ruby, rubygems and rake. All other dependencies will be installed via
+
+    rake install
 
 # Usage
 
-    todo
+    rake usage   # run this task to get a better overview
+    rake convert # this will be the main task for the export
 
 # License
 

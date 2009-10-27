@@ -28,7 +28,7 @@ class Address
       :zipcode=    => 'KundePLZ_ORT',
       :place=      => 'KundePLZ_ORT'
       }.each do |k,v|
-      self.send k, address.at(v).innerHTML
+        self.send k, address.at(v).innerHTML if address.at(v)
       end
     extract_zipcode
       extract_place
@@ -45,7 +45,7 @@ class DeliveryAddress
       :place=     => 'PLZ_Lieferanschrift',
       :country=   => 'Land_Lieferanschrift'
     }.each do |k,v|
-      self.send k, delivery_address.at(v).innerHTML
+      self.send k, delivery_address.at(v).innerHTML if delivery_address.at(v)
     end
     extract_zipcode
     extract_place

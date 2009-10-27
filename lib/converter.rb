@@ -7,6 +7,17 @@ class Converter
   attr_accessor :no_customers, :no_items, :no_orders
   CRITICAL = true
 
+    # extracts a list of orders from a given file
+  def self.import_orders_from(file)
+    xml = File.read(file)
+    doc = Hpricot::XML(xml)
+    orders = []
+    (doc/:Auftrag).each do |order|
+      orders << order
+    end
+    orders
+  end
+
   def convert
     files = collect_files_from_input
     files.each_with_index do |file,file_number|
