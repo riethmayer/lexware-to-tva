@@ -1,0 +1,5 @@
+require 'test/unit'
+require 'mocha'
+require File.dirname(__FILE__) + '/../lib/address'
+require File.dirname(__FILE__) + '/../lib/customer'
+require File.dirname(__FILE__) + '/../lib/converter'
