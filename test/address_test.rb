@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) +  '/test_helper'
 
-class AddressTest < Test::Unit::TestCased
+class AddressTest < Test::Unit::TestCase
 
   def test_import_customer_address_from_xml
     xml = File.read(File.join(File.dirname(__FILE__),'data', 'test.xml'))
@@ -13,7 +13,7 @@ class AddressTest < Test::Unit::TestCased
     assert_equal '2. OG, Mitte', address.addition
     assert_equal 'Mindener Str. 20', address.street
     assert_equal '10589', address.zipcode
-    assert_equal 'Berlin', address.placed
+    assert_equal 'Berlin', address.place
   end
 
   def test_import_customer_delivery_address_from_xml
