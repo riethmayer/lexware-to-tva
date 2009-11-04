@@ -2,6 +2,7 @@
 require File.dirname(__FILE__) +  '/test_helper'
 
 class AddressTest < Test::Unit::TestCase
+  include PlaceAndZipcodeHelper
 
   def test_import_customer_address_from_xml
     xml = File.read(File.join(File.dirname(__FILE__),'data', 'all.xml'))
@@ -15,7 +16,7 @@ class AddressTest < Test::Unit::TestCase
     assert_match /Mindener Str. 20/, address.street
     assert_match /10589/, address.zipcode
     assert_match /Berlin/, address.place
-    assert_equal 49, address.country
+    assert_equal 49, address.country.code
   end
 
   def test_import_customer_delivery_address_from_xml
@@ -27,7 +28,7 @@ class AddressTest < Test::Unit::TestCase
     assert_match /Liefer Strasse 19/, delivery_address.street
     assert_match /12334/,  delivery_address.zipcode
     assert_match /Charlottenburg/, delivery_address.place
-    assert_equal 41, delivery_address.country
+    assert_equal 41, delivery_address.country.code
   end
 
   class Place
@@ -69,27 +70,11 @@ class AddressTest < Test::Unit::TestCase
     assert_equal "Berlin Charlottenburg", p.extract_place
   end
 
-  class Country
-    include PlaceAndZipcodeHelper
-    attr_accessor :country, :zipcode, :place
-    def initialize(name)
-      self.country = name
-      self.replace_country_with_code
-    end
-  end
-
   def test_replace_country_with_code
-    code_for = Country.new('Frankreich')
-    assert_equal 33, code_for.country
-    code_for = Country.new('Schweiz')
-    assert_equal 41, code_for.country
-    code_for = Country.new('Deutschland')
-    assert_equal 49, code_for.country
-    code_for = Country.new('Dänemark')
-    assert_equal 45, code_for.country
-    code_for = Country.new('Österreich')
-    assert_equal 43, code_for.country
+    assert_equal 33, Country.new('Frankreich').code
+    assert_equal 41, Country.new('Schweiz').code
+    assert_equal 49, Country.new('Deutschland').code
+    assert_equal 45, Country.new('Dänemark').code
+    assert_equal 43, Country.new('Österreich').code
   end
-
-
 end

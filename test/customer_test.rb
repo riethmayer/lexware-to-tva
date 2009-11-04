@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require File.dirname(__FILE__) +  '/test_helper'
 
 class CustomerTest < Test::Unit::TestCase
@@ -27,12 +28,12 @@ class CustomerTest < Test::Unit::TestCase
 
   def test_default_delivery_country_code_should_be_germany
     c = Customer.new(@customer)
-    assert_equal 41, c.delivery_country_code
+    assert_equal 41, c.delivery_country.code
   end
 
   def test_default_invoice_country_code_should_be_germany
     c = Customer.new(@customer)
-    assert_equal 49, c.invoice_country_code
+    assert_equal 49, c.invoice_country.code
   end
 
   def test_customer_has_invoice_address
@@ -42,7 +43,7 @@ class CustomerTest < Test::Unit::TestCase
     assert_match /10589/, c.invoice_address.zipcode
     assert_match /Mindener Str. 20/, c.invoice_address.street
     assert_match /Herr/, c.invoice_address.salutation
-    assert_equal 49, c.invoice_address.country
+    assert_equal 49, c.invoice_address.country.code
   end
 
   def test_customer_has_deliver_address
@@ -52,12 +53,83 @@ class CustomerTest < Test::Unit::TestCase
     assert_match /12334/, c.delivery_address.zipcode
     assert_match /Liefer Strasse 19/, c.delivery_address.street
     assert_match /2. OG, Mitte/, c.delivery_address.addition
-    assert_equal 41, c.delivery_address.country
+    assert_equal 41, c.delivery_address.country.code
   end
 
   def test_customer_to_xml_works
     c = Customer.new(@customer)
     file = File.join(File.dirname(__FILE__), "data", "customer.xml")
     File.open(file, 'w') {|f| f.write(c.to_xml) }
+  end
+
+
+  def test_do_not_print_ustid_if_you_need_to_pay_taxes
+    assert false
+  end
+
+  def test_customer_from_germany_with_ustid_pays_taxes
+    customer = Customer.new(@customer)
+    assert german_customer(with_ustid(customer)).pays_taxes?
+  end
+
+  def test_customer_from_germany_without_ustid_pays_taxes
+    customer = Customer.new(@customer)
+    assert german_customer(without_ustid(customer, nil)).pays_taxes?
+    assert german_customer(without_ustid(customer, "")).pays_taxes?
+  end
+
+  def test_customer_from_eu_without_ustid_pays_taxes
+    assert false
+  end
+
+  def test_customer_from_eu_with_ustid_pays_no_taxes
+    assert false
+  end
+
+  def test_customer_from_other_countries_with_ustid_pays_no_taxes
+    assert false
+  end
+
+  def test_customer_from_other_countries_without_ustid_pays_no_taxes
+    assert false
+  end
+
+  def test_address_in_germany_but_delivery_address_in_eu_and_with_ustid_pays_no_taxes
+    assert false
+  end
+
+  # helper files for testing
+  def german_customer(customer)
+    customer.delivery_country.code = 49
+    customer.delivery_country.name = "Deutschland"
+    customer.invoice_country.code  = 49
+    customer.invoice_country.name  = "Deutschland"
+    customer
+  end
+
+  def european_customer(customer)
+    customer.invoice_country.code  = 43
+    customer.invoice_country.name  = "Österreich"
+    customer.delivery_country.code = 43
+    customer.delivery_country.name = "Österreich"
+    customer
+  end
+
+  def american_customer(customer)
+    customer.invoice_country.code  = 50
+    customer.invoice_country.name  = "USA"
+    customer.delivery_country.code = 50
+    customer.delivery_country.name = "USA"
+    customer
+  end
+
+  def with_ustid(customer)
+    customer.ustid = "DE1234567890"
+    customer
+  end
+
+  def without_ustid(customer, blank_value = "")
+    customer.ustid = blank_value
+    customer
   end
 end
