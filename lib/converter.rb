@@ -4,10 +4,13 @@ require 'hpricot'
 # XML-converter for orders from laxware-faktura to TVA.
 class Converter
 
+  INPUT_DIRECTORY  =  File.join(File.dirname(__FILE__), "..", "input")
+  OUTPUT_DIRECTORY =  File.join(File.dirname(__FILE__), "..", "output")
+
   attr_accessor :no_customers, :no_items, :no_orders
   CRITICAL = true
 
-    # extracts a list of orders from a given file
+  # extracts a list of orders from a given file
   def self.import_orders_from(file)
     xml = File.read(file)
     doc = Hpricot::XML(xml)
@@ -18,7 +21,7 @@ class Converter
     orders
   end
 
-  def convert
+  def self.convert
     files = collect_files_from_input
     files.each_with_index do |file,file_number|
       [ get_customers_from(file),
@@ -31,23 +34,23 @@ class Converter
     cleanup(files) unless something_went_wrong?
   end
 
-  def get_customers_from(file)
+  def self.get_customers_from(file)
     # todo
   end
 
-  def get_items_from(file)
+  def self.get_items_from(file)
     # todo
   end
 
-  def get_orders_from(file)
+  def self.get_orders_from(file)
     # todo
   end
 
-  def create_filename_for(file, file_number)
+  def self.create_filename_for(file, file_number)
     # todo
   end
 
-  def send_via_ftp(done_file)
+  def self.send_via_ftp(done_file)
     if valid(done_file)
       success = FTP::Send_with_basic_authentification(done_file)
       if success
@@ -63,19 +66,28 @@ class Converter
     end
   end
 
-  def cleanup(files)
+  def self.cleanup(files)
     # todo
   end
 
-  def something_went_wrong?
+  def self.something_went_wrong?
     # todo
   end
 
-  def mark_for_cleanup(file)
+  def self.mark_for_cleanup(file)
     # todo
   end
 
-  def mark_for_problem_report(file, critical= false)
+  def self.mark_for_problem_report(file, critical= false)
     # todo
+  end
+
+  def self.collect_files_from_input
+    files = Dir.new(INPUT_DIRECTORY).entries
+    result = []
+#    files.each do |file|
+#      result << File.read(file)
+#    end
+    result
   end
 end
