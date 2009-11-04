@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+require 'ruby-debug'
 class Customer
   # mandatory fields for customer.xsd
   attr_accessor :customer_id, :currency_code
@@ -53,28 +54,28 @@ class Customer
   end
 
   def is_eu?
-    self.invoice_country.eu? || self.delivery_country.eu?
+    self.invoice_country.eu? and self.delivery_country.eu?
   end
 
   def is_german?
-    self.invoice_country.germany? || self.delivery_country.germany?
+    self.invoice_country.germany? and  self.delivery_country.germany?
   end
 
   def has_ustid?
-    !!self.ustid
+    !(self.ustid == "" or self.ustid == nil)
   end
 
   def pays_taxes?
     # Privatpersonen im Drittland werden nicht besteuert
     # Bischof-Gross AG = Schweiz, Geschäftskunde, Drittland, steuerfrei ohne ustid.
     return false unless is_eu?
-    # Bluecon = Österreich, Geschäftskunde, EU, steuerfrei mit USt. ID Nr.
-    return true  unless has_ustid?
     # German customers pay taxes even as business
     return true  if is_german?
+    # Bluecon = Österreich, Geschäftskunde, EU, steuerfrei mit USt. ID Nr.
+    return false if has_ustid?
     # not german, has ustid, is european.
     # Kerstin Wagner = Dänemark, Privatkunde, EU steuerpf. da keine ustid. vorhanden
-    return false
+    return true
   end
 
   def to_xml
@@ -86,6 +87,7 @@ class Customer
     delivery_address_1 = company ? "Firma #{company}" : salutation
     delivery_address_2 = company ? "Z.Hd. #{fullname}" : fullname
     delivery_address_3 = delivery_addition ? delivery_addition : invoice_addition
+    tax_code = self.pays_taxes? ? 0 : 1
     return <<-XML
 <?xml version="1.0" encoding="UTF-8"?>
 <Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///Customer.xsd">
@@ -110,6 +112,7 @@ class Customer
   <invoiceZipCode>#{self.invoice_address.zipcode}</invoiceZipCode>
   <languageId>#{self.language_id}</languageId>
   <taxNummber>#{self.tax_number}</taxNumber>
+  <taxCode>#{tax_code}</taxCode>
   <vatNummber>#{self.ustid}</vatNumber>
   <text1>#{self.order_number}</text1>
   <text2>#{self.invoice_number}</text2>

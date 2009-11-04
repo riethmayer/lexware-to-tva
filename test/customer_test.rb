@@ -62,11 +62,6 @@ class CustomerTest < Test::Unit::TestCase
     File.open(file, 'w') {|f| f.write(c.to_xml) }
   end
 
-
-  def test_do_not_print_ustid_if_you_need_to_pay_taxes
-    assert false
-  end
-
   def test_customer_from_germany_with_ustid_pays_taxes
     customer = Customer.new(@customer)
     assert german_customer(with_ustid(customer)).pays_taxes?
@@ -79,23 +74,39 @@ class CustomerTest < Test::Unit::TestCase
   end
 
   def test_customer_from_eu_without_ustid_pays_taxes
-    assert false
+    customer = Customer.new(@customer)
+    assert european_customer(without_ustid(customer)).pays_taxes?
   end
 
   def test_customer_from_eu_with_ustid_pays_no_taxes
-    assert false
+    customer = Customer.new(@customer)
+    assert_equal false, european_customer(with_ustid(customer)).pays_taxes?
   end
 
   def test_customer_from_other_countries_with_ustid_pays_no_taxes
-    assert false
+    customer = Customer.new(@customer)
+    assert_equal false, american_customer(with_ustid(customer)).pays_taxes?
   end
 
   def test_customer_from_other_countries_without_ustid_pays_no_taxes
-    assert false
+    customer = Customer.new(@customer)
+    assert_equal false, american_customer(without_ustid(customer)).pays_taxes?
   end
 
-  def test_address_in_germany_but_delivery_address_in_eu_and_with_ustid_pays_no_taxes
-    assert false
+  def test_invoice_address_in_germany_but_delivery_address_in_eu_and_with_ustid_pays_no_taxes
+    customer = Customer.new(@customer)
+    customer = german_customer(with_ustid(customer))
+    customer.delivery_country.code = 43
+    customer.delivery_country.name = "Österreich"
+    assert_equal false, customer.pays_taxes?
+  end
+
+  def test_delivery_address_in_germany_but_invoice_address_in_eu_and_with_ustid_pays_no_taxes
+    customer = Customer.new(@customer)
+    customer = german_customer(with_ustid(customer))
+    customer.invoice_country.code = 43
+    customer.invoice_country.name = "Österreich"
+    assert_equal false, customer.pays_taxes?
   end
 
   # helper files for testing
