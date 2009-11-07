@@ -4,11 +4,10 @@ require 'yaml'
 
 class Converter
 
-  attr_accessor :base, :config, :input_dir, :output_dir, :errors
+  attr_accessor :base, :input_dir, :output_dir, :errors
   attr_accessor :files, :directory
 
   BASE      = File.join(File.dirname(__FILE__), "..")
-  CONFIG    = YAML.load_file(File.join(BASE, "config", "config.yml"))
 
   def initialize(directory)
     self.directory  = directory || BASE
