@@ -3,15 +3,17 @@ require File.dirname(__FILE__) +  '/test_helper'
 
 class CustomerTest < Test::Unit::TestCase
 
+  FILES = File.join(File.dirname(__FILE__), "data")
+  TESTFILE = File.join(FILES, "input", "all.xml")
   def setup
-    file = File.join(File.dirname(__FILE__), "data", "all.xml")
-    @customer ||= Converter.import_orders_from(file).first
+    @converter = Converter.new(FILES)
+    @customer ||= @converter.import_orders_from(TESTFILE).first
   end
 
   def test_valid_customer
     c = Customer.new(@customer)
     assert c
-    assert_match /1/, c.customer_id
+    assert_match /1/, c.id
   end
   #
   # default values
