@@ -2,17 +2,19 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 class ConverterTest < Test::Unit::TestCase
 
-  TESTFILE = File.join(File.dirname(__FILE__), "data", "all.xml")
+  FILES    = File.join(File.dirname(__FILE__), "data")
+  TESTFILE = File.join(FILES, "input", "all.xml")
+
+  def setup
+    @converter = Converter.new(FILES)
+  end
 
   def test_import_orders_from_file
-    orders = Converter.import_orders_from(TESTFILE)
+    orders = @converter.import_orders_from(TESTFILE)
     assert_equal 112, orders.length
   end
 
   def test_convert_sends_and_moves_files_from_input_dir
-    Converter.convert
+    @converter.convert
   end
-
-
-
 end

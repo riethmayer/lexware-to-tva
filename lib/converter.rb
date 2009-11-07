@@ -1,17 +1,67 @@
 require 'rubygems'
 require 'hpricot'
+require 'yaml'
 
-# XML-converter for orders from laxware-faktura to TVA.
 class Converter
 
-  INPUT_DIRECTORY  =  File.join(File.dirname(__FILE__), "..", "input")
-  OUTPUT_DIRECTORY =  File.join(File.dirname(__FILE__), "..", "output")
+  attr_accessor :base, :config, :input_dir, :output_dir, :errors
+  attr_accessor :files, :directory
 
-  attr_accessor :no_customers, :no_items, :no_orders
-  CRITICAL = true
+  BASE      = File.join(File.dirname(__FILE__), "..")
+  CONFIG    = YAML.load_file(File.join(BASE, "config", "config.yml"))
 
-  # extracts a list of orders from a given file
-  def self.import_orders_from(file)
+  def initialize(directory = nil)
+    self.directory  = directory || BASE
+    self.input_dir  = File.join(self.directory, "input")
+    self.output_dir = File.join(self.directory, "output")
+    self.files = []
+  end
+  def convert
+    collect_files
+    self.files.each_with_index do |file, file_number|
+      [ get_customers_from(file),
+        get_items_from(file),
+        get_orders_from(file)
+      ].flatten.each_with_index do |element, element_number|
+        save_as_xml(element, file_number, element_number)
+      end
+    end
+    cleanup_files
+  end
+
+  def collect_files
+    file_names = Dir.new(self.input_dir).entries - [".",".."]
+    file_names.each do |file_name|
+      self.files << File.join(self.input_dir,file_name)
+    end
+  end
+
+  def get_customers_from(file)
+    customers = []
+    import_orders_from(file).each do |order|
+      customers << Customer.new(order)
+    end
+    customers
+  end
+
+  def get_items_from(file)
+    items = []
+    import_orders_from(file).each do |order|
+      items << Item.new(order) # may return an array
+    end
+    uniquify(items.flatten.compact)
+  end
+
+  def get_orders_from(file)
+    orders = []
+    import_orders_from(file).each do |order|
+      orders << Order.new(order)
+    end
+    orders
+  end
+
+   # returns hpricot elements
+  def import_orders_from(file)
     xml = File.read(file)
     doc = Hpricot::XML(xml)
     orders = []
@@ -21,73 +71,27 @@ class Converter
     orders
   end
 
-  def self.convert
-    files = collect_files_from_input
-    files.each_with_index do |file,file_number|
-      [ get_customers_from(file),
-        get_items_from(file),
-        get_orders_from(file)].flatten.each do |element|
-        done_file = File.open(create_filename_for(element.to_xml, file_number), 'w')
-        send_via_ftp(done_file)
-      end
+  def uniquify(items)
+    unique_items = { }
+    items.each do |item|
+      unique_items[item.id] = item
     end
-    cleanup(files) unless something_went_wrong?
+    unique_items.values
   end
 
-  def self.get_customers_from(file)
-    # todo
-  end
-
-  def self.get_items_from(file)
-    # todo
-  end
-
-  def self.get_orders_from(file)
-    # todo
-  end
-
-  def self.create_filename_for(file, file_number)
-    # todo
-  end
-
-  def self.send_via_ftp(done_file)
-    if valid(done_file)
-      success = FTP::Send_with_basic_authentification(done_file)
-      if success
-        mark_for_cleanup(done_file)
-      else
-        mark_for_problem_report(done_file)
-      end
-    else
-      # this shouldn't happen, but if it does, our xml data is mal formed
-      # in this case we've to fix it programmatically:
-      #     mail to jan@riethmayer.de
-      mark_for_problem_report(done_file, CRITICAL)
+  def save_as_xml(element, file_number, element_number)
+    File.open(create_filename_for(element, file_number, element_number), 'w') do |f|
+      f.write(element.to_xml)
     end
   end
 
-  def self.cleanup(files)
-    # todo
+  def create_filename_for(element, file_number, element_number)
+    File.join(self.output_dir, "#{element.type}_#{element.id}_#{file_number}_#{element_number}.xml")
   end
 
-  def self.something_went_wrong?
-    # todo
-  end
-
-  def self.mark_for_cleanup(file)
-    # todo
-  end
-
-  def self.mark_for_problem_report(file, critical= false)
-    # todo
-  end
-
-  def self.collect_files_from_input
-    files = Dir.new(INPUT_DIRECTORY).entries
-    result = []
-#    files.each do |file|
-#      result << File.read(file)
-#    end
-    result
+  def cleanup_files
+   # Dir.new(self.directory).entries.each do |file|
+   #   FileUtils.rm(File.join(self.directory, file)) if file =~ /\.xml$/
+   # end
   end
 end

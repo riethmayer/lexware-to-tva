@@ -5,7 +5,7 @@ class AddressTest < Test::Unit::TestCase
   include PlaceAndZipcodeHelper
 
   def test_import_customer_address_from_xml
-    xml = File.read(File.join(File.dirname(__FILE__),'data', 'all.xml'))
+    xml = File.read(File.join(File.dirname(__FILE__),'data','input','all.xml'))
     doc = Hpricot::XML(xml)
     adr = (doc/:Auftrag).first.at('Adresse')
     address = Address.new(adr)
@@ -20,7 +20,7 @@ class AddressTest < Test::Unit::TestCase
   end
 
   def test_import_customer_delivery_address_from_xml
-    xml = File.read(File.join(File.dirname(__FILE__),'data', 'all.xml'))
+    xml = File.read(File.join(File.dirname(__FILE__),'data', 'input','all.xml'))
     doc = Hpricot::XML(xml)
     adr = (doc/:Auftrag).first.at('Lieferadresse')
     delivery_address = DeliveryAddress.new(adr)

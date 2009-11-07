@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-require 'ruby-debug'
 class Customer
   # mandatory fields for customer.xsd
-  attr_accessor :customer_id, :currency_code
+  attr_accessor :id, :currency_code
   # additional mandatory fields for german business customers
   attr_accessor :delivery_country, :invoice_country, :language_id
   # there are no additional mandatory fields for other customers
@@ -17,12 +16,12 @@ class Customer
 
   # extracts customer data from file
   # for each order only one customer is involved
-  # one file may contain several orders
+  # one f3ile may contain several orders
   def initialize(order)
     invoice_address  = Address.new(order.at('Adresse'))
     delivery_address = DeliveryAddress.new(order.at('Lieferadresse'))
     infoblock = Infoblock.new(order.at('Infoblock'))
-    self.customer_id      = infoblock.customer_id
+    self.id               = infoblock.customer_id
     self.currency_code    = 1 # is always in EUR
     self.delivery_country = delivery_address.country
     self.invoice_country  = invoice_address.country
@@ -31,7 +30,7 @@ class Customer
     self.delivery_address = delivery_address
     self.payment_term     = extract_payment_term(order)
     self.delivery_term    = nil # gibts nicht
-    self.delivery_method  = order.at('Lieferart').innerHTML.strip
+    self.delivery_method  = order.at('Lieferart').innerHTML.strip if order.at('Lieferart')
     self.inclusive_taxes  = 0   # wird unterschieden?
     self.ustid            = infoblock.ustidnr
     self.invoice_number   = extract_invoice_number(order)
@@ -39,18 +38,26 @@ class Customer
     self.tax_number       = infoblock.taxno
   end
 
+  def type
+    "Customer"
+  end
+
   def extract_payment_term(order)
-    order.at('Zahlungsbedingung').innerHTML.strip
+    order.at('Zahlungsbedingung').innerHTML.strip if order.at("Zahlungsbedingung")
   end
 
   def extract_invoice_number(order)
-    field = order.at('Betreff_NR').innerHTML.strip
-    nr = field.match(/\d+/)
-    nr ? nr[0] : nil
+    if order.at('Betreff_NR')
+      field = order.at('Betreff_NR').innerHTML.strip
+      nr = field.match(/\d+/)
+      nr ? nr[0] : nil
+    else
+      nil
+    end
   end
 
   def extract_order_number(order)
-    order.at('Bestellnr').innerHTML.strip
+    order.at('Bestellnr').innerHTML.strip if order.at('Bestellnr')
   end
 
   def is_eu?
@@ -93,7 +100,7 @@ class Customer
 <Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///Customer.xsd">
 <customer>
   <currencyCode>#{self.currency_code}</currencyCode>
-  <customerId>#{self.customer_id}</customerId>
+  <customerId>#{self.id}</customerId>
   <deliveryAddress1>#{delivery_address_1}</deliveryAddress1>
   <deliveryAddress2>#{delivery_address_2}</deliveryAddress2>
   <deliveryAddress3>#{delivery_address_3}</deliveryAddress3>

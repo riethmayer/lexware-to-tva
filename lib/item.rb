@@ -1,22 +1,55 @@
+class Item
+  attr_accessor :author,
+  :currency,
+  :description2,
+  :description3,
+  :description4,
+  :dispocode,
+  :ean,
+  :grossPrice1,
+  :grossPrice2,
+  :itemGroup,
+  :id,
+  :languageId,
+  :locked,
+  :netPrice1,
+  :netPrice2,
+  :newArtnr,
+  :preferredSupplierId,
+  :quantityUnitCode,
+  :shortTitle,
+  :taxCode,
+  :title,
+  :valid,
+  :validFrom,
+  :validTo
+
+  def initialize(position)
+    {
+      :id= => 'Artikel_NR',
+      :unit=   => 'Einheit',
+      :position= => 'PositionNr',
+      :quantityUnitCode= => 'Menge',
+      :description2= => 'Artike_Text',
+      :netPrice1= => 'Artikel_EZP',
+
+    }
+  end
+
+  def type
+    "Item"
+  end
+  def to_xml
+
+  end
+end
+
+
+
 # Wozu unterschiedliche Brutto-Preise?
 # grossPrice1
 # und grossPrice2 wie sieht es aus bei massenbestellungen und der prozentuale anteil an gesamtpreisen? wird der preis dann immer pro item ueberschrieben?
-# Artikel ist immer nicht gesperrt
 #
-# oversea pro artikelnummer
-# es werden lieferschein und rechnung werden
-# lieferschein
-# Infoblock:
-# Bezugsnummer 1
-# test.xml ist lieferschein xml.
-# xml vom lieferschein muss mit uebergeben werden
-# in der bezugsnummer steht die rechnungs-nummer.
-# die nummer an sich muss nicht uebergeben werden.
-# belegnummer des auftrags im freifeld
-# belegnummer = bezugnummer
-# auftragsbest, liefer, rechnung
-# rechnung bezieht sich auf liefer
-# liefer bezieht sich auf auftrag
 # die lsf-config anpassen um die xml-ausgabe des lieferscheins zu erweitern.
 # auftragsbestaetigungsnummer wird mit uebergeben
 # pro tag eine xml
