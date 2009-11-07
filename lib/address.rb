@@ -104,7 +104,7 @@ class Address
       :place=      => 'KundePLZ_ORT',
       :country=    => 'KundeLand'
       }.each do |k,v|
-        self.send k, address.at(v).innerHTML.strip if address.at(v)
+        self.send k, Converter.xml_get(v, address)
       end
     extract_zipcode
     extract_place
@@ -122,7 +122,7 @@ class DeliveryAddress
       :place=     => 'PLZ_Lieferanschrift',
       :country=   => 'Land_Lieferanschrift'
     }.each do |k,v|
-      self.send k, delivery_address.at(v).innerHTML.strip if delivery_address.at(v)
+      self.send k, Converter.xml_get(v, delivery_address)
     end
     extract_zipcode
     extract_place
