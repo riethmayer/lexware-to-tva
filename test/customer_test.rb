@@ -8,39 +8,42 @@ class CustomerTest < Test::Unit::TestCase
 
   def setup
     @converter = Converter.new(FILES)
-    @customer ||= @converter.import_orders_from(TESTFILE).first
+    @customer ||= @converter.import_orders_from(TESTFILE)
   end
 
-  def test_valid_customer
-    c = Customer.new(@customer)
-    assert c
-    assert_match /1/, c.id
+  def test_all_customers_have_an_id
+    @customer.each do |customer|
+      assert Customer.new(customer).id
+    end
+    assert_match /1/, Customer.new(@customer.first).id
   end
   #
   # default values
   #
-  def test_default_currency_should_be_euro
-    c = Customer.new(@customer)
-    assert_equal 1, c.currency_code
+  def test_default_currency_should_be_euro_for_all_customers
+    @customer.each do |customer|
+      assert_equal 1, Customer.new(customer).currency_code
+    end
   end
 
-  def test_default_language_should_be_german
-    c = Customer.new(@customer)
-    assert_equal 0, c.language_id
+  def test_default_language_should_be_german_for_all_customers
+    @customer.each do |customer|
+      assert_equal 0, Customer.new(customer).language_id
+    end
   end
 
   def test_default_delivery_country_code_should_be_germany
-    c = Customer.new(@customer)
+    c = Customer.new(@customer.first)
     assert_equal 41, c.delivery_country.code
   end
 
   def test_default_invoice_country_code_should_be_germany
-    c = Customer.new(@customer)
+    c = Customer.new(@customer.first)
     assert_equal 49, c.invoice_country.code
   end
 
   def test_customer_has_invoice_address
-    c = Customer.new(@customer)
+    c = Customer.new(@customer.first)
     assert c.invoice_address
     assert c.invoice_address.zipcode
     assert_match /10589/, c.invoice_address.zipcode
@@ -50,7 +53,7 @@ class CustomerTest < Test::Unit::TestCase
   end
 
   def test_customer_has_deliver_address
-    c = Customer.new(@customer)
+    c = Customer.new(@customer.first)
     assert c.delivery_address
     assert c.delivery_address.zipcode
     assert_match /12334/, c.delivery_address.zipcode
@@ -60,44 +63,44 @@ class CustomerTest < Test::Unit::TestCase
   end
 
   def test_customer_to_xml_works
-    c = Customer.new(@customer)
+    c = Customer.new(@customer.first)
     file = File.join(File.dirname(__FILE__), "data", "customer.xml")
     File.open(file, 'w') {|f| f.write(c.to_xml) }
   end
 
   def test_customer_from_germany_with_ustid_pays_taxes
-    customer = Customer.new(@customer)
+    customer = Customer.new(@customer.first)
     assert german_customer(with_ustid(customer)).pays_taxes?
   end
 
   def test_customer_from_germany_without_ustid_pays_taxes
-    customer = Customer.new(@customer)
+    customer = Customer.new(@customer.first)
     assert german_customer(without_ustid(customer, nil)).pays_taxes?
     assert german_customer(without_ustid(customer, "")).pays_taxes?
   end
 
   def test_customer_from_eu_without_ustid_pays_taxes
-    customer = Customer.new(@customer)
+    customer = Customer.new(@customer.first)
     assert european_customer(without_ustid(customer)).pays_taxes?
   end
 
   def test_customer_from_eu_with_ustid_pays_no_taxes
-    customer = Customer.new(@customer)
+    customer = Customer.new(@customer.first)
     assert_equal false, european_customer(with_ustid(customer)).pays_taxes?
   end
 
   def test_customer_from_other_countries_with_ustid_pays_no_taxes
-    customer = Customer.new(@customer)
+    customer = Customer.new(@customer.first)
     assert_equal false, american_customer(with_ustid(customer)).pays_taxes?
   end
 
   def test_customer_from_other_countries_without_ustid_pays_no_taxes
-    customer = Customer.new(@customer)
+    customer = Customer.new(@customer.first)
     assert_equal false, american_customer(without_ustid(customer)).pays_taxes?
   end
 
   def test_invoice_address_in_germany_but_delivery_address_in_eu_and_with_ustid_pays_no_taxes
-    customer = Customer.new(@customer)
+    customer = Customer.new(@customer.first)
     customer = german_customer(with_ustid(customer))
     customer.delivery_country.code = 43
     customer.delivery_country.name = "Österreich"
@@ -105,7 +108,7 @@ class CustomerTest < Test::Unit::TestCase
   end
 
   def test_delivery_address_in_germany_but_invoice_address_in_eu_and_with_ustid_pays_no_taxes
-    customer = Customer.new(@customer)
+    customer = Customer.new(@customer.first)
     customer = german_customer(with_ustid(customer))
     customer.invoice_country.code = 43
     customer.invoice_country.name = "Österreich"

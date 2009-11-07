@@ -15,6 +15,7 @@ class Converter
     self.output_dir = File.join(self.directory, "output")
     self.files = []
   end
+
   def convert
     collect_files
     self.files.each_with_index do |file, file_number|
@@ -92,5 +93,13 @@ class Converter
    # Dir.new(self.directory).entries.each do |file|
    #   FileUtils.rm(File.join(self.directory, file)) if file =~ /\.xml$/
    # end
+  end
+
+    def self.xml_get(field, order)
+    if order.at(field)
+      order.at(field).innerHTML.strip
+    else
+      "" # TODO add logging
+    end
   end
 end

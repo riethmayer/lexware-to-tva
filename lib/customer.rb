@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 class Customer
-  # mandatory fields for customer.xsd
   attr_accessor :id, :currency_code
-  # additional mandatory fields for german business customers
   attr_accessor :delivery_country, :invoice_country, :language_id
-  # there are no additional mandatory fields for other customers
   # if there's no address for the customer, the order must have the address
   # if there's only an invoice address, this will be the deliveryaddress
   # If one of the following datafields is missing within the customer:
@@ -14,9 +11,6 @@ class Customer
   attr_accessor :invoice_address, :delivery_address, :invoice_number, :order_number
   attr_accessor :payment_term, :payment_method, :delivery_term, :delivery_method, :inclusive_taxes, :ustid, :tax_number
 
-  # extracts customer data from file
-  # for each order only one customer is involved
-  # one f3ile may contain several orders
   def initialize(order)
     invoice_address  = Address.new(order.at('Adresse'))
     delivery_address = DeliveryAddress.new(order.at('Lieferadresse'))
@@ -28,13 +22,13 @@ class Customer
     self.language_id      = 0 # we have only one language code
     self.invoice_address  = invoice_address
     self.delivery_address = delivery_address
-    self.payment_term     = extract_payment_term(order)
+    self.payment_term     = Converter.xml_get('Zahlungsbedingung', order)
     self.delivery_term    = nil # gibts nicht
-    self.delivery_method  = order.at('Lieferart').innerHTML.strip if order.at('Lieferart')
+    self.delivery_method  = Converter.xml_get('Lieferart',order)
     self.inclusive_taxes  = 0   # wird unterschieden?
     self.ustid            = infoblock.ustidnr
     self.invoice_number   = extract_invoice_number(order)
-    self.order_number     = extract_order_number(order)
+    self.order_number     = Converter.xml_get('Bestellnr', order)
     self.tax_number       = infoblock.taxno
   end
 
@@ -42,22 +36,10 @@ class Customer
     "Customer"
   end
 
-  def extract_payment_term(order)
-    order.at('Zahlungsbedingung').innerHTML.strip if order.at("Zahlungsbedingung")
-  end
-
   def extract_invoice_number(order)
-    if order.at('Betreff_NR')
-      field = order.at('Betreff_NR').innerHTML.strip
-      nr = field.match(/\d+/)
-      nr ? nr[0] : nil
-    else
-      nil
-    end
-  end
-
-  def extract_order_number(order)
-    order.at('Bestellnr').innerHTML.strip if order.at('Bestellnr')
+    field = Converter.xml_get('Betreff_NR', order)
+    nr = field.match(/\d+/)
+    nr ? nr[0] : nil
   end
 
   def is_eu?
@@ -65,7 +47,7 @@ class Customer
   end
 
   def is_german?
-    self.invoice_country.germany? and  self.delivery_country.germany?
+    self.invoice_country.germany? and self.delivery_country.germany?
   end
 
   def has_ustid?
@@ -118,9 +100,9 @@ class Customer
   <invoiceStreet>#{self.invoice_address.street}</invoiceStreet>
   <invoiceZipCode>#{self.invoice_address.zipcode}</invoiceZipCode>
   <languageId>#{self.language_id}</languageId>
-  <taxNummber>#{self.tax_number}</taxNumber>
+  <taxNumber>#{self.tax_number}</taxNumber>
   <taxCode>#{tax_code}</taxCode>
-  <vatNummber>#{self.ustid}</vatNumber>
+  <vatNumber>#{self.ustid}</vatNumber>
   <text1>#{self.order_number}</text1>
   <text2>#{self.invoice_number}</text2>
 </customer>
