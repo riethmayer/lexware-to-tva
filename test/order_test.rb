@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 require File.dirname(__FILE__) +  '/test_helper'
-class CustomerTest < Test::Unit::TestCase
+class OrderTest < Test::Unit::TestCase
+
+  FILES    = File.join(File.dirname(__FILE__), "data")
+  TESTFILE = File.join(FILES, "input", "all.xml")
 
   def setup
-    file = File.join(File.dirname(__FILE__), "data", "input","all.xml")
-    @converter = Converter.new
-    @order ||= @converter.import_orders_from(file).first
+    @converter = Converter.new(FILES)
+    @order ||= @converter.import_orders_from(TESTFILE).first
   end
 
   def test_ordernumber_should_be_in_field_referenz_1

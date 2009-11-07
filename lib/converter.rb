@@ -10,7 +10,7 @@ class Converter
   BASE      = File.join(File.dirname(__FILE__), "..")
   CONFIG    = YAML.load_file(File.join(BASE, "config", "config.yml"))
 
-  def initialize(directory = nil)
+  def initialize(directory)
     self.directory  = directory || BASE
     self.input_dir  = File.join(self.directory, "input")
     self.output_dir = File.join(self.directory, "output")

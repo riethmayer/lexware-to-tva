@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-require File.dirname(__FILE__) +  '/test_helper'
+require File.join(File.dirname(__FILE__), 'test_helper')
 
 class CustomerTest < Test::Unit::TestCase
 
-  FILES = File.join(File.dirname(__FILE__), "data")
+  FILES    = File.join(File.dirname(__FILE__), "data")
   TESTFILE = File.join(FILES, "input", "all.xml")
+
   def setup
     @converter = Converter.new(FILES)
     @customer ||= @converter.import_orders_from(TESTFILE).first
