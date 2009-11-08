@@ -112,7 +112,7 @@ class CustomerTest < Test::Unit::TestCase
     customer = german_customer(with_ustid(customer))
     customer.invoice_country.code = 43
     customer.invoice_country.name = "Österreich"
-    assert_equal false, customer.pays_taxes?
+    assert_equal true, customer.pays_taxes?
   end
 
   # helper files for testing

@@ -42,12 +42,13 @@ class Customer
     nr ? nr[0] : nil
   end
 
+  # delivery ausserhalb eu ist immer steuerfrei
   def is_eu?
-    self.invoice_country.eu? and self.delivery_country.eu?
+    self.delivery_country.eu?
   end
 
   def is_german?
-    self.invoice_country.germany? and self.delivery_country.germany?
+    self.delivery_country.germany? or (!self.delivery_country && self.invoice_country.germany?)
   end
 
   def has_ustid?
@@ -71,8 +72,8 @@ class Customer
     company    = self.invoice_address.company
     salutation = self.invoice_address.salutation
     fullname   = self.invoice_address.fullname
-    invoice_addition  = self.invoice_address.addition
-    delivery_addition = self.delivery_address.addition
+    invoice_addition   = self.invoice_address.addition
+    delivery_addition  = self.delivery_address.addition
     delivery_address_1 = company ? "Firma #{company}" : salutation
     delivery_address_2 = company ? "Z.Hd. #{fullname}" : fullname
     delivery_address_3 = delivery_addition ? delivery_addition : invoice_addition
