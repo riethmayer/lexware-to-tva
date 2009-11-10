@@ -1,83 +1,112 @@
+# rabatte fuer privatkunden werden schon so als festpreis uebergeben
+require 'bigdecimal'
+
 class Item
-  attr_accessor :author,
-  :currency,
-  :description2,
-  :description3,
-  :description4,
-  :dispocode,
-  :ean,
-  :grossPrice1,
-  :grossPrice2,
-  :itemGroup,
-  :id,
-  :languageId,
-  :locked,
-  :netPrice1,
-  :netPrice2,
-  :newArtnr,
-  :preferredSupplierId,
-  :quantityUnitCode,
-  :shortTitle,
-  :taxCode,
-  :title,
-  :valid,
-  :validFrom,
-  :validTo
+  attr_accessor :grossprice_1, :grossprice_2, :netprice_1, :netprice_2 # money stuff
+  attr_accessor :id, :tax_code, :title, :short_title, :quantity, :errors, :position_number # properties
+  attr_accessor :language_id, :locked, :valid, :currency, :dispocode, :quantity_unit_code #defaults
 
   def initialize(position)
     {
       :id= => 'Artikel_NR',
-      :unit=   => 'Einheit',
-      :position= => 'PositionNr',
-      :quantityUnitCode= => 'Menge',
-      :description2= => 'Artike_Text',
-      :netPrice1= => 'Artikel_EZP',
+      :title= => 'Artikel_Text',
+      :short_title= => 'Artikel_Text',
+      :grossprice_1= => 'Artikel_EZP',
+      :netprice_1= => 'Artikel_EZP',
+      :quantity= => 'Menge',
+      :position_number= => 'PositionNr',
+      :tax_code= => 'Ust-Proz'
+    }.each do |k, v|
+      self.send k, Converter.xml_get(v,position)
+    end
+    self.language_id= 0
+    self.locked= 0
+    self.valid= true
+    self.currency= 'EUR'
+    self.dispocode= 0
+    self.quantity_unit_code=1
+    self.grossprice_2= 0
+    self.netprice_2= 0
+    self.quantity     = Converter.convert_value(self.quantity)
+    self.grossprice_1 = Converter.convert_value(self.grossprice_1)
+    self.netprice_1   = Converter.convert_value(self.netprice_1) || '0.00'
+    self.tax_code     = Converter.convert_value(self.tax_code)   || '0.00'
+    calculate_grossprice_1
+    self.errors = []
+  end
 
-    }
+  # steuersatz aus dem artikel (ist bindend)
+  def calculate_grossprice_1
+    if(self.tax_code == '0.00')
+      # do nothing, netprice is grossprice, as tax is 0
+    else
+      taxs = self.tax_code
+      nets = self.netprice_1
+      tax     = BigDecimal.new(taxs)
+      tax     = (tax / 100) + 1
+      net     = BigDecimal.new(nets)
+      amount  = net * tax
+      rounded = (amount * 100).round / 100
+      display = rounded.to_f.to_s
+      display = "#{display}0" unless display =~ /\.(\d\d)/
+      self.grossprice_1 = display
+    end
+  end
+
+  def valid?
+    errors << "Currency invalid"    if self.currency != 'EUR'
+    errors << "DispoCode invalid"   if self.dispocode != 0
+    errors << "GrossPrice1 missing" if self.grossprice_1.nil?
+    errors << "GrossPrice2 invalid" if self.grossprice_2 != 0
+    errors << "ItemId missing"      if self.id.nil?
+    errors << "LanguageID invalid"  if self.language_id != 0
+    errors << "Locked-Flag invalid" if self.locked != 0
+    errors << "NetPrice1 missing"   if self.netprice_1.nil?
+    errors << "NetPrice2 invalid"   if self.netprice_2 != 0
+    errors << "QuantityUnitCode invalid" if self.quantity_unit_code != 1
+    errors << "ShortTitle missing" if self.short_title.nil? or self.short_title == ""
+    errors << "TaxCode invalid"    if self.tax_code.nil? or self.tax_code == ""
+    errors << "Title missing"      if self.title.nil? or self.title == ""
+    errors.length == 0
   end
 
   def type
     "Item"
   end
-  def to_xml
 
+  def xml_partial
+    return <<-PARTIAL
+
+<position>
+  <grossPrice>#{self.grossprice_1}</grossPrice>
+  <itemId>#{self.id}</itemId>
+  <orderedQuantity>#{self.quantity}</orderedQuantity>
+  <quantityUnitCode>#{self.quantity_unit_code}</quantityUnitCode>
+</position>
+PARTIAL
+  end
+
+  def to_xml
+   return <<-XML
+<?xml version='1.0' encoding="UTF-8" ?>
+<Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///Item.xsd">
+  <item>
+    <currency>#{self.currency}</currency>
+    <dispoCode>#{self.dispocode}</dispoCode>
+    <grossPrice1>#{self.grossprice_1}</grossPrice1>
+    <grossPrice2>#{self.grossprice_2}</grossPrice2>
+    <itemId>#{self.id}</itemId>
+    <languageId>#{self.language_id}</languageId>
+    <locked>#{self.locked}</locked>
+    <netPrice1>#{self.netprice_1}</netPrice1>
+    <netPrice2>#{self.netprice_2}</netPrice2>
+    <quantityUnitCode>#{self.quantity_unit_code}</quantityUnitCode>
+    <shortTitle>#{self.short_title}</shortTitle>
+    <taxCode>#{self.tax_code}</taxCode>
+    <title>#{self.title}</title>
+    <valid>#{self.valid? ? 'true' : 'false' }</valid>
+  </item>
+</Root>
+XML
   end
 end
-
-
-
-# Wozu unterschiedliche Brutto-Preise?
-# grossPrice1
-# und grossPrice2 wie sieht es aus bei massenbestellungen und der prozentuale anteil an gesamtpreisen? wird der preis dann immer pro item ueberschrieben?
-#
-# die lsf-config anpassen um die xml-ausgabe des lieferscheins zu erweitern.
-# auftragsbestaetigungsnummer wird mit uebergeben
-# pro tag eine xml
-# nur lieferschein ohne rechnung = Werbung
-# bezugsnummer der auftragsbestaetigung
-# drei preisgruppen
-# privat 100%
-# haendler 90% rabatt immer auf die gesamte bestellung
-# grosshaendler 80%
-# austausch kann auch 0 euro enthalten fuer eine position
-# nur 2 faelle: 0 % oder 19%
-# wenn ustid angegeben:
-# privat in europa
-# europaeisch oder ausserhalb eu
-# haendler in europa haben ustid fsteuerbar evtl nein aber ustid pflicht
-# fsteuerbar = ja => 19% sonst 0% (taxcode)
-# was hat prioritaet? 19% oder taxcode?
-# SteuerausgabeNBL ist bindend (mit ustid innergemeintlich, steuerfrei ausfuhr fuer ausland)
-# steuersatz aus dem artikel (ist bindend)
-# umsatzsteuerid = ustid : ist relevant muss uebergebenw erden, wenn der mwst = 0%, ist die ustid mit aufzufuehren.
-# ustid immer nur dann angeben, wenn notwendig!
-# ausland immer 0%
-# wenn nach oesterreich und rechnungsaddresse in deutschland, dann 0% und ustid.
-# es muss immer die bezugsnummer die auftragsbestaetigungsnummer sein.
-# internetauftraege existieren nicht mehr und sollen ignoriert werden
-# Auftraege an TVA fuer die es keine AB gibt, wie finden wir den auftrag dann wieder? Gibt es nur bei Internetbestellungen und ist gliehc unserer Bestellnummer
-# Bei geschaeftskunden existiert immer eine AB.
-# dispocode bitte edv anrufen und checken
-# die rabbatierung : preis veraendert oder gesamtrabatt sonst nix
-# es werden nebenleistungen definiert: koennen nebenleistungen von artikeln unterschieden werden? versandkosten duerfen nicht rabbatiert werden.
-#

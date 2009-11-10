@@ -17,4 +17,6 @@ class ConverterTest < Test::Unit::TestCase
   def test_convert_sends_and_moves_files_from_input_dir
     @converter.convert
   end
+
+
 end

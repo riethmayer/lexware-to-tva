@@ -34,12 +34,12 @@ class CustomerTest < Test::Unit::TestCase
 
   def test_default_delivery_country_code_should_be_germany
     c = Customer.new(@customer.first)
-    assert_equal 41, c.delivery_country.code
+    assert_equal 41, c.delivery_address.country.code
   end
 
   def test_default_invoice_country_code_should_be_germany
     c = Customer.new(@customer.first)
-    assert_equal 49, c.invoice_country.code
+    assert_equal 49, c.invoice_address.country.code
   end
 
   def test_customer_has_invoice_address
@@ -102,41 +102,41 @@ class CustomerTest < Test::Unit::TestCase
   def test_invoice_address_in_germany_but_delivery_address_in_eu_and_with_ustid_pays_no_taxes
     customer = Customer.new(@customer.first)
     customer = german_customer(with_ustid(customer))
-    customer.delivery_country.code = 43
-    customer.delivery_country.name = "Österreich"
+    customer.delivery_address.country.code = 43
+    customer.delivery_address.country.name = "Österreich"
     assert_equal false, customer.pays_taxes?
   end
 
   def test_delivery_address_in_germany_but_invoice_address_in_eu_and_with_ustid_pays_no_taxes
     customer = Customer.new(@customer.first)
     customer = german_customer(with_ustid(customer))
-    customer.invoice_country.code = 43
-    customer.invoice_country.name = "Österreich"
+    customer.invoice_address.country.code = 43
+    customer.invoice_address.country.name = "Österreich"
     assert_equal true, customer.pays_taxes?
   end
 
   # helper files for testing
   def german_customer(customer)
-    customer.delivery_country.code = 49
-    customer.delivery_country.name = "Deutschland"
-    customer.invoice_country.code  = 49
-    customer.invoice_country.name  = "Deutschland"
+    customer.delivery_address.country.code = 49
+    customer.delivery_address.country.name = "Deutschland"
+    customer.invoice_address.country.code  = 49
+    customer.invoice_address.country.name  = "Deutschland"
     customer
   end
 
   def european_customer(customer)
-    customer.invoice_country.code  = 43
-    customer.invoice_country.name  = "Österreich"
-    customer.delivery_country.code = 43
-    customer.delivery_country.name = "Österreich"
+    customer.invoice_address.country.code  = 43
+    customer.invoice_address.country.name  = "Österreich"
+    customer.delivery_address.country.code = 43
+    customer.delivery_address.country.name = "Österreich"
     customer
   end
 
   def american_customer(customer)
-    customer.invoice_country.code  = 50
-    customer.invoice_country.name  = "USA"
-    customer.delivery_country.code = 50
-    customer.delivery_country.name = "USA"
+    customer.invoice_address.country.code  = 50
+    customer.invoice_address.country.name  = "USA"
+    customer.delivery_address.country.code = 50
+    customer.delivery_address.country.name = "USA"
     customer
   end
 

@@ -19,10 +19,13 @@ class Converter
   def convert
     collect_files
     self.files.each_with_index do |file, file_number|
-      [ get_customers_from(file),
-        get_items_from(file),
-        get_orders_from(file)
-      ].flatten.each_with_index do |element, element_number|
+      customers = get_customers_from(file)
+      items = get_items_from(file)
+      invoices, delivery_notes = get_orders_from(file)
+      invoices.each do |invoice|
+        invoice.update_fields(delivery_notes)
+      end
+      [ customers, items, invoices ].flatten.each_with_index do |element, element_number|
         save_as_xml(element, file_number, element_number)
       end
     end
@@ -53,11 +56,14 @@ class Converter
   end
 
   def get_orders_from(file)
-    orders = []
+    invoices       = []
+    delivery_notes = []
     import_orders_from(file).each do |order|
-      orders << Order.new(order)
+      o = Order.new(order)
+      invoices << o if o.invoice?
+      delivery_notes << o if o.delivery_note?
     end
-    orders
+    [invoices, delivery_notes]
   end
 
    # returns hpricot elements
@@ -95,11 +101,19 @@ class Converter
    # end
   end
 
-    def self.xml_get(field, order)
+  def self.xml_get(field, order)
     if order.at(field)
       order.at(field).innerHTML.strip
     else
-      "" # TODO add logging
+      # puts "Field #{field} not found at << #{order.at('Betreff_NR').innerHTML.strip} >>" if order.at('Betreff_NR') && ENV['VERBOSE']
+      ""
     end
+  end
+
+  def self.convert_value(str)
+    str.gsub!(/,/,".")  # 23,24  => 23.24
+    str.gsub!(/%/,"")   # 19.00% => 19.00
+    str.strip!
+    str
   end
 end

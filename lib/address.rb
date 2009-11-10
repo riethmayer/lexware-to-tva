@@ -110,6 +110,10 @@ class Address
     extract_place
     self.country = Country.new(self.country)
   end
+
+  def self.differs?(a1,a2)
+   ( a1.street != a2.street) || (a1.zipcode != a2.zipcode) || (a1.country != a2.country)
+  end
 end
 
 class DeliveryAddress
