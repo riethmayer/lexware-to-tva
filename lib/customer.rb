@@ -78,27 +78,27 @@ class Customer
 <customer>
   <currencyCode>#{self.currency_code}</currencyCode>
   <customerId>#{self.id}</customerId>
-  <deliveryAddress1>#{delivery_address_1}</deliveryAddress1>
-  <deliveryAddress2>#{delivery_address_2}</deliveryAddress2>
-  <deliveryAddress3>#{delivery_address_3}</deliveryAddress3>
+  <deliveryAddress1><![CDATA[#{delivery_address_1[0..27]}]]</deliveryAddress1>
+  <deliveryAddress2><![CDATA[#{delivery_address_2[0..27]}]]</deliveryAddress2>
+  <deliveryAddress3><![CDATA[#{delivery_address_3[0..27]}]]</deliveryAddress3>
   <deliveryCountryCode>#{self.delivery_address.country.code}</deliveryCountryCode>
   <deliveryPlace>#{self.delivery_address.place}</deliveryPlace>
-  <deliveryStreet>#{self.delivery_address.street}</deliveryStreet>
+  <deliveryStreet><![CDATA[#{self.delivery_address.street[0..27]}]]</deliveryStreet>
   <deliveryTermsCode>#{delivery_term}</deliveryTermsCode>
   <deliveryZipCode>#{self.delivery_address.zipcode}</deliveryZipCode>
   <grossPriceCode>#{self.inclusive_taxes}</grossPriceCode>
-  <invoiceAddress1>#{self.invoice_address.salutation}</invoiceAddress1>
-  <invoiceAddress2>#{self.invoice_address.fullname}</invoiceAddress2>
-  <invoiceAddress3>#{self.invoice_address.addition}</invoiceAddress3>
+  <invoiceAddress1><![CDATA[#{self.invoice_address.salutation[0..27]}]]</invoiceAddress1>
+  <invoiceAddress2><![CDATA[#{self.invoice_address.fullname[0..27]}]]</invoiceAddress2>
+  <invoiceAddress3><![CDATA[#{self.invoice_address.addition[0..27]}]]</invoiceAddress3>
   <invoiceCountryCode>#{self.invoice_address.country.code}</invoiceCountryCode>
   <invoicePlace>#{self.invoice_address.place}</invoicePlace>
-  <invoiceStreet>#{self.invoice_address.street}</invoiceStreet>
+  <invoiceStreet><![CDATA[#{self.invoice_address.street}]]</invoiceStreet>
   <invoiceZipCode>#{self.invoice_address.zipcode}</invoiceZipCode>
   <languageId>#{self.language_id}</languageId>
   <taxNumber>#{self.tax_number}</taxNumber>
   <taxCode>#{tax_code}</taxCode>
   <vatNumber>#{self.ustid}</vatNumber>
-  <text1>#{self.order_number}</text1>
+  <text1><![CDATA[#{self.order_number[0..7]}]]</text1>
 </customer>
 </Root>
 XML

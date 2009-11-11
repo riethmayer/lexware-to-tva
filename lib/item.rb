@@ -33,6 +33,17 @@ class Item
     self.tax_code     = Converter.convert_value(self.tax_code)   || '0.00'
     calculate_grossprice_1
     self.errors = []
+    # need taxcode
+    if self.tax_code == '0.00'
+      self.tax_code = 0
+    elsif self.tax_code == '7.00'
+      self.tax_code = 2
+    else
+      self.tax_code = 1 # 19%
+    end
+    # 40 chars restriction
+    self.short_title = self.short_title[0..39]
+    self.title = self.title[0..39]
   end
 
   # steuersatz aus dem artikel (ist bindend)
@@ -75,7 +86,7 @@ class Item
   end
 
   def xml_partial
-    return <<-PARTIAL
+    partial =  <<-PARTIAL
 
 <position>
   <grossPrice>#{self.grossprice_1}</grossPrice>
@@ -84,6 +95,11 @@ class Item
   <quantityUnitCode>#{self.quantity_unit_code}</quantityUnitCode>
 </position>
 PARTIAL
+    if self.grossprice_1 && self.id && self.quantity
+      return partial
+    else
+      return ""
+    end
   end
 
   def to_xml

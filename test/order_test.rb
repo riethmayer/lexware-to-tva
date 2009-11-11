@@ -74,6 +74,13 @@ class OrderTest < Test::Unit::TestCase
     assert_match /<reference1>1337<\/reference1>/, order.to_xml, "reference1 must include reference_number"
   end
 
+  def test_deliverer_id_and_order_number_will_be_concatenated_in_reference2
+    order = Order.new(@orders.first)
+    order.deliverer_id = '1337331'
+    order.order_number = 'whatefack'
+    assert_match /<reference2>whatefack ; 1337331<\/reference2>/, order.to_xml, "reference2 must include deliverer_id and order_number"
+  end
+
   def test_tax_in_order_overrides_taxcode_in_customer
     assert true
   end
