@@ -8,7 +8,7 @@ class Customer
   #    * terms and methods of payment
   #    * terms and methods of delivery
   # these fields have to be provided within the order.
-  attr_accessor :invoice_address, :delivery_address, :reference_number, :order_number
+  attr_accessor :invoice_address, :delivery_address, :order_number
   attr_accessor :payment_term, :payment_method, :delivery_term, :delivery_method, :inclusive_taxes, :ustid, :tax_number
 
   def initialize(order)
@@ -18,26 +18,17 @@ class Customer
     self.id               = infoblock.customer_id
     self.currency_code    = 1 # is always in EUR
     self.language_id      = 0 # we have only one language code
-    self.invoice_address  = invoice_address
-    self.delivery_address = delivery_address
     self.payment_term     = Converter.xml_get('Zahlungsbedingung', order)
     self.delivery_term    = nil # gibts nicht
     self.delivery_method  = Converter.xml_get('Lieferart',order)
     self.inclusive_taxes  = 0   # wird unterschieden?
     self.ustid            = infoblock.ustidnr
-    self.reference_number   = extract_invoice_number(order)
     self.order_number     = Converter.xml_get('Bestellnr', order)
     self.tax_number       = infoblock.taxno
   end
 
   def type
     "Customer"
-  end
-
-  def extract_invoice_number(order)
-    field = Converter.xml_get('Betreff_NR', order)
-    nr = field.match(/\d+/)
-    nr ? nr[0] : nil
   end
 
   # delivery ausserhalb eu ist immer steuerfrei
@@ -108,7 +99,6 @@ class Customer
   <taxCode>#{tax_code}</taxCode>
   <vatNumber>#{self.ustid}</vatNumber>
   <text1>#{self.order_number}</text1>
-  <text2>#{self.reference_number}</text2>
 </customer>
 </Root>
 XML

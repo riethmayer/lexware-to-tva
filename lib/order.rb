@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 class Order
-  attr_accessor :id, :positions, :customer, :id, :order
+  attr_accessor :positions, :customer, :order
   attr_accessor :shipping, :payment_code, :payment_mode, :discount
   attr_accessor :delivery_print_code, :invoice_print_code, :delivery_date, :shipping_code, :delivery_terms_code
-  attr_accessor :additional_text, :delivery_note_id
+  attr_accessor :additional_text
   attr_accessor :representative, :order_number, :description, :order_type
+  attr_accessor :order_confirmation_id, :delivery_note_id, :id
 
   def initialize(order)
     self.order                      = order
@@ -16,7 +18,7 @@ class Order
     self.discount                   = Converter.xml_get('AUFTR_IST_GES_RAB_BETRAG_Text', order)
     self.payment_mode               = 0 # ???
     self.payment_code               = 0 # ???
-    self.order_type                 = 0 # ???
+    self.order_type                 = 1 # ???
     self.positions                  = positions_for(order)
     self.delivery_print_code        = 1 # always print delivery_note
 
@@ -28,15 +30,34 @@ class Order
   end
 
   def extract_ids
-    field = Converter.xml_get('Betreff_NR', self.order)
-    value = field.match(/(\d+)/)[1]
-    if field.downcase.match(/rechnung/)
-      self.id = value
-      bezug = Converter.xml_get('Bezug', self.order)
-      bezug_value = bezug.match(/zu Lieferschein Nr. (\d+)/) if bezug
-      self.delivery_note_id = bezug_value[1] if bezug_value
+    extract_order_confirmation_id
+    extract_delivery_note_id
+    extract_invoice_id
+  end
+
+  def extract_invoice_id
+    invoice_id = Converter.xml_get('Betreff_NR', self.order)
+    if invoice_id && invoice_id.match(/Rechnung Nr/)
+      self.id = invoice_id.match(/\d+/)[0]
+    end
+  end
+
+  def extract_order_confirmation_id
+    confirmation = Converter.xml_get('Bezugsnummer', self.order)
+    if confirmation && confirmation.match(/Auftragsbest/)
+      self.order_confirmation_id = confirmation.match(/\d+/)[0]
+    end
+  end
+
+  def extract_delivery_note_id
+    delivery_note = Converter.xml_get('Bezugsnummer', self.order)
+    if delivery_note && delivery_note.match(/Lieferschein/)
+      self.delivery_note_id = delivery_note.match(/\d+/)[0]
+    elsif delivery_note = Converter.xml_get('Betreff_NR', self.order)
+      self.delivery_note_id = delivery_note.match(/\d+/)[0] if delivery_note.match(/Lieferschein/)
     else
-      self.delivery_note_id = value
+      delivery_note = Converter.xml_get('Bezug')
+      self.delivery_note_id = delivery_note.match(/Lieferschein Nr\. (\d+) vom/)[1] if delivery_note
     end
   end
 
@@ -92,7 +113,7 @@ class Order
 
   def invoice?
     relation = Converter.xml_get('Betreff_NR', self.order)
-    !!relation.downcase.match(/rechnung/)
+    !!self.id || !!relation.downcase.match(/rechnung/)
   end
 
   def delivery_note?
@@ -197,7 +218,7 @@ COSTS
     <orderType>#{order_type}</orderType>
     <paymentCode>#{self.payment_code}</paymentCode>
     <paymentMode>#{self.payment_mode}</paymentMode>
-    <reference1>#{self.order_number}</reference1>
+    <reference1>#{self.order_confirmation_id}</reference1>
     <representative1>#{self.representative}</representative1>
     <shippingCode>#{self.shipping_code}</shippingCode>
     <shortName>#{self.customer.short_name}</shortName>
