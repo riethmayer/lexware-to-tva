@@ -6,7 +6,8 @@ class Item
   attr_accessor :id, :tax_code, :title, :short_title, :quantity, :errors, :position_number # properties
   attr_accessor :language_id, :locked, :valid, :currency, :dispocode, :quantity_unit_code #defaults
 
-  def initialize(position)
+  def initialize(order)
+
     {
       :id= => 'Artikel_NR',
       :title= => 'Artikel_Text',
@@ -17,7 +18,7 @@ class Item
       :position_number= => 'PositionNr',
       :tax_code= => 'Ust-Proz'
     }.each do |k, v|
-      self.send k, Converter.xml_get(v,position)
+      self.send k, Converter.xml_get(v,order)
     end
     self.language_id= 0
     self.locked= 0

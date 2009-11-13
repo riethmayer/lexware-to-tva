@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'rubygems'
 require 'hpricot'
-require 'yaml'
 
 class Converter
 
@@ -17,8 +16,8 @@ class Converter
     self.files = []
   end
 
-  def convert
-    collect_files
+  def convert(only_items = false)
+    collect_files(only_items)
     self.files.each_with_index do |file, file_number|
       customers = get_customers_from(file)
       items = get_items_from(file)
@@ -33,8 +32,13 @@ class Converter
     cleanup_files
   end
 
-  def collect_files
-    file_names = Dir.new(self.input_dir).entries - [".",".."]
+  def collect_files(only_items)
+    file_names = []
+    if only_items
+      file_names = ["111_items.xml"]
+    else
+      file_names = Dir.new(self.input_dir).entries - [".",".."]
+    end
     file_names.each do |file_name|
       self.files << File.join(self.input_dir,file_name)
     end
@@ -51,7 +55,7 @@ class Converter
   def get_items_from(file)
     items = []
     import_orders_from(file).each do |order|
-      items << Item.new(order) # may return an array
+      items << Order.new(order).positions
     end
     uniquify(items.flatten.compact)
   end
@@ -69,7 +73,8 @@ class Converter
 
    # returns hpricot elements
   def import_orders_from(file)
-    xml = File.read(file)
+    file = File.open(file, 'r:windows-1252:utf-8')
+    xml = file.read
     doc = Hpricot::XML(xml)
     orders = []
     (doc/:Auftrag).each do |order|
@@ -119,18 +124,19 @@ class Converter
   end
 
   def self.delivery_code(str)
+    str = str.force_encoding('UTF-8')
     delivery_code_map = {
       "01 vers. Versand"                                                  => { :shipping_code =>1,   :delivery_terms_code =>  1},
       "01 vers. Versand - versandkostenfrei"                              => { :shipping_code =>1,   :delivery_terms_code =>  1},
       "günstigster Versand - versandkostenfrei"                           => { :shipping_code =>2,   :delivery_terms_code =>  1},
       "günstigster Versand"                                               => { :shipping_code =>2,   :delivery_terms_code =>  1},
-      "02 DHL National - versandkostenfrei"                               => { :shipping_code =>3,   :delivery_terms_code =>  1},
+      "02 DHL National  - versandkostenfrei"                               => { :shipping_code =>3,   :delivery_terms_code =>  1},
       "02 DHL National"                                                   => { :shipping_code =>3,   :delivery_terms_code =>  1},
-      "DPD Paket - versandkostenfrei"                                     => { :shipping_code =>4,   :delivery_terms_code =>  1},
+      "DPD Paket  - versandkostenfrei"                                     => { :shipping_code =>4,   :delivery_terms_code =>  1},
       "DPD Paket"                                                         => { :shipping_code =>4,   :delivery_terms_code =>  1},
-      "DPD Int - versandkostenfrei"                                       => { :shipping_code =>4,   :delivery_terms_code =>  1},
+      "DPD Int  - versandkostenfrei"                                       => { :shipping_code =>4,   :delivery_terms_code =>  1},
       "DPD Int"                                                           => { :shipping_code =>4,   :delivery_terms_code =>  1},
-      "DHL Int Economy - free delivery"                                   => { :shipping_code =>5,   :delivery_terms_code =>  1},
+      "DHL Int Economy  - free delivery"                                   => { :shipping_code =>5,   :delivery_terms_code =>  1},
       "DHL Int Economy"                                                   => { :shipping_code =>5,   :delivery_terms_code =>  1},
       "DHL Int Premium - free delivery"                                   => { :shipping_code =>6,   :delivery_terms_code =>  1},
       "DHL Int Premium"                                                   => { :shipping_code =>6,   :delivery_terms_code =>  1},
@@ -171,52 +177,57 @@ class Converter
     delivery_code_map[str]
   end
 
-  def self.payment_map(str)
+  def self.payment_code(str)
+    str = str.force_encoding('UTF-8')
     payment_code_map = {
-      "Zahlbar per Überweisung direkt nach Erhalt der Rechnung. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                            => { :payment_code => 1,  :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 7 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                                => { :payment_code => 2,  :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 14 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => 3,  :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 21 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => 4,  :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 30 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => 5,  :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 50 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => 6,  :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 60 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => 7,  :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 7 Tagen bei 2 % Skonto, innerhalb von 14 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                         => { :payment_code => 8,  :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 10 Tagen bei 2 % Skonto, innerhalb von 30 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                        => { :payment_code => 9,  :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 30 Tagen bei 2 % Skonto, innerhalb von 60 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                        => { :payment_code => 10, :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 30 Tagen bei 3 % Skonto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                      => { :payment_code => 11, :payment_mode => 0 },
-      "Zahlbar per Überweisung innerhalb von 10 Tagen bei 3 % Skonto, innerhalb von 30 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                        => { :payment_code => 12, :payment_mode => 0 },
-      "Zahlbar per Vorkasse. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                                                               => { :payment_code => 13, :payment_mode => 4 },
-      "Zahlbar per Vorkasse bei 2 % Skonto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                                                => { :payment_code => 14, :payment_mode => 4 },
-      "Zahlbar per Vorkasse bei 3 % Skonto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                                                => { :payment_code => 15, :payment_mode => 4 },
-      "Der Betrag wird per Bankeinzug 10 Tage nach Rechnungsstellung eingezogen."                                                                                                                  => { :payment_code => 16, :payment_mode => 1 },
-      "Der Betrag wird per Bankeinzug 14 Tage nach Rechnungsstellung bei 3 % Skonto eingezogen."                                                                                                   => { :payment_code => 17, :payment_mode => 1 },
-      "Der Betrag wird per Bankeinzug 30 Tage nach Rechnungsstellung eingezogen."                                                                                                                  => { :payment_code => 18, :payment_mode => 1 },
-      "Der Betrag wird per Bankeinzug 30 Tage nach Rechnungsstellung bei 3 % Skonto eingezogen."                                                                                                   => { :payment_code => 19, :payment_mode => 1 },
-      "Bereitstellung der Ware für einen Testzeitraum von 30 Tagen. Für innerhalb des Testzeitraums zurückgesendete Ware gilt volles Remissionsrecht."                                             => { :payment_code => 20, :payment_mode => 0 },
-      "Bereitstellung der Ware für einen Testzeitraum von 50 Tagen. Für innerhalb des Testzeitraums zurückgesendete Ware gilt volles Remissionsrecht."                                             => { :payment_code => 21, :payment_mode => 0 },
-      "Bereitstellung der Ware für einen Testzeitraum von 60 Tagen. Für innerhalb des Testzeitraums zurückgesendete Ware gilt volles Remissionsrecht."                                             => { :payment_code => 22, :payment_mode => 0 },
-      "Bereitstellung der Ware für einen Testzeitraum von 90 Tagen. Für innerhalb des Testzeitraums zurückgesendete Ware gilt volles Remissionsrecht."                                             => { :payment_code => 23, :payment_mode => 0 },
-      "Bezahlung per Nachnahme bei Erhalt der Lieferung."                                                                                                                                          => { :payment_code => 24, :payment_mode => 3 },
-      "50% zahlbar per Vorkasse. 50% direkt nach Erhalt der Rechnung. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                      => { :payment_code => 25, :payment_mode => 4 },
-      "50% zahlbar per Vorkasse. 50% per Überweisung innerhalb 14 Tagen. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                   => { :payment_code => 26, :payment_mode => 4 },
-      "50% zahlbar per Vorkasse. 50% per Überweisung innerhalb 30 Tagen. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                   => { :payment_code => 27, :payment_mode => 4 },
-      "The amount must be paid by remittance to our bank account directly after receiving the invoice. When transferring the amount please advice invoice number and customer number."             => { :payment_code => 28, :payment_mode => 0 },
-      "The amount must be paid by remittance to our bank account within 7 days after date of the invoice. When transferring the amount please advice invoice number and customer number."          => { :payment_code => 29, :payment_mode => 0 },
-      "The amount must be paid by remittance to our bank account within 14 days after date of the invoice. When transferring the amount please advice invoice number and customer number."         => { :payment_code => 30, :payment_mode => 0 },
-      "The amount must be paid by remittance to our bank account within 30 days after date of the invoice. When transferring the amount please advice invoice number and customer number."         => { :payment_code => 31, :payment_mode => 0 },
-      "The amount must be paid by remittance to our bank account within 60 days after date of the invoice. When transferring the amount please advice invoice number and customer number."         => { :payment_code => 32, :payment_mode => 0 },
-      "Advance payment by remittance to our bank account. When transferring the amount please advice invoice number and customer number."                                                          => { :payment_code => 33, :payment_mode => 4 },
-      "Advance payment with 2 % cash discount by remittance to our bank account. When transferring the amount please advice invoice number and customer number."                                   => { :payment_code => 34, :payment_mode => 4 },
-      "Advance payment with 3 % cash discount by remittance to our bank account. When transferring the amount please advice invoice number and customer number."                                   => { :payment_code => 35, :payment_mode => 4 },
-      "bank collection after 14 days with 3 % cash discount."                                                                                                                                      => { :payment_code => 36, :payment_mode => 1 },
-      "Advance payment of 50 % by remittance to our bank account. 50 % directly after receiving the invoice. When transferring the amount please advice invoice number and customer number."       => { :payment_code => 37, :payment_mode => 4 },
-      "Advance payment of 50 % by remittance to our bank account. 50 % within 14 days after date of the invoice. When transferring the amount please advice invoice number and customer number."   => { :payment_code => 38, :payment_mode => 4 },
-      "Advance payment of 50 % by remittance to our bank account. 50 % within 30 days after date of the invoice. When transferring the amount please advice invoice number and customer number."   => { :payment_code => 39, :payment_mode => 4 }
+      "Zahlbar per Überweisung direkt nach Erhalt der Rechnung. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                            => { :payment_code => "1",  :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 7 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                                => { :payment_code => "2",  :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 10 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => "40", :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 14 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => "3",  :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 21 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => "4",  :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 30 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => "5",  :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 50 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => "6",  :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 60 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                               => { :payment_code => "7",  :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 7 Tagen bei 2 % Skonto, innerhalb von 14 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                         => { :payment_code => "8",  :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 10 Tagen bei 2 % Skonto, innerhalb von 30 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                        => { :payment_code => "9",  :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 30 Tagen bei 2 % Skonto, innerhalb von 60 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                        => { :payment_code => "10", :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 30 Tagen bei 3 % Skonto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                      => { :payment_code => "11", :payment_mode => "0" },
+      "Zahlbar per Überweisung innerhalb von 10 Tagen bei 3 % Skonto, innerhalb von 30 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                        => { :payment_code => "12", :payment_mode => "0" },
+      "Zahlbar per Vorkasse. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                                                               => { :payment_code => "13", :payment_mode => "4" },
+      "Zahlbar per Vorkasse bei 2 % Skonto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                                                => { :payment_code => "14", :payment_mode => "4" },
+      "Zahlbar per Vorkasse bei 3 % Skonto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                                                => { :payment_code => "15", :payment_mode => "4" },
+      "Der Betrag wird per Bankeinzug 10 Tage nach Rechnungsstellung eingezogen."                                                                                                                  => { :payment_code => "16", :payment_mode => "1" },
+      "Der Betrag wird per Bankeinzug 14 Tage nach Rechnungsstellung bei 3 % Skonto eingezogen."                                                                                                   => { :payment_code => "17", :payment_mode => "1" },
+      "Der Betrag wird per Bankeinzug 30 Tage nach Rechnungsstellung eingezogen."                                                                                                                  => { :payment_code => "18", :payment_mode => "1" },
+      "Der Betrag wird per Bankeinzug 30 Tage nach Rechnungsstellung bei 3 % Skonto eingezogen."                                                                                                   => { :payment_code => "19", :payment_mode => "1" },
+      "Bereitstellung der Ware für einen Testzeitraum von 30 Tagen. Für innerhalb des Testzeitraums zurückgesendete Ware gilt volles Remissionsrecht."                                             => { :payment_code => "20", :payment_mode => "0" },
+      "Bereitstellung der Ware für einen Testzeitraum von 50 Tagen. Für innerhalb des Testzeitraums zurückgesendete Ware gilt volles Remissionsrecht."                                             => { :payment_code => "21", :payment_mode => "0" },
+      "Bereitstellung der Ware für einen Testzeitraum von 60 Tagen. Für innerhalb des Testzeitraums zurückgesendete Ware gilt volles Remissionsrecht."                                             => { :payment_code => "22", :payment_mode => "0" },
+      "Bereitstellung der Ware für einen Testzeitraum von 90 Tagen. Für innerhalb des Testzeitraums zurückgesendete Ware gilt volles Remissionsrecht."                                             => { :payment_code => "23", :payment_mode => "0" },
+      "Bezahlung per Nachnahme bei Erhalt der Lieferung."                                                                                                                                          => { :payment_code => "24", :payment_mode => "3" },
+      "50% zahlbar per Vorkasse. 50% direkt nach Erhalt der Rechnung. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                      => { :payment_code => "25", :payment_mode => "4" },
+      "50% zahlbar per Vorkasse. 50% per Überweisung innerhalb 14 Tagen. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                   => { :payment_code => "26", :payment_mode => "4" },
+      "50% zahlbar per Vorkasse. 50% per Überweisung innerhalb 30 Tagen. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben."                                                   => { :payment_code => "27", :payment_mode => "4" },
+      "The amount must be paid by remittance to our bank account directly after receiving the invoice. When transferring the amount please advice invoice number and customer number."             => { :payment_code => "28", :payment_mode => "0" },
+      "The amount must be paid by remittance to our bank account within 7 days after date of the invoice. When transferring the amount please advice invoice number and customer number."          => { :payment_code => "29", :payment_mode => "0" },
+      "The amount must be paid by remittance to our bank account within 10 days after date of the invoice. When transferring the amount please advice invoice number and customer number."         => { :payment_code => "41", :payment_mode => "0" },
+      "The amount must be paid by remittance to our bank account within 14 days after date of the invoice. When transferring the amount please advice invoice number and customer number."         => { :payment_code => "30", :payment_mode => "0" },
+      "The amount must be paid by remittance to our bank account within 30 days after date of the invoice. When transferring the amount please advice invoice number and customer number."         => { :payment_code => "31", :payment_mode => "0" },
+      "The amount must be paid by remittance to our bank account within 60 days after date of the invoice. When transferring the amount please advice invoice number and customer number."         => { :payment_code => "32", :payment_mode => "0" },
+      "Advance payment by remittance to our bank account. When transferring the amount please advice invoice number and customer number."                                                          => { :payment_code => "33", :payment_mode => "4" },
+      "Advance payment with 2 % cash discount by remittance to our bank account. When transferring the amount please advice invoice number and customer number."                                   => { :payment_code => "34", :payment_mode => "4" },
+      "Advance payment with 3 % cash discount by remittance to our bank account. When transferring the amount please advice invoice number and customer number."                                   => { :payment_code => "35", :payment_mode => "4" },
+      "bank collection after 14 days with 3 % cash discount."                                                                                                                                      => { :payment_code => "36", :payment_mode => "1" },
+      "Advance payment of 50 % by remittance to our bank account. 50 % directly after receiving the invoice. When transferring the amount please advice invoice number and customer number."       => { :payment_code => "37", :payment_mode => "4" },
+      "Advance payment of 50 % by remittance to our bank account. 50 % within 14 days after date of the invoice. When transferring the amount please advice invoice number and customer number."   => { :payment_code => "38", :payment_mode => "4" },
+      "Advance payment of 50 % by remittance to our bank account. 50 % within 30 days after date of the invoice. When transferring the amount please advice invoice number and customer number."   => { :payment_code => "39", :payment_mode => "4" }
     }
-    payment_code_map[str]
+
+    result = payment_code_map[str]
+    result
   end
 
-  def self.representative_map(str)
+  def self.representatives(str)
     representatives = {
       "1 SON"     => 1,
       "15_VAN"    => 2,

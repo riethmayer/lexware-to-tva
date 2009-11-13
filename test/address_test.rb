@@ -10,11 +10,11 @@ class AddressTest < Test::Unit::TestCase
     adr = (doc/:Auftrag).first.at('Adresse')
     address = Address.new(adr)
     assert_match /Herr/, address.salutation
-    assert_match /optimiere.com/, address.company
-    assert_match /Jan Riethmayer/, address.fullname
+    assert_match /Lager von Testkunde AG/, address.company
+    assert_match /Schumacher Herbert/, address.fullname
     assert_match /2. OG, Mitte/, address.addition
-    assert_match /Mindener Str. 20/, address.street
-    assert_match /10589/, address.zipcode
+    assert_match /Schlesische Str. 4/, address.street
+    assert_match /10997/, address.zipcode
     assert_match /Berlin/, address.place
     assert_equal 49, address.country.code
   end
@@ -25,9 +25,9 @@ class AddressTest < Test::Unit::TestCase
     adr = (doc/:Auftrag).first.at('Lieferadresse')
     delivery_address = DeliveryAddress.new(adr)
     assert_match /2. OG, Mitte/, delivery_address.addition
-    assert_match /Liefer Strasse 19/, delivery_address.street
-    assert_match /12334/,  delivery_address.zipcode
-    assert_match /Charlottenburg/, delivery_address.place
+    assert_match /Schlesische Str. 14/, delivery_address.street
+    assert_match /10999/,  delivery_address.zipcode
+    assert_match /Kreuzberg/, delivery_address.place
     assert_equal 41, delivery_address.country.code
   end
 

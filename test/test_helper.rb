@@ -1,5 +1,4 @@
 require 'test/unit'
-# require 'mocha'
 base =  File.join(File.dirname(__FILE__),'..','lib')
 require File.join(base, 'address')
 require File.join(base, 'customer')

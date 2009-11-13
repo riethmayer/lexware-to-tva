@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 class Order
   attr_accessor :positions, :customer, :order
   attr_accessor :shipping, :payment_code, :payment_mode, :discount
@@ -16,16 +16,15 @@ class Order
     self.representative             = Converter.xml_get('Bearbeiter', order)
     self.description                = Converter.xml_get('Auftragsbeschreibung', order)
     self.discount                   = Converter.xml_get('AUFTR_IST_GES_RAB_BETRAG_Text', order)
-    self.payment_mode               = 0 # ???
-    self.payment_code               = 0 # ???
     self.order_type                 = 1 # fix
-    self.positions                  = positions_for(order)
     self.delivery_print_code        = 1 # always print delivery_note
 
     extract_ids
+    get_positions
     update_invoice_print_code
-    extract_delivery_terms_code_from(order)
-    set_additional_costs_from(order) # freightage, shipping, insurance
+    set_delivery_codes
+    set_payment_codes
+    set_additional_costs
     extract_discount
   end
 
@@ -82,19 +81,18 @@ class Order
     self.discount = "#{discount[1]}.#{discount[2]}" if discount
   end
 
-  def positions_for(order)
-    positions = []
-    (order/:PosNr).each do |position|
-      positions << Item.new(position)
+  def get_positions
+    self.positions = []
+    (self.order/:PosNr).each do |position|
+      self.positions << Item.new(position)
     end
-    positions
   end
 
-  def set_additional_costs_from(order)
-    if Converter.xml_get('Nebenleistungen', order)
+  def set_additional_costs
+    if Converter.xml_get('Nebenleistungen', self.order)
       self.shipping = {
-        :text => Converter.xml_get('Nebenleistungen_Text', order),
-        :value => Converter.convert_value(Converter.xml_get('Nebenleistungen_Betrag', order))
+        :text => Converter.xml_get('Nebenleistungen_Text', self.order),
+        :value => Converter.convert_value(Converter.xml_get('Nebenleistungen_Betrag', self.order))
       }
       self.shipping = nil if "#{self.shipping[:text]}#{self.shipping[:value]}" == ""
     else
@@ -102,31 +100,30 @@ class Order
     end
   end
 
-  def extract_delivery_terms_code_from(order)
-    description, deliver_mode = Converter.xml_get('Lieferart', order).split(';')
-    self.shipping_code        = extract_delivery_from(description.strip) if description
-    self.delivery_terms_code  = deliver_mode.strip if deliver_mode
+  def set_delivery_codes
+    description = Converter.xml_get('Lieferart', self.order)
+    if description
+      codes = Converter.delivery_code(description)
+      self.shipping_code        = codes[:shipping_code] if codes
+      self.delivery_terms_code  = codes[:delivery_terms_code] if codes
+    end
   end
 
-  def extract_delivery_from(description)
-    shipping_codes = {
-      'Lieferung per DHL' => 10001,
-      'Selbstabholer'     => 90001,
-      'Lieferung per DPD' => 20008,
-      'Lieferung frei Haus' => 10099,
-      'EXW Berlin Incoterms' => 91006
-    }
-    shipping_codes[description] || description
+  def set_payment_codes
+    payment = Converter.xml_get('Zahlungsbedingung', self.order)
+    if payment
+      codes = Converter.payment_code(payment)
+      self.payment_code        = codes[:payment_code] if codes
+      self.payment_mode        = codes[:payment_mode] if codes
+    end
   end
 
   def invoice?
-    relation = Converter.xml_get('Betreff_NR', self.order)
-    !!self.id || !!relation.downcase.match(/rechnung/)
+    !!self.id
   end
 
   def delivery_note?
-    relation = Converter.xml_get('Betreff_NR', self.order)
-    !!relation.downcase.match(/lieferschein/)
+    !self.id
   end
 
   def update_fields(delivery_notes)
@@ -226,7 +223,7 @@ COSTS
     <orderType>#{self.order_type}</orderType>
     <paymentCode>#{self.payment_code}</paymentCode>
     <paymentMode>#{self.payment_mode}</paymentMode>
-    <reference1><![CDATA[#{self.order_confirmation_id[0..27]}]]</reference1>
+    <reference1>#{self.order_confirmation_id}</reference1>
     <reference2><![CDATA[#{reference2[0..39]}]]</reference2>
     <representative1>#{self.representative}</representative1>
     <shippingCode>#{self.shipping_code}</shippingCode>

@@ -46,8 +46,8 @@ class CustomerTest < Test::Unit::TestCase
     c = Customer.new(@customer.first)
     assert c.invoice_address
     assert c.invoice_address.zipcode
-    assert_match /10589/, c.invoice_address.zipcode
-    assert_match /Mindener Str. 20/, c.invoice_address.street
+    assert_match /10997/, c.invoice_address.zipcode
+    assert_match /Schlesische Str. 4/, c.invoice_address.street
     assert_match /Herr/, c.invoice_address.salutation
     assert_equal 49, c.invoice_address.country.code
   end
@@ -56,8 +56,8 @@ class CustomerTest < Test::Unit::TestCase
     c = Customer.new(@customer.first)
     assert c.delivery_address
     assert c.delivery_address.zipcode
-    assert_match /12334/, c.delivery_address.zipcode
-    assert_match /Liefer Strasse 19/, c.delivery_address.street
+    assert_match /10999/, c.delivery_address.zipcode
+    assert_match /Schlesische Str. 14/, c.delivery_address.street
     assert_match /2. OG, Mitte/, c.delivery_address.addition
     assert_equal 41, c.delivery_address.country.code
   end

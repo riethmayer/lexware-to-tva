@@ -21,12 +21,12 @@ class OrderTest < Test::Unit::TestCase
   # Lieferbedingungen und Versandart nicht beim Kunden gepflegt
   # müssen diese Werte beim Auftrag übergeben werden
   def test_missing_delivery_or_pament_term_in_customer_must_be_present_in_order
-    @orders.each do |order|
+    @orders.each_with_index do |order, index|
       o = Order.new(order)
-      assert o.payment_mode  || o.customer.payment_method, 'payment term missing'
-      assert o.payment_code  || o.customer.payment_method, 'payment method missing'
-      assert o.shipping_code || o.customer.delivery_term, 'shipping term missing'
-      assert o.customer.delivery_method, 'shipping method missing'
+      assert o.payment_mode  || o.customer.payment_method, "payment term missing for order #{o.inspect}"
+      assert o.payment_code  || o.customer.payment_method, "payment method missing for order #{index}"
+      assert o.shipping_code || o.customer.delivery_term, "shipping term missing for order #{o.inspect}"
+      assert o.customer.delivery_method, "shipping method missing for order #{index}"
     end
   end
   # orderType muss immer 1 sein
@@ -78,10 +78,8 @@ class OrderTest < Test::Unit::TestCase
     order = Order.new(@orders.first)
     order.deliverer_id = '1337331'
     order.order_number = 'whatefack'
-    assert_match /<reference2>whatefack ; 1337331<\/reference2>/, order.to_xml, "reference2 must include deliverer_id and order_number"
-  end
-
-  def test_tax_in_order_overrides_taxcode_in_customer
-    assert true
+    assert_match %r{<reference2>}, order.to_xml, "reference2 must be opened"
+    assert_match %r{whatefack ; 1337331}, order.to_xml, "must include deliverer_id and order_number"
+    assert_match %r{</reference2>}, order.to_xml, "reference2 must be closed"
   end
 end

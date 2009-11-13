@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<Data>
+  <Auftrag>
+    <Adresse>
+      <KundeAnrede></KundeAnrede>
+      <KundeFirma>Lager von Testkunde AG</KundeFirma>
+      <KundeNameVorname>Schumacher Herbert
+      </KundeNameVorname>
+      <KundeStrasse>Schlesische Str. 4
+      </KundeStrasse>
+      <KundePLZ_ORT>10997 Berlin
+      </KundePLZ_ORT>
+      <KundeLand>Deutschland
+      </KundeLand>
+      <fSteuerbar>JA
+      </fSteuerbar>
+    </Adresse>
+    <Lieferadresse>
+      <Strasse_Lieferanschrift>Schlesische Str.4
+      </Strasse_Lieferanschrift>
+      <PLZ_Lieferanschrift>10997 Berlin
+      </PLZ_Lieferanschrift>
+      <Land_Lieferanschrift>Deutschland
+      </Land_Lieferanschrift>
+    </Lieferadresse>
+    <Infoblock>
+      <Kundennr>23689
+      </Kundennr>
+      <Bearbeiter>2 FIN
+      </Bearbeiter>
+      <Bestellnr>245245
+      </Bestellnr>
+      <SteuerNr>14  350  62393
+      </SteuerNr>
+      <Bezugsnummer>Zu Auftragsbestätigung Nr.: 	2500
+      </Bezugsnummer>
+      <USTIDNR>DE222361501
+      </USTIDNR>
+      <Lieferdatum>11.11.2009
+      </Lieferdatum>
+      <Belegdatum>11.11.2009
+      </Belegdatum>
+      <FreifeldAuf1Bez>
+      </FreifeldAuf1Bez>
+      <FreifeldAuf2Bez>
+      </FreifeldAuf2Bez>
+      <FreifeldAuf3Bez>
+      </FreifeldAuf3Bez>
+      <FreifeldAuf1>
+      </FreifeldAuf1>
+      <FreifeldAuf2>
+      </FreifeldAuf2>
+      <FreifeldAuf3>
+      </FreifeldAuf3>
+      <FreifeldKd1Bez>Status
+      </FreifeldKd1Bez>
+      <FreifeldKd2Bez>Händlerlisteneintrag
+      </FreifeldKd2Bez>
+      <FreifeldKd2Bez>Marktsegment
+      </FreifeldKd2Bez>
+      <FreifeldKd1>
+      </FreifeldKd1>
+      <FreifeldKd2>
+      </FreifeldKd2>
+      <FreifeldKd3>
+      </FreifeldKd3>
+      <Fax>
+      </Fax>
+    </Infoblock>
+    <Betreff_NR>Lieferschein Nr. 5035
+    </Betreff_NR>
+    <Bezug>zu Auftragsbestätigung Nr. 2500 vom 11.11.2009
+    </Bezug>
+    <Auftragsbeschreibung>Vielen Dank für Ihre Bestellung. Hiermit erhalten Sie folgende Ware:
+    </Auftragsbeschreibung>
+    <Betreffbezug>Zu Auftragsbestätigung Nr.: 	2500 vom 11.11.2009
+    </Betreffbezug>
+    <Zahlungsbedingung>Zahlbar per Überweisung innerhalb von 7 Tagen bei 2 % Skonto, innerhalb von 14 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben.
+    </Zahlungsbedingung>
+    <Lieferart>01 vers. Versand
+    </Lieferart>
+    <Auftragspos>
+      <PosNr>
+        <PositionNr>1
+        </PositionNr>
+        <Menge>10,00
+        </Menge>
+        <Einheit>Stück
+        </Einheit>
+        <Artikel_NR>36531
+        </Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | NACKEN
+        Purpur/Mitternacht
+        </Artikel_Text>
+        <Artikel_EZP>9,50
+        </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>95,00
+        </Artikel_GSP>
+        <Zwischensumme>95,00
+        </Zwischensumme>
+        <Uebertrag>95,00
+        </Uebertrag>
+        <Ust-Proz>19,00 %
+        </Ust-Proz>
+        <Pos_Gesamt_UST>18,05
+        </Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>2
+        </PositionNr>
+        <Menge>5,00
+        </Menge>
+        <Einheit>Tier(e)
+        </Einheit>
+        <Artikel_NR>36463
+        </Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Leschifant
+        Morgenrot
+        </Artikel_Text>
+        <Artikel_EZP>11,90
+        </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>59,50
+        </Artikel_GSP>
+        <Zwischensumme>154,50
+        </Zwischensumme>
+        <Uebertrag>154,50
+        </Uebertrag>
+        <Ust-Proz>19,00 %
+        </Ust-Proz>
+        <Pos_Gesamt_UST>11,31
+        </Pos_Gesamt_UST>
+      </PosNr>
+    </Auftragspos>
+    <RabattaufHauptleistung>
+      <ZWS_AUFTR_GESAUFTR_DEM>Zwischensumme
+      </ZWS_AUFTR_GESAUFTR_DEM>
+      <AUFTR_GESAMT_HAUPTL_NET>154,50
+      </AUFTR_GESAMT_HAUPTL_NET>
+    </RabattaufHauptleistung>
+    <AUFTR_IST_GES_RAB_BETRAG_Text>
+      <AUFTR_IST_GES_RAB_BETRAG_Text>abzgl. 10,00% Gesamtrabatt
+      </AUFTR_IST_GES_RAB_BETRAG_Text>
+      <AUFTR_RAB_GESAUFTR_DEM>- 15,45
+      </AUFTR_RAB_GESAUFTR_DEM>
+      <AUFTR_NET_HAUPTL_NACH_RAB_ABZUG>139,05
+      </AUFTR_NET_HAUPTL_NACH_RAB_ABZUG>
+    </AUFTR_IST_GES_RAB_BETRAG_Text>
+    <NBL>
+      <Nebenleistungen>
+        <Nebenleistungen_Text>zzgl. Versandkosten Handel DE
+        </Nebenleistungen_Text>
+        <Nebenleistungen_Betrag>9,50
+        </Nebenleistungen_Betrag>
+      </Nebenleistungen>
+    </NBL>
+    <GesamtNettoText>Gesamt Netto
+    </GesamtNettoText>
+    <GesamtNetto>148,55
+    </GesamtNetto>
+    <SteuerAusgabe>
+      <Steuersatz>
+        <SteuernAusgabeNBL>zzgl. 19,00 % Ust. auf
+        </SteuernAusgabeNBL>
+        <SteuernAusgabe>139,05
+        </SteuernAusgabe>
+        <AusgabeSteuerBetrag>26,42
+        </AusgabeSteuerBetrag>
+      </Steuersatz>
+      <Steuersatz>
+        <SteuernAusgabeNBL>zzgl. 19,00 % Ust. auf Nebenleistungen
+        </SteuernAusgabeNBL>
+        <SteuernAusgabe>9,50
+        </SteuernAusgabe>
+        <AusgabeSteuerBetrag>1,81
+        </AusgabeSteuerBetrag>
+      </Steuersatz>
+    </SteuerAusgabe>
+    <Gesamtbetragtext>Gesamtbetrag
+    </Gesamtbetragtext>
+    <Gesamtbetrag> € 176,78
+    </Gesamtbetrag>
+  </Auftrag>
+  <Auftrag>
+    <Adresse>
+      <KundeAnrede>
+      </KundeAnrede>
+      <KundeFirma>Testkunde GmbH
+      </KundeFirma>
+      <KundeNameVorname>Ali Gündüz
+      </KundeNameVorname>
+      <KundeZusatz>Vorstand
+      </KundeZusatz>
+      <KundeStrasse>Reichenberger Straße 24a
+      </KundeStrasse>
+      <KundePLZ_ORT>10999 Berlin
+      </KundePLZ_ORT>
+      <KundeLand>Deutschland
+      </KundeLand>
+      <fSteuerbar>JA
+      </fSteuerbar>
+    </Adresse>
+    <Lieferadresse>
+      <Strasse_Lieferanschrift>Schlesische Str.4
+      </Strasse_Lieferanschrift>
+      <PLZ_Lieferanschrift>10997 Berlin
+      </PLZ_Lieferanschrift>
+      <Land_Lieferanschrift>Deutschland
+      </Land_Lieferanschrift>
+    </Lieferadresse>
+    <Infoblock>
+      <Kundennr>23689
+      </Kundennr>
+      <Bearbeiter>2 FIN
+      </Bearbeiter>
+      <Bestellnr>245245
+      </Bestellnr>
+      <SteuerNr>14  350  62393
+      </SteuerNr>
+      <Bezugsnummer>Zu Lieferschein Nr.: 	5035
+      </Bezugsnummer>
+      <USTIDNR>DE222361501
+      </USTIDNR>
+      <Lieferdatum>11.11.2009
+      </Lieferdatum>
+      <Belegdatum>11.11.2009
+      </Belegdatum>
+      <FreifeldAuf1Bez>
+      </FreifeldAuf1Bez>
+      <FreifeldAuf2Bez>
+      </FreifeldAuf2Bez>
+      <FreifeldAuf3Bez>
+      </FreifeldAuf3Bez>
+      <FreifeldAuf1>
+      </FreifeldAuf1>
+      <FreifeldAuf2>
+      </FreifeldAuf2>
+      <FreifeldAuf3>
+      </FreifeldAuf3>
+      <FreifeldKd1Bez>Status
+      </FreifeldKd1Bez>
+      <FreifeldKd2Bez>Händlerlisteneintrag
+      </FreifeldKd2Bez>
+      <FreifeldKd2Bez>Marktsegment
+      </FreifeldKd2Bez>
+      <FreifeldKd1>
+      </FreifeldKd1>
+      <FreifeldKd2>
+      </FreifeldKd2>
+      <FreifeldKd3>
+      </FreifeldKd3>
+      <Fax>
+      </Fax>
+    </Infoblock>
+    <Betreff_NR>Rechnung Nr. 10555
+    </Betreff_NR>
+    <Bezug>zu Lieferschein Nr. 5035 vom 11.11.2009
+    </Bezug>
+    <Auftragsbeschreibung>eilig
+    </Auftragsbeschreibung>
+    <Betreffbezug>Zu Lieferschein Nr.: 	5035 vom 11.11.2009
+    </Betreffbezug>
+    <Zahlungsbedingung>Zahlbar bis 18.11.2009 mit 2 % Skonto: 173,24 EUR
+       Zahlbar bis 25.11.2009 ohne Abzug: 176,78 EUR
+    Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben.</Zahlungsbedingung><Lieferart>01 vers. Versand</Lieferart><Auftragspos><PosNr><PositionNr>1</PositionNr><Menge>10,00</Menge><Einheit>Stück</Einheit><Artikel_NR>36531</Artikel_NR><Artikel_Text>Wärmekissen | Die Katze Minina | NACKEN
+    Purpur/Mitternacht</Artikel_Text><Artikel_EZP>9,50 </Artikel_EZP><Artikel_Rabatt></Artikel_Rabatt><Artikel_GSP>95,00 </Artikel_GSP><Zwischensumme>95,00 </Zwischensumme><Uebertrag>95,00 </Uebertrag><Ust-Proz>19,00 %</Ust-Proz><Pos_Gesamt_UST>18,05</Pos_Gesamt_UST></PosNr><PosNr><PositionNr>2</PositionNr><Menge>5,00</Menge><Einheit>Tier(e)</Einheit><Artikel_NR>36463</Artikel_NR><Artikel_Text>Kuschelkissen | Leschi Leschifant
+    Morgenrot</Artikel_Text><Artikel_EZP>11,90 </Artikel_EZP><Artikel_Rabatt></Artikel_Rabatt><Artikel_GSP>59,50 </Artikel_GSP><Zwischensumme>154,50 </Zwischensumme><Uebertrag>154,50 </Uebertrag><Ust-Proz>19,00 %</Ust-Proz><Pos_Gesamt_UST>11,31</Pos_Gesamt_UST></PosNr></Auftragspos><RabattaufHauptleistung><ZWS_AUFTR_GESAUFTR_DEM>Zwischensumme</ZWS_AUFTR_GESAUFTR_DEM><AUFTR_GESAMT_HAUPTL_NET>154,50 </AUFTR_GESAMT_HAUPTL_NET></RabattaufHauptleistung><AUFTR_IST_GES_RAB_BETRAG_Text><AUFTR_IST_GES_RAB_BETRAG_Text>abzgl. 10,00% Gesamtrabatt</AUFTR_IST_GES_RAB_BETRAG_Text><AUFTR_RAB_GESAUFTR_DEM>- 15,45 </AUFTR_RAB_GESAUFTR_DEM><AUFTR_NET_HAUPTL_NACH_RAB_ABZUG>139,05 </AUFTR_NET_HAUPTL_NACH_RAB_ABZUG></AUFTR_IST_GES_RAB_BETRAG_Text><NBL><Nebenleistungen><Nebenleistungen_Text>zzgl. Versandkosten Handel DE</Nebenleistungen_Text><Nebenleistungen_Betrag>9,50 </Nebenleistungen_Betrag></Nebenleistungen></NBL><GesamtNettoText>Gesamt Netto</GesamtNettoText><GesamtNetto>148,55 </GesamtNetto><SteuerAusgabe><Steuersatz><SteuernAusgabeNBL>zzgl. 19,00 % Ust. auf</SteuernAusgabeNBL><SteuernAusgabe>139,05 </SteuernAusgabe><AusgabeSteuerBetrag>26,42 </AusgabeSteuerBetrag></Steuersatz><Steuersatz><SteuernAusgabeNBL>zzgl. 19,00 % Ust. auf Nebenleistungen</SteuernAusgabeNBL><SteuernAusgabe>9,50 </SteuernAusgabe><AusgabeSteuerBetrag>1,81 </AusgabeSteuerBetrag></Steuersatz></SteuerAusgabe><Gesamtbetragtext>Gesamtbetrag</Gesamtbetragtext><Gesamtbetrag> € 176,78</Gesamtbetrag></Auftrag></Data>
