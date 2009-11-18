@@ -1916,9 +1916,8 @@
     <Bezug>zu Lieferschein Nr. 5037 vom 12.11.2009</Bezug>
     <Auftragsbeschreibung>eilig</Auftragsbeschreibung>
     <Betreffbezug>Zu Lieferschein Nr.: 	5037 vom 12.11.2009</Betreffbezug>
-    <Zahlungsbedingung>Zahlbar per Überweisung bis zum 12.12.2009 netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben.
-    </Zahlungsbedingung>
-    <Lieferart>FCA (Abflughafen) - bis Abflughafen von TVA-Spediteur </Lieferart>
+    <Zahlungsbedingung>Zahlbar per Überweisung innerhalb von 7 Tagen bei 2 % Skonto, innerhalb von 14 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben.</Zahlungsbedingung>
+    <Lieferart>FOB Hamburg - bis Abfahrtshafen von Spediteur des Versenders </Lieferart>
     <Auftragspos>
       <PosNr>
         <PositionNr>1</PositionNr>

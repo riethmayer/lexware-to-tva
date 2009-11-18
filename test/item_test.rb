@@ -1,12 +1,16 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
 class ItemTest < Test::Unit::TestCase
-  FILES    = File.join(File.dirname(__FILE__), "data")
-  TESTFILE = File.join(FILES, "input", "all.xml")
+
+  FILES    = File.join(FileUtils.pwd, "test","data", "input")
+
+  def make_file(str)
+    File.join(FILES,"#{str}.xml")
+  end
 
   def setup
-    @converter = Converter.new(FILES)
-    @customer ||= @converter.import_orders_from(TESTFILE)
+    @converter    = Converter.new(make_file('111_items'))
+    @conversion ||= @converter.convert
   end
 
   def test_items_are_sorted_by_position_nr
