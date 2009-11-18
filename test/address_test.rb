@@ -1,34 +1,27 @@
 # -*- coding: utf-8 -*-
-require File.dirname(__FILE__) +  '/test_helper'
+require File.join(File.dirname(__FILE__), 'test_helper')
 
 class AddressTest < Test::Unit::TestCase
   include PlaceAndZipcodeHelper
 
+  FILES    = File.join(FileUtils.pwd, "test","data", "input")
+
+  def make_file(str)
+    File.join(FILES,"#{str}.xml")
+  end
+
   def test_import_customer_address_from_xml
-    xml = File.read(File.join(File.dirname(__FILE__),'data','input','all.xml'))
+    xml = File.read(make_file('steuerfrei'))
     doc = Hpricot::XML(xml)
     adr = (doc/:Auftrag).first.at('Adresse')
     address = Address.new(adr)
     assert_match /Herr/, address.salutation
-    assert_match /Lager von Testkunde AG/, address.company
-    assert_match /Schumacher Herbert/, address.fullname
-    assert_match /2. OG, Mitte/, address.addition
-    assert_match /Schlesische Str. 4/, address.street
-    assert_match /10997/, address.zipcode
-    assert_match /Berlin/, address.place
-    assert_equal 49, address.country.code
-  end
-
-  def test_import_customer_delivery_address_from_xml
-    xml = File.read(File.join(File.dirname(__FILE__),'data', 'input','all.xml'))
-    doc = Hpricot::XML(xml)
-    adr = (doc/:Auftrag).first.at('Lieferadresse')
-    delivery_address = DeliveryAddress.new(adr)
-    assert_match /2. OG, Mitte/, delivery_address.addition
-    assert_match /Schlesische Str. 14/, delivery_address.street
-    assert_match /10999/,  delivery_address.zipcode
-    assert_match /Kreuzberg/, delivery_address.place
-    assert_equal 41, delivery_address.country.code
+    assert_match /Bischof-Gross AG/, address.company
+    assert_match /Markus Bischof/, address.fullname
+    assert_match /Walenb.+?chelstrasse 21/, address.street
+    assert_match /9001/, address.zipcode
+    assert_match /St. Gallen/, address.place
+    assert_equal 41, address.country.code
   end
 
   class Place
