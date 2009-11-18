@@ -37,7 +37,7 @@ class Customer
   end
 
   def is_german?
-    self.address.country.germany? or (!self.address.country && self.delivery_address.country.germany?)
+    self.address.country.germany? or (self.delivery_address.country.germany?)
   end
 
   def has_ustid?
@@ -49,6 +49,7 @@ class Customer
     # Bischof-Gross AG = Schweiz, Geschäftskunde, Drittland, steuerfrei ohne ustid.
     return false unless is_eu?
     # German customers pay taxes even as business
+    return false if has_ustid? && self.address.country.germany? && !self.delivery_address.country.germany?
     return true  if is_german?
     # Bluecon = Österreich, Geschäftskunde, EU, steuerfrei mit USt. ID Nr.
     return false if has_ustid?
