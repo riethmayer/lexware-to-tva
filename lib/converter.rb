@@ -4,83 +4,83 @@ require 'hpricot'
 
 class Converter
 
-  attr_accessor :base, :input_dir, :output_dir, :errors
-  attr_accessor :files, :directory
+  attr_accessor :file, :filename, :raw_orders, :errors, :tmp_directory, :tmp_filename
+  attr_accessor :customers, :items, :invoices, :delivery_notes
+  attr_accessor :customer_count, :item_count, :order_count
 
-  BASE      = File.join(File.dirname(__FILE__), "..")
+  BASE   = File.join(FileUtils.pwd,"..","tmp", "conversions")
+  ## BASE   = File.join(FileUtils.pwd,"..","test", "data", "output")
 
-  def initialize(directory)
-    self.directory  = directory || BASE
-    self.input_dir  = File.join(self.directory, "input")
-    self.output_dir = File.join(self.directory, "output")
-    self.files = []
+  def initialize(filename)
+    self.filename            = filename
+    self.file                = File.open(filename, 'r:windows-1252:utf-8')
+    self.raw_orders          = import_raw_orders
+    self.customers           = get_customers
+    self.customer_count      = self.customers.length
+    self.items               = get_items
+    self.item_count          = self.items.length
+    # split orders into invoices and delivery notes
+    invoices, delivery_notes = get_orders
+    self.invoices            = invoices
+    self.order_count         = self.invoices.length
+    self.delivery_notes      = delivery_notes
+    self.tmp_filename        = Time.now.strftime("%Y%m%d%H%M%S")
+    self.tmp_directory       = create_tmp_directory
   end
 
-  def convert(only_items = false)
-    collect_files(only_items)
-    self.files.each_with_index do |file, file_number|
-      customers = get_customers_from(file)
-      items = get_items_from(file)
-      invoices, delivery_notes = get_orders_from(file)
-      invoices.each do |invoice|
-        invoice.update_fields(delivery_notes)
-      end
-      [ customers, items, invoices ].flatten.each_with_index do |element, element_number|
-        save_as_xml(element, file_number, element_number)
-      end
+  def convert
+    self.invoices.each do |invoice|
+      invoice.update_fields(self.delivery_notes)
     end
-    cleanup_files
+    [ self.customers,
+      self.items,
+      self.invoices
+    ].flatten.each_with_index do |element, element_number|
+        save_as_xml(element, element_number)
+    end
+    return compressed_files
   end
 
-  def collect_files(only_items)
-    file_names = []
-    if only_items
-      file_names = ["111_items.xml"]
-    else
-      file_names = Dir.new(self.input_dir).entries - [".",".."]
-    end
-    file_names.each do |file_name|
-      self.files << File.join(self.input_dir,file_name)
-    end
-  end
-
-  def get_customers_from(file)
-    customers = []
-    import_orders_from(file).each do |order|
-      customers << Customer.new(order)
-    end
-    customers
-  end
-
-  def get_items_from(file)
-    items = []
-    import_orders_from(file).each do |order|
-      items << Order.new(order).positions
-    end
-    uniquify(items.flatten.compact)
-  end
-
-  def get_orders_from(file)
-    invoices       = []
-    delivery_notes = []
-    import_orders_from(file).each do |order|
-      o = Order.new(order)
-      invoices << o if o.invoice?
-      delivery_notes << o if o.delivery_note?
-    end
-    [invoices, delivery_notes]
-  end
-
-   # returns hpricot elements
-  def import_orders_from(file)
-    file = File.open(file, 'r:windows-1252:utf-8')
-    xml = file.read
+  # returns hpricot elements
+  def import_raw_orders
+    xml = self.file.read
     doc = Hpricot::XML(xml)
     orders = []
     (doc/:Auftrag).each do |order|
       orders << order
     end
     orders
+  end
+
+  def get_customers
+    customers = []
+    self.raw_orders.each do |order|
+      customers << Customer.new(order)
+    end
+    uniquify(customers)
+  end
+
+  def get_items
+    items = []
+    self.raw_orders.each do |order|
+      items << Order.new(order).positions
+    end
+    # 20 different orders each with 1 same item
+    # each item has different price
+    # then only save 1 file right?
+    # TODO check!
+    uniquify(items.flatten.compact)
+  end
+
+  def get_orders
+    invoices       = []
+    delivery_notes = []
+    self.raw_orders.each do |order|
+      o = Order.new(order)
+      invoices << o if o.invoice?
+      delivery_notes << o if o.delivery_note?
+    end
+    [invoices, delivery_notes]
   end
 
   def uniquify(items)
@@ -91,20 +91,30 @@ class Converter
     unique_items.values
   end
 
-  def save_as_xml(element, file_number, element_number)
-    File.open(create_filename_for(element, file_number, element_number), 'w') do |f|
+  def save_as_xml(element, element_number)
+    File.open(create_filename_for(element, element_number), 'w') do |f|
       f.write(element.to_xml)
     end
   end
 
-  def create_filename_for(element, file_number, element_number)
-    File.join(self.output_dir, "#{element.type}_#{element.id}_#{file_number}_#{element_number}.xml")
+  def create_filename_for(element, element_number)
+    File.join(self.tmp_directory, "#{element.type}_#{element.id}_#{element_number}.xml")
   end
 
-  def cleanup_files
-   # Dir.new(self.directory).entries.each do |file|
-   #   FileUtils.rm(File.join(self.directory, file)) if file =~ /\.xml$/
-   # end
+  # in case a file is already present in this directory, it will survive
+  def create_tmp_directory
+    self.tmp_directory = File.join(BASE,self.tmp_filename,"")
+    FileUtils.mkdir_p(self.tmp_directory)[0]
+  end
+
+  def compressed_files
+    FileUtils.cd(self.tmp_directory)
+    `zip #{self.tmp_filename}.zip *.xml`
+    return File.new("#{self.tmp_filename}.zip")
+  end
+
+  def cleanup_temporary_files
+    FileUtils.rm_rf(self.tmp_directory)
   end
 
   def self.xml_get(field, order)
@@ -130,13 +140,13 @@ class Converter
       "01 vers. Versand - versandkostenfrei"                              => { :shipping_code =>1,   :delivery_terms_code =>  1},
       "günstigster Versand - versandkostenfrei"                           => { :shipping_code =>2,   :delivery_terms_code =>  1},
       "günstigster Versand"                                               => { :shipping_code =>2,   :delivery_terms_code =>  1},
-      "02 DHL National  - versandkostenfrei"                               => { :shipping_code =>3,   :delivery_terms_code =>  1},
+      "02 DHL National - versandkostenfrei"                               => { :shipping_code =>3,   :delivery_terms_code =>  1},
       "02 DHL National"                                                   => { :shipping_code =>3,   :delivery_terms_code =>  1},
-      "DPD Paket  - versandkostenfrei"                                     => { :shipping_code =>4,   :delivery_terms_code =>  1},
+      "DPD Paket - versandkostenfrei"                                     => { :shipping_code =>4,   :delivery_terms_code =>  1},
       "DPD Paket"                                                         => { :shipping_code =>4,   :delivery_terms_code =>  1},
-      "DPD Int  - versandkostenfrei"                                       => { :shipping_code =>4,   :delivery_terms_code =>  1},
+      "DPD Int - versandkostenfrei"                                       => { :shipping_code =>4,   :delivery_terms_code =>  1},
       "DPD Int"                                                           => { :shipping_code =>4,   :delivery_terms_code =>  1},
-      "DHL Int Economy  - free delivery"                                   => { :shipping_code =>5,   :delivery_terms_code =>  1},
+      "DHL Int Economy - free delivery"                                   => { :shipping_code =>5,   :delivery_terms_code =>  1},
       "DHL Int Economy"                                                   => { :shipping_code =>5,   :delivery_terms_code =>  1},
       "DHL Int Premium - free delivery"                                   => { :shipping_code =>6,   :delivery_terms_code =>  1},
       "DHL Int Premium"                                                   => { :shipping_code =>6,   :delivery_terms_code =>  1},

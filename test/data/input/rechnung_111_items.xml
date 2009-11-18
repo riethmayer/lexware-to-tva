@@ -1,0 +1,1864 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<Data>
+  <Auftrag>
+    <Adresse>
+      <KundeAnrede>
+      </KundeAnrede>
+      <KundeFirma>TESTKUNDE GmbH</KundeFirma>
+      <KundeNameVorname>Ali Gündüz</KundeNameVorname>
+      <KundeZusatz>Testspezialist</KundeZusatz>
+      <KundeStrasse>Reichenbergerstraße 123</KundeStrasse>
+      <KundePLZ_ORT>10999 Berlin</KundePLZ_ORT>
+      <KundeLand>Deutschland</KundeLand>
+      <fSteuerbar>JA</fSteuerbar>
+    </Adresse>
+    <Lieferadresse>
+      <Zusatz_Lieferanschrift>Versandspezialist</Zusatz_Lieferanschrift>
+      <Strasse_Lieferanschrift>Kreuzbergstraße61</Strasse_Lieferanschrift>
+      <PLZ_Lieferanschrift>10961 Berlin</PLZ_Lieferanschrift>
+      <Land_Lieferanschrift>Deutschland</Land_Lieferanschrift>
+      <Telefon_Lieferanschrift>12345243</Telefon_Lieferanschrift>
+    </Lieferadresse>
+    <Infoblock>
+      <Kundennr>23689</Kundennr>
+      <Bearbeiter>2 FIN</Bearbeiter>
+      <Bestellnr>245245ff</Bestellnr>
+      <SteuerNr>14  350  62393</SteuerNr>
+      <Bezugsnummer>Zu Lieferschein Nr.: 	5037</Bezugsnummer>
+      <USTIDNR>DE222361501</USTIDNR>
+      <Lieferdatum>12.11.2009</Lieferdatum>
+      <Belegdatum>12.11.2009</Belegdatum>
+      <FreifeldAuf1Bez>
+      </FreifeldAuf1Bez>
+      <FreifeldAuf2Bez>
+      </FreifeldAuf2Bez>
+      <FreifeldAuf3Bez>
+      </FreifeldAuf3Bez>
+      <FreifeldAuf1>
+      </FreifeldAuf1>
+      <FreifeldAuf2>
+      </FreifeldAuf2>
+      <FreifeldAuf3>
+      </FreifeldAuf3>
+      <FreifeldKd1Bez>Status</FreifeldKd1Bez>
+      <FreifeldKd2Bez>Händlerlisteneintrag</FreifeldKd2Bez>
+      <FreifeldKd2Bez>Marktsegment</FreifeldKd2Bez>
+      <FreifeldKd1>
+      </FreifeldKd1>
+      <FreifeldKd2>
+      </FreifeldKd2>
+      <FreifeldKd3>
+      </FreifeldKd3>
+      <Fax>
+      </Fax>
+    </Infoblock>
+    <Betreff_NR>Rechnung Nr. 10558</Betreff_NR>
+    <Bezug>zu Lieferschein Nr. 5037 vom 12.11.2009</Bezug>
+    <Auftragsbeschreibung>eilig</Auftragsbeschreibung>
+    <Betreffbezug>Zu Lieferschein Nr.: 	5037 vom 12.11.2009</Betreffbezug>
+    <Zahlungsbedingung>Zahlbar per Überweisung bis zum 12.12.2009 netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben.
+    </Zahlungsbedingung>
+    <Lieferart>FCA (Abflughafen) - bis Abflughafen von TVA-Spediteur </Lieferart>
+    <Auftragspos>
+      <PosNr>
+        <PositionNr>1</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36429</Artikel_NR>
+        <Artikel_Text>Eierwärmer | Leschi Delphin
+        Flamingo</Artikel_Text>
+        <Artikel_EZP>3,60 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>3,60 </Artikel_GSP>
+        <Zwischensumme>3,60 </Zwischensumme>
+        <Uebertrag>3,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,68</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>2</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36430</Artikel_NR>
+        <Artikel_Text>Eierwärmer | Leschi Delphin
+        Sonne</Artikel_Text>
+        <Artikel_EZP>3,60 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>3,60 </Artikel_GSP>
+        <Zwischensumme>7,20 </Zwischensumme>
+        <Uebertrag>7,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,68</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>3</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36431</Artikel_NR>
+        <Artikel_Text>Eierwärmer | Leschi Delphin
+        Morgenrot</Artikel_Text>
+        <Artikel_EZP>3,60 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>3,60 </Artikel_GSP>
+        <Zwischensumme>10,80 </Zwischensumme>
+        <Uebertrag>10,80 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,68</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>4</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36432</Artikel_NR>
+        <Artikel_Text>Eierwärmer | Leschi Delphin
+        Purpur</Artikel_Text>
+        <Artikel_EZP>3,60 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>3,60 </Artikel_GSP>
+        <Zwischensumme>14,40 </Zwischensumme>
+        <Uebertrag>14,40 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,68</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>5</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36433</Artikel_NR>
+        <Artikel_Text>Eierwärmer | Leschi Wal
+        Flamingo</Artikel_Text>
+        <Artikel_EZP>3,60 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>3,60 </Artikel_GSP>
+        <Zwischensumme>18,00 </Zwischensumme>
+        <Uebertrag>18,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,68</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>6</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36434</Artikel_NR>
+        <Artikel_Text>Eierwärmer | Leschi Wal
+        Sonne</Artikel_Text>
+        <Artikel_EZP>3,60 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>3,60 </Artikel_GSP>
+        <Zwischensumme>21,60 </Zwischensumme>
+        <Uebertrag>21,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,68</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>7</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36435</Artikel_NR>
+        <Artikel_Text>Eierwärmer | Leschi Wal
+        Morgenrot</Artikel_Text>
+        <Artikel_EZP>3,60 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>3,60 </Artikel_GSP>
+        <Zwischensumme>25,20 </Zwischensumme>
+        <Uebertrag>25,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,68</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>8</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36436</Artikel_NR>
+        <Artikel_Text>Eierwärmer | Leschi Wal
+        Purpur</Artikel_Text>
+        <Artikel_EZP>3,60 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>3,60 </Artikel_GSP>
+        <Zwischensumme>28,80 </Zwischensumme>
+        <Uebertrag>28,80 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,68</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>9</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36535</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Flügel
+        Feuer/Nebel</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>38,30 </Zwischensumme>
+        <Uebertrag>38,30 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>10</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36536</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Flügel
+        Mitternacht/Nebel
+        </Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>47,80 </Zwischensumme>
+        <Uebertrag>47,80 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>11</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36537</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Flügel
+        Tiefsee/Nebel</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>57,30 </Zwischensumme>
+        <Uebertrag>57,30 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>12</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36498</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Delphin
+        Dschungel</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>69,20 </Zwischensumme>
+        <Uebertrag>69,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>13</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36499</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Delphin
+        Feuer
+        </Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>81,10 </Zwischensumme>
+        <Uebertrag>81,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>14</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36500</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Delphin
+        Morgenrot</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>93,00 </Zwischensumme>
+        <Uebertrag>93,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>15</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36501</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Delphin
+        Purpur</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>104,90 </Zwischensumme>
+        <Uebertrag>104,90 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>16</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36502</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Delphin
+        Sonne</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>116,80 </Zwischensumme>
+        <Uebertrag>116,80 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>17</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36503</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Delphin
+        Tiefsee</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>128,70 </Zwischensumme>
+        <Uebertrag>128,70 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>18</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36454</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Leschifant
+        Feuer</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>140,60 </Zwischensumme>
+        <Uebertrag>140,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>19</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36455</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Leschifant
+        Tiefsee</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>152,50 </Zwischensumme>
+        <Uebertrag>152,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>20</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36456</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Leschifant
+        Sonne</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>164,40 </Zwischensumme>
+        <Uebertrag>164,40 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>21</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36462</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Leschifant
+        Flamingo</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>176,30 </Zwischensumme>
+        <Uebertrag>176,30 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>22</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36463</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Leschifant
+        Morgenrot</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>188,20 </Zwischensumme>
+        <Uebertrag>188,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>23</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36464</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Leschifant
+        Purpur</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>200,10 </Zwischensumme>
+        <Uebertrag>200,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>24</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36497</Artikel_NR>
+        <Artikel_Text>Kuschelkissen | Leschi Leschifant
+        Dschungel</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>212,00 </Zwischensumme>
+        <Uebertrag>212,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>25</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36508</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | inside | FUSS
+        Dschungel / Mitternacht</Artikel_Text>
+        <Artikel_EZP>16,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>16,50 </Artikel_GSP>
+        <Zwischensumme>228,50 </Zwischensumme>
+        <Uebertrag>228,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>3,14</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>26</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36509</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | inside | FUSS
+        Flamingo / Mitternacht</Artikel_Text>
+        <Artikel_EZP>16,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>16,50 </Artikel_GSP>
+        <Zwischensumme>245,00 </Zwischensumme>
+        <Uebertrag>245,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>3,14</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>27</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36510</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | inside | FUSS
+        Morgenrot / Mitternacht</Artikel_Text>
+        <Artikel_EZP>16,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>16,50 </Artikel_GSP>
+        <Zwischensumme>261,50 </Zwischensumme>
+        <Uebertrag>261,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>3,14</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>28</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36511</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | inside | FUSS
+        Purpur / Mitternacht</Artikel_Text>
+        <Artikel_EZP>16,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>16,50 </Artikel_GSP>
+        <Zwischensumme>278,00 </Zwischensumme>
+        <Uebertrag>278,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>3,14</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>29</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36512</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | inside | HAND
+        Dschungel / Mitternacht</Artikel_Text>
+        <Artikel_EZP>16,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>16,50 </Artikel_GSP>
+        <Zwischensumme>294,50 </Zwischensumme>
+        <Uebertrag>294,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>3,14</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>30</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36513</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | inside | HAND
+        Flamingo / Mitternacht</Artikel_Text>
+        <Artikel_EZP>16,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>16,50 </Artikel_GSP>
+        <Zwischensumme>311,00 </Zwischensumme>
+        <Uebertrag>311,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>3,14</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>31</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36514</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | inside | HAND
+        Morgenrot / Mitternacht</Artikel_Text>
+        <Artikel_EZP>16,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>16,50 </Artikel_GSP>
+        <Zwischensumme>327,50 </Zwischensumme>
+        <Uebertrag>327,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>3,14</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>32</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36515</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | inside | HAND
+        Purpur / Mitternacht</Artikel_Text>
+        <Artikel_EZP>16,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>16,50 </Artikel_GSP>
+        <Zwischensumme>344,00 </Zwischensumme>
+        <Uebertrag>344,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>3,14</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>33</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36504</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | Leschi Schildkröte
+        Dschungel / Sonne</Artikel_Text>
+        <Artikel_EZP>14,30 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>14,30 </Artikel_GSP>
+        <Zwischensumme>358,30 </Zwischensumme>
+        <Uebertrag>358,30 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,72</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>34</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36505</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | Leschi Schildkröte
+        Flamingo / Purpur</Artikel_Text>
+        <Artikel_EZP>14,30 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>14,30 </Artikel_GSP>
+        <Zwischensumme>372,60 </Zwischensumme>
+        <Uebertrag>372,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,72</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>35</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36506</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | Leschi Schildkröte
+        Morgenrot / Purpur</Artikel_Text>
+        <Artikel_EZP>14,30 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>14,30 </Artikel_GSP>
+        <Zwischensumme>386,90 </Zwischensumme>
+        <Uebertrag>386,90 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,72</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>36</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36507</Artikel_NR>
+        <Artikel_Text>Muff-Kissen | Leschi Schildkröte
+        Purpur / Morgenrot</Artikel_Text>
+        <Artikel_EZP>14,30 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>14,30 </Artikel_GSP>
+        <Zwischensumme>401,20 </Zwischensumme>
+        <Uebertrag>401,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,72</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>37</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36425</Artikel_NR>
+        <Artikel_Text>Schlüsselanhänger | Herz
+        Feuer</Artikel_Text>
+        <Artikel_EZP>2,95 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>2,95 </Artikel_GSP>
+        <Zwischensumme>404,15 </Zwischensumme>
+        <Uebertrag>404,15 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,56</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>38</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36426</Artikel_NR>
+        <Artikel_Text>Schlüsselanhänger | Herz
+        Flamingo</Artikel_Text>
+        <Artikel_EZP>2,95 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>2,95 </Artikel_GSP>
+        <Zwischensumme>407,10 </Zwischensumme>
+        <Uebertrag>407,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,56</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>39</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36524</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | BAUCH
+        Flamingo/Mitternacht</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>416,60 </Zwischensumme>
+        <Uebertrag>416,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>40</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36525</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | BAUCH
+        Mitternacht/Mitternacht</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>426,10 </Zwischensumme>
+        <Uebertrag>426,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>41</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36526</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | BAUCH
+        Nebel/Mitternacht</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>435,60 </Zwischensumme>
+        <Uebertrag>435,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>42</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36527</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | BAUCH
+        Purpur/Mitternacht</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>445,10 </Zwischensumme>
+        <Uebertrag>445,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>43</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36528</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | NACKEN
+        Flamingo/Mitternacht</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>454,60 </Zwischensumme>
+        <Uebertrag>454,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>44</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36529</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | NACKEN
+        Mitternacht/Mitternacht</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>464,10 </Zwischensumme>
+        <Uebertrag>464,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>45</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36530</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | NACKEN
+        Nebel/Mitternacht</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>473,60 </Zwischensumme>
+        <Uebertrag>473,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>46</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36531</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | NACKEN
+        Purpur/Mitternacht</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>483,10 </Zwischensumme>
+        <Uebertrag>483,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>47</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36532</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Flügel | BAUCH
+        Feuer/Nebel</Artikel_Text>
+        <Artikel_EZP>7,10 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>7,10 </Artikel_GSP>
+        <Zwischensumme>490,20 </Zwischensumme>
+        <Uebertrag>490,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,35</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>48</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36533</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Flügel | BAUCH
+        Mitternacht/Nebel</Artikel_Text>
+        <Artikel_EZP>7,10 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>7,10 </Artikel_GSP>
+        <Zwischensumme>497,30 </Zwischensumme>
+        <Uebertrag>497,30 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,35</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>49</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36534</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Flügel | BAUCH
+        Tiefsee/Nebel</Artikel_Text>
+        <Artikel_EZP>7,10 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>7,10 </Artikel_GSP>
+        <Zwischensumme>504,40 </Zwischensumme>
+        <Uebertrag>504,40 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,35</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>50</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>1055</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Herz Wärmeherz | GROSS
+        Feuer</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>513,90 </Zwischensumme>
+        <Uebertrag>513,90 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>51</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36427</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Herz Wärmeherz | GROSS
+        Flamingo</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>523,40 </Zwischensumme>
+        <Uebertrag>523,40 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>52</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36147</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Herz Wärmeherz | KLEIN
+        Feuer</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>528,20 </Zwischensumme>
+        <Uebertrag>528,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>53</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36428</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Herz Wärmeherz | KLEIN
+        Flamingo</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>533,00 </Zwischensumme>
+        <Uebertrag>533,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>54</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36516</Artikel_NR>
+        <Artikel_Text>Wärmekissen | inside | BAUCH
+        Dschungel / Mitternacht</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>544,90 </Zwischensumme>
+        <Uebertrag>544,90 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>55</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36517</Artikel_NR>
+        <Artikel_Text>Wärmekissen | inside | BAUCH
+        Flamingo / Mitternacht</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>556,80 </Zwischensumme>
+        <Uebertrag>556,80 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>56</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36518</Artikel_NR>
+        <Artikel_Text>Wärmekissen | inside | BAUCH
+        Morgenrot / Mitternacht</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>568,70 </Zwischensumme>
+        <Uebertrag>568,70 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>57</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36519</Artikel_NR>
+        <Artikel_Text>Wärmekissen | inside | BAUCH
+        Purpur / Mitternacht</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>580,60 </Zwischensumme>
+        <Uebertrag>580,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>58</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36520</Artikel_NR>
+        <Artikel_Text>Wärmekissen | inside | NACKEN
+        Dschungel / Mitternacht</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>592,50 </Zwischensumme>
+        <Uebertrag>592,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>59</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36521</Artikel_NR>
+        <Artikel_Text>Wärmekissen | inside | NACKEN
+        Flamingo / Mitternacht</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>604,40 </Zwischensumme>
+        <Uebertrag>604,40 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>60</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36522</Artikel_NR>
+        <Artikel_Text>Wärmekissen | inside | NACKEN
+        Morgenrot / Mitternacht</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>616,30 </Zwischensumme>
+        <Uebertrag>616,30 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>61</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36523</Artikel_NR>
+        <Artikel_Text>Wärmekissen | inside | NACKEN
+        Purpur / Mitternacht</Artikel_Text>
+        <Artikel_EZP>11,90 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>11,90 </Artikel_GSP>
+        <Zwischensumme>628,20 </Zwischensumme>
+        <Uebertrag>628,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>2,26</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>62</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36469</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | GROSS
+        Dschungel</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>637,70 </Zwischensumme>
+        <Uebertrag>637,70 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>63</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36470</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | GROSS
+        Feuer</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>647,20 </Zwischensumme>
+        <Uebertrag>647,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>64</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36471</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | GROSS
+        Morgenrot</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>656,70 </Zwischensumme>
+        <Uebertrag>656,70 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>65</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36472</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | GROSS
+        Purpur</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>666,20 </Zwischensumme>
+        <Uebertrag>666,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>66</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36473</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | GROSS
+        Sonne</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>675,70 </Zwischensumme>
+        <Uebertrag>675,70 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>67</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36474</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | GROSS
+        Tiefsee</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>685,20 </Zwischensumme>
+        <Uebertrag>685,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>68</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36485</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | KLEIN
+        Dschungel</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>690,00 </Zwischensumme>
+        <Uebertrag>690,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>69</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36486</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | KLEIN
+        Feuer</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>694,80 </Zwischensumme>
+        <Uebertrag>694,80 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>70</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36487</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | KLEIN
+        Morgenrot</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>699,60 </Zwischensumme>
+        <Uebertrag>699,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>71</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36488</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | KLEIN
+        Purpur</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>704,40 </Zwischensumme>
+        <Uebertrag>704,40 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>72</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36489</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | KLEIN
+        Sonne</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>709,20 </Zwischensumme>
+        <Uebertrag>709,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>73</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36490</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Delphin | KLEIN
+        Tiefsee</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>714,00 </Zwischensumme>
+        <Uebertrag>714,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>74</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36151</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | GROSS
+        Feuer</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>723,50 </Zwischensumme>
+        <Uebertrag>723,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>75</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36152</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | GROSS
+        Tiefsee</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>733,00 </Zwischensumme>
+        <Uebertrag>733,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>76</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36153</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | GROSS
+        Brombeer</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>742,50 </Zwischensumme>
+        <Uebertrag>742,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>77</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36154</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | GROSS
+        Sonne</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>752,00 </Zwischensumme>
+        <Uebertrag>752,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>78</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36155</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | GROSS
+        Dschungel</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>761,50 </Zwischensumme>
+        <Uebertrag>761,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>79</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36467</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | GROSS
+        Morgenrot</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>771,00 </Zwischensumme>
+        <Uebertrag>771,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>80</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36468</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | GROSS
+        Purpur</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>780,50 </Zwischensumme>
+        <Uebertrag>780,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>81</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36161</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | KLEIN
+        Feuer</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>785,30 </Zwischensumme>
+        <Uebertrag>785,30 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>82</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36162</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | KLEIN
+        Tiefsee</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>790,10 </Zwischensumme>
+        <Uebertrag>790,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>83</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36163</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | KLEIN
+        Brombeer</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>794,90 </Zwischensumme>
+        <Uebertrag>794,90 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>84</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36164</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | KLEIN
+        Sonne</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>799,70 </Zwischensumme>
+        <Uebertrag>799,70 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>85</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36165</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | KLEIN
+        Dschungel</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>804,50 </Zwischensumme>
+        <Uebertrag>804,50 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>86</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36483</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | KLEIN
+        Morgenrot</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>809,30 </Zwischensumme>
+        <Uebertrag>809,30 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>87</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36484</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Giraffe | KLEIN
+        Purpur</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>814,10 </Zwischensumme>
+        <Uebertrag>814,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>88</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36171</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Gorilla | GROSS
+        Feuer</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>823,60 </Zwischensumme>
+        <Uebertrag>823,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>89</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36172</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Gorilla | GROSS
+        Tiefsee</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>833,10 </Zwischensumme>
+        <Uebertrag>833,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>90</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36173</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Gorilla | GROSS
+        Brombeer</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>842,60 </Zwischensumme>
+        <Uebertrag>842,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>91</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36174</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Gorilla | GROSS
+        Sonne</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>852,10 </Zwischensumme>
+        <Uebertrag>852,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>92</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36175</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Gorilla | GROSS
+        Dschungel</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>861,60 </Zwischensumme>
+        <Uebertrag>861,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>93</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36181</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Gorilla | KLEIN
+        Feuer</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>866,40 </Zwischensumme>
+        <Uebertrag>866,40 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>94</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36182</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Gorilla | KLEIN
+        Tiefsee</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>871,20 </Zwischensumme>
+        <Uebertrag>871,20 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>95</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36183</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Gorilla | KLEIN
+        Brombeer</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>876,00 </Zwischensumme>
+        <Uebertrag>876,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>96</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36184</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Gorilla | KLEIN
+        Sonne</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>880,80 </Zwischensumme>
+        <Uebertrag>880,80 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>97</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36185</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Gorilla | KLEIN
+        Dschungel</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>885,60 </Zwischensumme>
+        <Uebertrag>885,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>98</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>1003</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Leschifant | GROSS
+        Tiefsee</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>895,10 </Zwischensumme>
+        <Uebertrag>895,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>99</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>1005</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Leschifant | GROSS
+        Feuer</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>904,60 </Zwischensumme>
+        <Uebertrag>904,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>100</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>1011</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Leschifant | GROSS
+        Brombeer</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>914,10 </Zwischensumme>
+        <Uebertrag>914,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>101</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>1017</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Leschifant | GROSS
+        Sonne</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>923,60 </Zwischensumme>
+        <Uebertrag>923,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>102</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36148</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Leschifant | GROSS
+        Dschungel</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>933,10 </Zwischensumme>
+        <Uebertrag>933,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>103</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36465</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Leschifant | GROSS
+        Morgenrot</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>942,60 </Zwischensumme>
+        <Uebertrag>942,60 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>104</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36466</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Leschifant | GROSS
+        Purpur</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>9,50 </Artikel_GSP>
+        <Zwischensumme>952,10 </Zwischensumme>
+        <Uebertrag>952,10 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>1,81</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>105</PositionNr>
+        <Menge>1,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36101</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Leschifant | KLEIN
+        Feuer</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>4,80 </Artikel_GSP>
+        <Zwischensumme>956,90 </Zwischensumme>
+        <Uebertrag>956,90 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+<Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+</PosNr>
+<PosNr>
+<PositionNr>106</PositionNr>
+<Menge>1,00</Menge>
+<Einheit>Tier(e)</Einheit>
+<Artikel_NR>36102</Artikel_NR>
+<Artikel_Text>Wärmekissen | Leschi Leschifant | KLEIN
+Tiefsee</Artikel_Text>
+<Artikel_EZP>4,80 </Artikel_EZP>
+<Artikel_Rabatt>
+</Artikel_Rabatt>
+<Artikel_GSP>4,80 </Artikel_GSP>
+<Zwischensumme>961,70 </Zwischensumme>
+<Uebertrag>961,70 </Uebertrag>
+<Ust-Proz>19,00 %</Ust-Proz>
+<Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+</PosNr>
+<PosNr>
+<PositionNr>107</PositionNr>
+<Menge>1,00</Menge>
+<Einheit>Tier(e)</Einheit>
+<Artikel_NR>36103</Artikel_NR>
+<Artikel_Text>Wärmekissen | Leschi Leschifant | KLEIN
+Brombeer</Artikel_Text>
+<Artikel_EZP>4,80 </Artikel_EZP>
+<Artikel_Rabatt>
+</Artikel_Rabatt>
+<Artikel_GSP>4,80 </Artikel_GSP>
+<Zwischensumme>966,50 </Zwischensumme>
+<Uebertrag>966,50 </Uebertrag>
+<Ust-Proz>19,00 %</Ust-Proz>
+<Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+</PosNr>
+<PosNr>
+<PositionNr>108</PositionNr>
+<Menge>1,00</Menge>
+<Einheit>Tier(e)</Einheit>
+<Artikel_NR>36104</Artikel_NR>
+<Artikel_Text>Wärmekissen | Leschi Leschifant | KLEIN
+Sonne</Artikel_Text>
+<Artikel_EZP>4,80 </Artikel_EZP>
+<Artikel_Rabatt>
+</Artikel_Rabatt>
+<Artikel_GSP>4,80 </Artikel_GSP>
+<Zwischensumme>971,30 </Zwischensumme>
+<Uebertrag>971,30 </Uebertrag>
+<Ust-Proz>19,00 %</Ust-Proz>
+<Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+</PosNr>
+<PosNr>
+<PositionNr>109</PositionNr>
+<Menge>1,00</Menge>
+<Einheit>Tier(e)</Einheit>
+<Artikel_NR>36149</Artikel_NR>
+<Artikel_Text>Wärmekissen | Leschi Leschifant | KLEIN
+Dschungel</Artikel_Text>
+<Artikel_EZP>4,80 </Artikel_EZP>
+<Artikel_Rabatt>
+</Artikel_Rabatt>
+<Artikel_GSP>4,80 </Artikel_GSP>
+<Zwischensumme>976,10 </Zwischensumme>
+<Uebertrag>976,10 </Uebertrag>
+<Ust-Proz>19,00 %</Ust-Proz>
+<Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+</PosNr>
+<PosNr>
+<PositionNr>110</PositionNr>
+<Menge>1,00</Menge>
+<Einheit>Tier(e)</Einheit>
+<Artikel_NR>36481</Artikel_NR>
+<Artikel_Text>Wärmekissen | Leschi Leschifant | KLEIN
+Morgenrot</Artikel_Text>
+<Artikel_EZP>4,80 </Artikel_EZP>
+<Artikel_Rabatt>
+</Artikel_Rabatt>
+<Artikel_GSP>4,80 </Artikel_GSP>
+<Zwischensumme>980,90 </Zwischensumme>
+<Uebertrag>980,90 </Uebertrag>
+<Ust-Proz>19,00 %</Ust-Proz>
+<Pos_Gesamt_UST>0,91</Pos_Gesamt_UST>
+</PosNr>
+<PosNr>
+<PositionNr>111</PositionNr>
+<Menge>1,00</Menge>
+<Einheit>Tier(e)</Einheit>
+<Artikel_NR>36482</Artikel_NR>
+<Artikel_Text>Wärmekissen | Leschi Leschifant | KLEIN
+Purpur</Artikel_Text>
+<Artikel_EZP>4,80 </Artikel_EZP>
+<Artikel_Rabatt>
+</Artikel_Rabatt>
+<Artikel_GSP>4,80 </Artikel_GSP>
+<Zwischensumme>985,70 </Zwischensumme>
+<Uebertrag>985,70 </Uebertrag>
+<Ust-Proz>19,00 %</Ust-Proz>
+<Pos_Gesamt_UST>0,77</Pos_Gesamt_UST>
+</PosNr>
+</Auftragspos>
+<RabattaufHauptleistung>
+<ZWS_AUFTR_GESAUFTR_DEM>Zwischensumme</ZWS_AUFTR_GESAUFTR_DEM>
+<AUFTR_GESAMT_HAUPTL_NET>985,70 </AUFTR_GESAMT_HAUPTL_NET>
+</RabattaufHauptleistung>
+<AUFTR_IST_GES_RAB_BETRAG_Text>
+<AUFTR_IST_GES_RAB_BETRAG_Text>abzgl. </AUFTR_IST_GES_RAB_BETRAG_Text>
+<AUFTR_RAB_GESAUFTR_DEM>- 100,00 </AUFTR_RAB_GESAUFTR_DEM>
+</AUFTR_IST_GES_RAB_BETRAG_Text>
+<NBL>
+</NBL>
+<GesamtNettoText>Gesamt Netto</GesamtNettoText>
+<GesamtNetto>885,70 </GesamtNetto>
+<SteuerAusgabe>
+<Steuersatz>
+<SteuernAusgabeNBL>zzgl. 19,00 % Ust. auf</SteuernAusgabeNBL>
+<SteuernAusgabe>885,70 </SteuernAusgabe>
+<AusgabeSteuerBetrag>168,28 </AusgabeSteuerBetrag>
+</Steuersatz>
+</SteuerAusgabe>
+<Gesamtbetragtext>Gesamtbetrag</Gesamtbetragtext>
+<Gesamtbetrag> € 1.053,98</Gesamtbetrag>
+</Auftrag>
+</Data>

@@ -1,13 +1,9 @@
+# -*- coding: utf-8 -*-
 require File.join(File.dirname(__FILE__), 'test_helper')
 
 class ConverterTest < Test::Unit::TestCase
 
-  FILES    = File.join(File.dirname(__FILE__), "data")
-  TESTFILE = File.join(FILES, "input", "all.xml")
-  ITEMSFILE= File.join(FILES, "input", "111_items.xml")
-  def setup
-    @converter = Converter.new(FILES)
-  end
+  FILES    = File.join(FileUtils.pwd, "test","data", "input")
 
   def test_import_orders_from_file
     # orders = @converter.import_orders_from(TESTFILE)
@@ -23,13 +19,35 @@ class ConverterTest < Test::Unit::TestCase
   end
 
   def test_complete_items_count_is_111
-    # @converter.output_dir = File.join(@converter.output_dir, "all_items")
-    items = @converter.get_items_from(ITEMSFILE)
-    assert_equal 111, items.length
+    @converter = Converter.new(make_file("111_items"))
+    assert_equal 111, @converter.item_count
+    assert_equal 1, @converter.order_count
+    assert_equal 1, @converter.customer_count
+    assert_match @converter.tmp_filename, @converter.tmp_directory
+    assert_equal @converter.invoices.size, @converter.delivery_notes.size
   end
 
-  def test_convert_all_items_to_output_dir_works
-    @converter.output_dir = File.join(@converter.output_dir, "all_items")
-    @converter.convert(only_items = true)
+  def test_delivery_note_address_overwrites_invoice_address
+    @converter = Converter.new(make_file("111_items"))
+    @converter.convert
+    invoice = @converter.invoices[0]
+    # Rechnungsadresse ist Adresse der Rechnung
+    assert invoice.invoice?
+    assert invoice.address.street =~ /Reichenbergerstr/, "#{invoice.address.street} is not Reichenberger."
+    delivery_note= invoice.delivery_note
+    assert delivery_note && delivery_note.delivery_note?, "Delivery note missing, eventually not converted yet."
+    # Lieferadresse ist Adresse des Lieferscheins
+    street = delivery_note.address.street
+    assert_match street, /Kreuzbergstr/, "#{street} is not Kreuzbergstrasse."
+  end
+
+  def test_convert_generates_zip_file
+    @converter = Converter.new(make_file("111_items"))
+    assert @converter.tmp_filename
+    file = @converter.convert
+  end
+
+  def make_file(str)
+    File.join(FILES,"#{str}.xml")
   end
 end
