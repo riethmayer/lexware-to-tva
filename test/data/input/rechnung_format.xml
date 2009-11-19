@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<Data>
+  <Auftrag>
+    <Adresse>
+      <KundeAnrede>
+      </KundeAnrede>
+      <KundeFirma>Format</KundeFirma>
+      <KundeNameVorname>Gabriele Economou</KundeNameVorname>
+      <KundeZusatz>Lörhofcenter</KundeZusatz>
+      <KundeStrasse>Kaiserwall  37</KundeStrasse>
+      <KundePLZ_ORT>45657 Recklinghausen</KundePLZ_ORT>
+      <KundeLand>Deutschland</KundeLand>
+      <fSteuerbar>JA</fSteuerbar>
+    </Adresse>
+    <Lieferadresse>
+      <Zusatz_Lieferanschrift>Lörhofcenter</Zusatz_Lieferanschrift>
+      <Strasse_Lieferanschrift>Kaiserwall 37</Strasse_Lieferanschrift>
+      <PLZ_Lieferanschrift>45657 Recklinghausen</PLZ_Lieferanschrift>
+      <Land_Lieferanschrift>Deutschland</Land_Lieferanschrift>
+    </Lieferadresse>
+    <Infoblock>
+      <Kundennr>20606</Kundennr>
+      <Bearbeiter>1 SON</Bearbeiter>
+      <SteuerNr>14  350  62393</SteuerNr>
+      <Bezugsnummer>Zu Lieferschein Nr.: 	5043</Bezugsnummer>
+      <USTIDNR>DE222361501</USTIDNR>
+      <Lieferdatum>30.11.2009</Lieferdatum>
+      <Belegdatum>18.11.2009</Belegdatum>
+      <FreifeldAuf1Bez>
+      </FreifeldAuf1Bez>
+      <FreifeldAuf2Bez>
+      </FreifeldAuf2Bez>
+      <FreifeldAuf3Bez>
+      </FreifeldAuf3Bez>
+      <FreifeldAuf1>
+      </FreifeldAuf1>
+      <FreifeldAuf2>
+      </FreifeldAuf2>
+      <FreifeldAuf3>
+      </FreifeldAuf3>
+      <FreifeldKd1Bez>Status</FreifeldKd1Bez>
+      <FreifeldKd2Bez>Händlerlisteneintrag</FreifeldKd2Bez>
+      <FreifeldKd2Bez>Marktsegment</FreifeldKd2Bez>
+      <FreifeldKd1>
+      </FreifeldKd1>
+      <FreifeldKd2>
+      </FreifeldKd2>
+      <FreifeldKd3>
+      </FreifeldKd3>
+      <Fax>02361 4097834</Fax>
+    </Infoblock>
+    <Betreff_NR>Rechnung Nr. 10563</Betreff_NR>
+    <Bezug>zu Lieferschein Nr. 5043 vom 18.11.2009</Bezug>
+    <Auftragsbeschreibung>Vielen Dank für Ihre Bestellung. Wir bestätigen Ihnen hiermit folgenden Auftrag. Das Lieferdatum entspricht dem Versanddatum ab Lager Berlin.</Auftragsbeschreibung>
+    <Betreffbezug>Zu Lieferschein Nr.: 	5043 vom 18.11.2009</Betreffbezug>
+    <Zahlungsbedingung>Der Betrag wird per Bankeinzug am 02.12.2009 bei 3 % Skonto eingezogen: 296,42 EUR</Zahlungsbedingung>
+    <Lieferart>01 vers. Versand - versandkostenfrei</Lieferart>
+    <Auftragspos>
+      <PosNr>
+        <PositionNr>1</PositionNr>
+        <Menge>12,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36466</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Leschifant | GROSS
+        Purpur</Artikel_Text>
+        <Artikel_EZP>9,50 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>114,00 </Artikel_GSP>
+        <Zwischensumme>114,00 </Zwischensumme>
+        <Uebertrag>114,00 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>21,66</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>2</PositionNr>
+        <Menge>6,00</Menge>
+        <Einheit>Tier(e)</Einheit>
+        <Artikel_NR>36482</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Leschi Leschifant | KLEIN
+        Purpur</Artikel_Text>
+        <Artikel_EZP>4,80 </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>28,80 </Artikel_GSP>
+        <Zwischensumme>142,80 </Zwischensumme>
+        <Uebertrag>142,80 </Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>5,47</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>3</PositionNr>
+        <Menge>10,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36531</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | NACKEN
+        Purpur/Mitternacht
+        BEMERKUNG IN ARTIKELBESCHREIBUNG</Artikel_Text>
+        <Artikel_EZP>
+        </Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>
+        </Artikel_GSP>
+        <Zwischensumme>142,80</Zwischensumme>
+        <Uebertrag>142,80</Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>0,00</Pos_Gesamt_UST>
+      </PosNr>
+      <PosNr>
+        <PositionNr>4</PositionNr>
+        <Menge>12,00</Menge>
+        <Einheit>Stück</Einheit>
+        <Artikel_NR>36531</Artikel_NR>
+        <Artikel_Text>Wärmekissen | Die Katze Minina | NACKEN
+        Purpur/Mitternacht</Artikel_Text>
+        <Artikel_EZP>9,50</Artikel_EZP>
+        <Artikel_Rabatt>
+        </Artikel_Rabatt>
+        <Artikel_GSP>114,00</Artikel_GSP>
+        <Zwischensumme>256,80</Zwischensumme>
+        <Uebertrag>256,80</Uebertrag>
+        <Ust-Proz>19,00 %</Ust-Proz>
+        <Pos_Gesamt_UST>21,66</Pos_Gesamt_UST>
+      </PosNr>
+    </Auftragspos>
+    <NBL>
+    </NBL>
+    <GesamtNettoText>Gesamt Netto</GesamtNettoText>
+    <GesamtNetto>256,80</GesamtNetto>
+    <SteuerAusgabe>
+      <Steuersatz>
+        <SteuernAusgabeNBL>zzgl. 19,00 % Ust. auf</SteuernAusgabeNBL>
+<SteuernAusgabe>256,80</SteuernAusgabe>
+<AusgabeSteuerBetrag>48,79</AusgabeSteuerBetrag>
+</Steuersatz>
+</SteuerAusgabe>
+<Gesamtbetragtext>Gesamtbetrag</Gesamtbetragtext>
+<Gesamtbetrag> € 305,59</Gesamtbetrag>
+</Auftrag>
+</Data>

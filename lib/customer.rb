@@ -79,18 +79,18 @@ class Customer
 <customer>
   <currencyCode>#{self.currency_code}</currencyCode>
   <customerId>#{self.id}</customerId>
-  <deliveryAddress1><![CDATA[#{delivery_address_1[0..27]}]]</deliveryAddress1>
-  <deliveryAddress2><![CDATA[#{delivery_address_2[0..27]}]]</deliveryAddress2>
-  <deliveryAddress3><![CDATA[#{delivery_address_3[0..27]}]]</deliveryAddress3>
+  <deliveryAddress1><![CDATA[#{delivery_address_1[0..39]}]]</deliveryAddress1>
+  <deliveryAddress2><![CDATA[#{delivery_address_2[0..39]}]]</deliveryAddress2>
+  <deliveryAddress3><![CDATA[#{delivery_address_3[0..39]}]]</deliveryAddress3>
   <deliveryCountryCode>#{self.delivery_address.country.code}</deliveryCountryCode>
   <deliveryPlace>#{self.delivery_address.place}</deliveryPlace>
-  <deliveryStreet><![CDATA[#{self.delivery_address.street[0..27]}]]</deliveryStreet>
+  <deliveryStreet><![CDATA[#{self.delivery_address.street[0..39]}]]</deliveryStreet>
   <deliveryTermsCode>#{delivery_term}</deliveryTermsCode>
   <deliveryZipCode>#{self.delivery_address.zipcode}</deliveryZipCode>
   <grossPriceCode>#{self.inclusive_taxes}</grossPriceCode>
-  <invoiceAddress1><![CDATA[#{self.address.salutation[0..27]}]]</invoiceAddress1>
-  <invoiceAddress2><![CDATA[#{self.address.fullname[0..27]}]]</invoiceAddress2>
-  <invoiceAddress3><![CDATA[#{self.address.addition[0..27]}]]</invoiceAddress3>
+  <invoiceAddress1><![CDATA[#{self.address.salutation[0..39]}]]</invoiceAddress1>
+  <invoiceAddress2><![CDATA[#{self.address.fullname[0..39]}]]</invoiceAddress2>
+  <invoiceAddress3><![CDATA[#{self.address.addition[0..39]}]]</invoiceAddress3>
   <invoiceCountryCode>#{self.address.country.code}</invoiceCountryCode>
   <invoicePlace>#{self.address.place}</invoicePlace>
   <invoiceStreet><![CDATA[#{self.address.street}]]</invoiceStreet>

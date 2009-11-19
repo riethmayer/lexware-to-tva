@@ -27,13 +27,16 @@ class ConverterTest < Test::Unit::TestCase
     assert_equal @converter.invoices.size, @converter.delivery_notes.size
   end
 
+
   def test_delivery_note_address_overwrites_invoice_address
     @converter = Converter.new(make_file("111_items"))
+    adr = @converter.invoices[0].address.street
+    assert adr =~ /Reichenbergerstr/, "#{adr} was expected to be Reichenberger first."
     @converter.convert
     invoice = @converter.invoices[0]
     # Rechnungsadresse ist Adresse der Rechnung
     assert invoice.invoice?
-    assert invoice.address.street =~ /Reichenbergerstr/, "#{invoice.address.street} is not Reichenberger."
+    assert invoice.address.street =~ /Kreuzbergstr/, "#{invoice.address.street} is not Kreuzbergstr."
     delivery_note= invoice.delivery_note
     assert delivery_note && delivery_note.delivery_note?, "Delivery note missing, eventually not converted yet."
     # Lieferadresse ist Adresse des Lieferscheins

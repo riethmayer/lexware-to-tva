@@ -70,17 +70,29 @@ class OrderTest < Test::Unit::TestCase
   #end
   # jede Rechnung sollte die Bezugsnummer in der xml unter referenz1 ausgeben
   def test_invoice_with__number_has_this_value_at_reference_1
-    order = @orders.first
+    @converter.convert
+    order = @converter.invoices.first
     order.order_confirmation_id = 1337
     assert_match /<reference1>1337<\/reference1>/, order.to_xml, "reference1 must include reference_number"
   end
 
   def test_deliverer_id_and_order_number_will_be_concatenated_in_reference2
-    order = @orders.first
+    @converter.convert
+    order = @converter.invoices.first
     order.deliverer_id = '1337331'
     order.order_number = 'whatefack'
     assert_match %r{<reference2>}, order.to_xml, "reference2 must be opened"
     assert_match %r{whatefack ; 1337331}, order.to_xml, "must include deliverer_id and order_number"
     assert_match %r{</reference2>}, order.to_xml, "reference2 must be closed"
+  end
+
+  def test_rechnungsadresse_lieferschein_ist_lieferadresse_rechnung
+    rechnung      =  Converter.new(make_file('address_update_test'))
+    rechnung.convert
+    lieferschein = rechnung.delivery_notes[0]
+    rechnung = rechnung.invoices[0]
+    assert rechnung.address, "keine Rechnungsadresse vorhanden"
+    assert lieferschein, "keine Lieferscheine vorhanden"
+    assert_match(rechnung.address.street, rechnung.delivery_note.address.street)
   end
 end
