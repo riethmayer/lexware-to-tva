@@ -148,7 +148,7 @@ PARTIAL
     <quantityUnitCode>#{self.quantity_unit_code}</quantityUnitCode>
     <shortTitle><[CDATA[#{self.short_title}]]></shortTitle>
     <taxCode>#{self.tax_code}</taxCode>
-    <title><[CDATA[#{self.title}]]></title>#{xml_title_descriptions}
+    <title><[CDATA[#{self.truncated_title[0]}]]></title>#{xml_title_descriptions}
     <valid>#{self.valid? ? 'true' : 'false' }</valid>
   </item>
 </Root>
