@@ -65,7 +65,7 @@ class Customer
 
   def to_xml
     company    = self.address.company
-    salutation = self.address.salutation
+    salutation = self.address.salutation || "Frau/Herr/Firma"
     fullname   = self.address.fullname
     invoice_addition   = self.address.addition
     delivery_addition  = self.delivery_address.addition
