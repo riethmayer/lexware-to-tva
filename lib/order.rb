@@ -204,7 +204,7 @@ COSTS
   end
 
   def additional_text_xml
-    "<addText><![CDATA[#{self.additional_text[0..235]}]]></addText>" unless self.additional_text.blank
+    "<addText><![CDATA[#{self.additional_text[0..235]}]]></addText>" unless self.additional_text.blank?
   end
 
   def to_xml
