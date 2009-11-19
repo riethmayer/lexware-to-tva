@@ -9,8 +9,38 @@ class ItemTest < Test::Unit::TestCase
   end
 
   def setup
-    @converter    = Converter.new(make_file('111_items'))
-    @conversion ||= @converter.convert
+    @converter    ||= Converter.new(make_file('111_items'))
+    @items        ||= @converter.items
+  end
+
+  def test_a_long_item_description_has_at_most_40_chars
+    item = @items.first
+    assert item.title.length <= 40
+  end
+
+  def test_an_article_with_80_chars_title_has_a_description_2_field_with_40_chars
+    item = @items.first
+    item.title = "This is a very fancy title with a length of exactly 80 beautiful chars in total."
+    assert "This is a very fancy title with a length" == item.truncated_title[0], "This is a very fancy title with a length != #{item.truncated_title[0]}"
+    assert "of exactly 80 beautiful chars in total." == item.truncated_title[1], "of exactly 80 beautiful chars in total. != #{item.truncated_title[1]}"
+    assert_match /description2/, item.to_xml
+    assert_match /of exactly 80 beautiful chars/, item.to_xml
+  end
+
+  def test_an_article_with_160_chars_title_has_a_description_2_3_and_4field_with_40_chars
+    item = @items.first
+    item.title = "This is a very fancy title with length of exactly 160 beautiful chars in total, again it's a very fancy title with length of exactly 160 beautiful chars in tot."
+    assert "This is a very fancy title with length" == item.truncated_title[0], "This is a very fancy title with a length != #{item.truncated_title[0]}"
+    assert "of exactly 160 beautiful chars in total," == item.truncated_title[1], "of exactly 80 beautiful chars in total. != #{item.truncated_title[1]}"
+    assert "again it's a very fancy title with"       == item.truncated_title[2], "again it's a very fancy title with != #{item.truncated_title[2]}"
+    assert "length of exactly 160 beautiful chars in" == item.truncated_title[3], "length of exactly 160 beautiful chars in tot. != #{item.truncated_title[3]}"
+    assert_match /description2/, item.to_xml
+    assert_match /description3/, item.to_xml
+    assert_match /description4/, item.to_xml
+    assert_match /This is a very fancy title with length/, item.to_xml
+    assert_match /of exactly 160 beautiful chars in total/, item.to_xml
+    assert_match /again it\'s a very fancy title with/,item.to_xml
+    assert_match /length of exactly 160 beautiful chars in/,item.to_xml
   end
 
   def test_items_are_sorted_by_position_nr

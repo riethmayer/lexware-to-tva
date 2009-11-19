@@ -65,6 +65,25 @@ class Item
     end
   end
 
+  def truncated_title
+    titles = self.title.split(' ')
+    result = []
+    bucket = 0
+    for title in titles
+      if result[bucket].nil?
+        result[bucket] = title
+      else
+        if [result[bucket],title].join(" ").length > 40
+          bucket += 1
+          result[bucket] = title
+        else
+          result[bucket] = [result[bucket],title].join(" ")
+        end
+      end
+    end
+    result
+  end
+
   def valid?
     errors << "Currency invalid"    if self.currency != 'EUR'
     errors << "DispoCode invalid"   if self.dispocode != 0
@@ -103,6 +122,15 @@ PARTIAL
     end
   end
 
+  def xml_title_descriptions
+    titles = self.truncated_title[1..3]
+    result = []
+    titles.each_with_index do |title,index|
+      result << "<description#{index+2}><CDATA[#{title}]]></description#{index+2}>"
+    end
+    result.join("\n")
+  end
+
   def to_xml
    return <<-XML
 <?xml version='1.0' encoding="UTF-8" ?>
@@ -118,9 +146,9 @@ PARTIAL
     <netPrice1>#{self.netprice_1}</netPrice1>
     <netPrice2>#{self.netprice_2}</netPrice2>
     <quantityUnitCode>#{self.quantity_unit_code}</quantityUnitCode>
-    <shortTitle>#{self.short_title}</shortTitle>
+    <shortTitle><[CDATA[#{self.short_title}]]></shortTitle>
     <taxCode>#{self.tax_code}</taxCode>
-    <title>#{self.title}</title>
+    <title><[CDATA[#{self.title}]]></title>#{xml_title_descriptions}
     <valid>#{self.valid? ? 'true' : 'false' }</valid>
   </item>
 </Root>
