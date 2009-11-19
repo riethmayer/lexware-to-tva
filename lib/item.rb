@@ -146,9 +146,9 @@ PARTIAL
     <netPrice1>#{self.netprice_1}</netPrice1>
     <netPrice2>#{self.netprice_2}</netPrice2>
     <quantityUnitCode>#{self.quantity_unit_code}</quantityUnitCode>
-    <shortTitle><[CDATA[#{self.short_title}]]></shortTitle>
+    <shortTitle><![CDATA[#{self.short_title}]]></shortTitle>
     <taxCode>#{self.tax_code}</taxCode>
-    <title><[CDATA[#{self.truncated_title[0]}]]></title>#{xml_title_descriptions}
+    <title><![CDATA[#{self.truncated_title[0]}]]></title>#{xml_title_descriptions}
     <valid>#{self.valid? ? 'true' : 'false' }</valid>
   </item>
 </Root>
