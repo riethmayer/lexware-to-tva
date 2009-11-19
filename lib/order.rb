@@ -203,6 +203,14 @@ COSTS
     xmls.join("\n")
   end
 
+  def additional_text_xml
+    if self.additional_text
+      "<addText><![CDATA[#{self.additional_text[0..235]}]]></addText>"
+    else
+      ""
+    end
+  end
+
   def to_xml
     company    = self.delivery_address.company if self.delivery_address
     salutation = self.delivery_address.salutation if self.delivery_address
@@ -229,7 +237,7 @@ COSTS
 <?xml version="1.0"?>
 <Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///order.xsd">
   <order>#{add_costs_xml}
-    <addText><![CDATA[#{self.additional_text[0..235]}]]></addText>
+    #{self.additional_text_xml}
     <customerId>#{self.customer.id}</customerId>
     <deliveryCountryCode>#{country_code}</deliveryCountryCode>
     <deliveryDate>#{self.delivery_date}</deliveryDate>
