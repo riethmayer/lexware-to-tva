@@ -44,7 +44,6 @@ class Item
     end
     # 40 chars restriction
     self.short_title = self.short_title[0..39]
-    self.title = self.title[0..39]
   end
 
   # steuersatz aus dem artikel (ist bindend)
