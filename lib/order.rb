@@ -204,17 +204,17 @@ COSTS
   end
 
   def to_xml
-    company    = self.address.company
-    salutation = self.address.salutation
+    company    = self.delivery_address.company if self.delivery_address
+    salutation = self.delivery_address.salutation if self.delivery_address
     salutation = salutation || self.address.salutation || "Herr/Frau/Firma"
-    fullname   = self.address.fullname
+    fullname   = self.delivery_address.fullname if self.delivery_address
     fullname   = fullname || self.address.fullname
-    street     = self.address.street
+    street     = self.delivery_address.street if self.delivery_address
     street     = street || self.address.street
-    place      = self.address.place
+    place      = self.delivery_address.place if self.delivery_address
     place      = place || self.address.place
-    country    =  self.address.country.code
-    zipcode    = self.address.zipcode
+    country    =  self.delivery_address.country.code if self.delivery_address && self.delivery_address.country
+    zipcode    = self.delivery_address.zipcode if self.delivery_address
     zipcode    = zipcode || self.address.zipcode
     invoice_addition   = self.address.addition
     delivery_addition  = self.delivery_address.addition if self.delivery_address
@@ -236,9 +236,9 @@ COSTS
     <deliveryName1><![CDATA[#{delivery_address_1[0..39]}]]></deliveryName1>
     <deliveryName2><![CDATA[#{delivery_address_2[0..39]}]]></deliveryName2>
     <deliveryName3><![CDATA[#{delivery_address_3[0..39]}]]></deliveryName3>
-    <deliveryPlace><![CDATA[#{place[0..39]}]]</deliveryPlace>
+    <deliveryPlace><![CDATA[#{place[0..39]}]]></deliveryPlace>
     <deliveryPrintCode>1</deliveryPrintCode>
-    <deliveryStreet><![CDATA[#{street[0..39]}]]</deliveryStreet>
+    <deliveryStreet><![CDATA[#{street[0..39]}]]></deliveryStreet>
     <deliveryTermsCode>#{self.delivery_terms_code}</deliveryTermsCode>
     <deliveryZipCode>#{zipcode}</deliveryZipCode>
     #{discount_xml}
