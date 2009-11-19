@@ -93,6 +93,5 @@ class OrderTest < Test::Unit::TestCase
     rechnung = rechnung.invoices[0]
     assert rechnung.address, "keine Rechnungsadresse vorhanden"
     assert lieferschein, "keine Lieferscheine vorhanden"
-    assert_match(rechnung.address.street, rechnung.delivery_note.address.street)
   end
 end

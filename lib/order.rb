@@ -150,7 +150,6 @@ class Order
       if (d.delivery_note_id == self.delivery_note_id) && d.delivery_note?
         self.delivery_note = d
         self.delivery_address = d.address
-        self.address = d.address
       end
     end
     update_invoice_print_code
@@ -205,17 +204,17 @@ COSTS
   end
 
   def to_xml
-    company    = self.delivery_address.company if self.delivery_address
-    salutation = self.delivery_address.salutation if self.delivery_address
+    company    = self.address.company
+    salutation = self.address.salutation
     salutation = salutation || self.address.salutation || "Herr/Frau/Firma"
-    fullname   = self.delivery_address.fullname if self.delivery_address
+    fullname   = self.address.fullname
     fullname   = fullname || self.address.fullname
-    street     = self.delivery_address.street if self.delivery_address
+    street     = self.address.street
     street     = street || self.address.street
-    place      = self.delivery_address.place if self.delivery_address
+    place      = self.address.place
     place      = place || self.address.place
-    country    =  self.delivery_address.country.code if self.delivery_address && self.delivery_address.country
-    zipcode    = self.delivery_address.zipcode if self.delivery_address
+    country    =  self.address.country.code
+    zipcode    = self.address.zipcode
     zipcode    = zipcode || self.address.zipcode
     invoice_addition   = self.address.addition
     delivery_addition  = self.delivery_address.addition if self.delivery_address
@@ -234,9 +233,9 @@ COSTS
     <customerId>#{self.customer.id}</customerId>
     <deliveryCountryCode>#{country_code}</deliveryCountryCode>
     <deliveryDate>#{self.delivery_date}</deliveryDate>
-    <deliveryName1><![CDATA[#{delivery_address_1[0..39]}]]</deliveryName1>
-    <deliveryName2><![CDATA[#{delivery_address_2[0..39]}]]</deliveryName2>
-    <deliveryName3><![CDATA[#{delivery_address_3[0..39]}]]</deliveryName3>
+    <deliveryName1><![CDATA[#{delivery_address_1[0..39]}]]></deliveryName1>
+    <deliveryName2><![CDATA[#{delivery_address_2[0..39]}]]></deliveryName2>
+    <deliveryName3><![CDATA[#{delivery_address_3[0..39]}]]></deliveryName3>
     <deliveryPlace><![CDATA[#{place[0..39]}]]</deliveryPlace>
     <deliveryPrintCode>1</deliveryPrintCode>
     <deliveryStreet><![CDATA[#{street[0..39]}]]</deliveryStreet>
@@ -245,18 +244,18 @@ COSTS
     #{discount_xml}
     <grossPriceCode>#{gross_price_code}</grossPriceCode>
     <invoiceCountryCode>#{self.customer.address.country.code}</invoiceCountryCode>
-    <invoiceName1><![CDATA[#{self.address.salutation[0..39]}]]</invoiceName1>
-    <invoiceName2><![CDATA[#{self.address.fullname[0..39]}]]</invoiceName2>
-    <invoiceName3><![CDATA[#{self.address.addition[0..39]}]]</invoiceName3>
+    <invoiceName1><![CDATA[#{self.address.salutation[0..39]}]]></invoiceName1>
+    <invoiceName2><![CDATA[#{self.address.fullname[0..39]}]]></invoiceName2>
+    <invoiceName3><![CDATA[#{self.address.addition[0..39]}]]></invoiceName3>
     <invoicePlace>#{self.address.place}</invoicePlace>
     <invoicePrintCode>#{self.invoice_print_code}</invoicePrintCode>
-    <invoiceStreet><![CDATA[#{self.address.street[0..39]}]]</invoiceStreet>
+    <invoiceStreet><![CDATA[#{self.address.street[0..39]}]]></invoiceStreet>
     <invoiceZipCode>#{self.address.zipcode}</invoiceZipCode>
     <orderType>#{self.order_type}</orderType>
     <paymentCode>#{self.payment_code}</paymentCode>
     <paymentMode>#{self.payment_mode}</paymentMode>
     <reference1>#{self.order_confirmation_id}</reference1>
-    <reference2><![CDATA[#{reference2[0..39]}]]</reference2>
+    <reference2><![CDATA[#{reference2[0..39]}]]></reference2>
     <representative1>#{self.representative}</representative1>
     <shippingCode>#{self.shipping_code}</shippingCode>
     <shortName>#{self.customer.short_name}</shortName>
