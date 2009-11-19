@@ -125,7 +125,7 @@ PARTIAL
     titles = self.truncated_title[1..3]
     result = []
     titles.each_with_index do |title,index|
-      result << "<description#{index+2}><!CDATA[#{title}]]></description#{index+2}>"
+      result << "<description#{index+2}><![CDATA[#{title}]]></description#{index+2}>"
     end
     result.join("\n")
   end
