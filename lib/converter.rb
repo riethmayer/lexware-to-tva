@@ -119,7 +119,7 @@ class Converter
 
   def self.xml_get(field, order)
     if order.at(field)
-      order.at(field).innerHTML.strip
+      order.at(field).innerHTML.gsub(/\s/," ").gsub(/( )+/," ").strip
     else
       # puts "Field #{field} not found at << #{order.at('Betreff_NR').innerHTML.strip} >>" if order.at('Betreff_NR') && ENV['VERBOSE']
       ""

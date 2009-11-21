@@ -15,7 +15,8 @@ class ItemTest < Test::Unit::TestCase
 
   def test_a_long_item_description_has_at_most_40_chars
     item = @items.first
-    assert item.title.length <= 40
+    assert item.title, "Item #{item.id} was expected to have a title"
+    assert item.title.length <= 40, "Item #{item.id} was expected to have less or equal than 40 chars but had #{item.title.length}: #{item.title}"
   end
 
   def test_an_article_with_80_chars_title_has_a_description_2_field_with_40_chars
@@ -43,39 +44,44 @@ class ItemTest < Test::Unit::TestCase
     assert_match /length of exactly 160 beautiful chars in/,item.to_xml
   end
 
-  def test_items_are_sorted_by_position_nr
-    assert true
-  end
+#   def test_file_with_invalid_positions
+#     @converter = Converter.new(make_file('Test'))
+#     assert @items     = @converter.items
+#   end
 
-  def test_language_is_always_german
-    assert true
-  end
+#   def test_items_are_sorted_by_position_nr
+#     assert true
+#   end
 
-  def test_locked_is_always_true
-    assert true
-  end
+#   def test_language_is_always_german
+#     assert true
+#   end
 
-  def test_valid_is_always_true
-    assert true
-  end
+#   def test_locked_is_always_true
+#     assert true
+#   end
 
-  def test_currency_is_always_euro
-    assert true
-  end
+#   def test_valid_is_always_true
+#     assert true
+#   end
 
-  def test_dispocode_is_always_zero
-    assert true
-  end
+#   def test_currency_is_always_euro
+#     assert true
+#   end
 
-  def test_quantity_unit_code_is_always_one
-    assert true
-  end
+#   def test_dispocode_is_always_zero
+#     assert true
+#   end
 
-  def test_each_item_has_an_id
-    assert true
-  end
+#   def test_quantity_unit_code_is_always_one
+#     assert true
+#   end
 
-  def test_each_short_title_has_fewer_than_41_characters
-    assert true
-  end
+#   def test_each_item_has_an_id
+#     assert true
+#   end
+
+#   def test_each_short_title_has_fewer_than_41_characters
+#     assert true
+#   end
 end
