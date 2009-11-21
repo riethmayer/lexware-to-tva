@@ -12,10 +12,11 @@ class Address
       :place=      => 'KundePLZ_ORT',
       :country=    => 'KundeLand'
       }.each do |k,v|
-        self.send k, Converter.xml_get(v, address)
+        self.send k, Converter.xml_get(v, address).strip
       end
     extract_zipcode
     extract_place
+    set_salutation
     self.country = Country.new(self.country)
   end
 

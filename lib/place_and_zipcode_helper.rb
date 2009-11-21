@@ -74,9 +74,15 @@ module PlaceAndZipcodeHelper
     end
   end
 
+  def set_salutation
+    unless /[a-z]/ =~ self.salutation.downcase
+      self.salutation = "Frau/Herr/Firma"
+    end
+  end
+
   def extract_zipcode
     if /\d+/ =~ self.zipcode
-        self.zipcode = $&.strip  #matched zipcode
+      self.zipcode = $&.strip  #matched zipcode
     else
       self.zipcode = nil # invalid zipcode
     end

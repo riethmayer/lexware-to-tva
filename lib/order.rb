@@ -204,13 +204,15 @@ COSTS
   end
 
   def additional_text_xml
-    "<addText><![CDATA[#{self.additional_text[0..235]}]]></addText>" unless self.additional_text.blank?
+    unless self.additional_text.nil? || self.additional_text == ""
+      "<addText><![CDATA[#{self.additional_text[0..235]}]]></addText>"
+    end
   end
 
   def to_xml
     company    = self.delivery_address.company if self.delivery_address
     salutation = self.delivery_address.salutation if self.delivery_address
-    salutation = salutation || self.address.salutation || "Herr/Frau/Firma"
+    salutation = salutation || self.address.salutation
     fullname   = self.delivery_address.fullname if self.delivery_address
     fullname   = fullname || self.address.fullname
     street     = self.delivery_address.street if self.delivery_address
@@ -244,17 +246,17 @@ COSTS
     <deliveryPrintCode>1</deliveryPrintCode>
     <deliveryStreet><![CDATA[#{street[0..39]}]]></deliveryStreet>
     <deliveryTermsCode>#{self.delivery_terms_code}</deliveryTermsCode>
-    <deliveryZipCode>#{zipcode}</deliveryZipCode>
+    <deliveryZipCode><![CDATA[#{zipcode}]]></deliveryZipCode>
     #{discount_xml}
     <grossPriceCode>#{gross_price_code}</grossPriceCode>
     <invoiceCountryCode>#{self.customer.address.country.code}</invoiceCountryCode>
     <invoiceName1><![CDATA[#{self.address.salutation[0..39]}]]></invoiceName1>
     <invoiceName2><![CDATA[#{self.address.fullname[0..39]}]]></invoiceName2>
     <invoiceName3><![CDATA[#{self.address.addition[0..39]}]]></invoiceName3>
-    <invoicePlace>#{self.address.place}</invoicePlace>
+    <invoicePlace><![CDATA[#{self.address.place}]]></invoicePlace>
     <invoicePrintCode>#{self.invoice_print_code}</invoicePrintCode>
     <invoiceStreet><![CDATA[#{self.address.street[0..39]}]]></invoiceStreet>
-    <invoiceZipCode>#{self.address.zipcode}</invoiceZipCode>
+    <invoiceZipCode><![CDATA[#{self.address.zipcode}]]></invoiceZipCode>
     <orderType>#{self.order_type}</orderType>
     <paymentCode>#{self.payment_code}</paymentCode>
     <paymentMode>#{self.payment_mode}</paymentMode>
@@ -262,7 +264,7 @@ COSTS
     <reference2><![CDATA[#{reference2[0..39]}]]></reference2>
     <representative1>#{self.representative}</representative1>
     <shippingCode>#{self.shipping_code}</shippingCode>
-    <shortName>#{self.customer.short_name}</shortName>
+    <shortName><![CDATA[#{self.customer.short_name}]]></shortName>
     <urgentCode>#{self.urgent? ? 1 : 0}</urgentCode>
     <positionen AnzPos="#{positions.length}">
 
