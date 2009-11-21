@@ -44,10 +44,13 @@ class ItemTest < Test::Unit::TestCase
     assert_match /length of exactly 160 beautiful chars in/,item.to_xml
   end
 
-#   def test_file_with_invalid_positions
-#     @converter = Converter.new(make_file('Test'))
-#     assert @items     = @converter.items
-#   end
+   def test_file_with_invalid_positions
+     @converter = Converter.new(make_file('Test'))
+     assert @converter.convert
+     assert @items     = @converter.items
+   end
+
+
 
 #   def test_items_are_sorted_by_position_nr
 #     assert true

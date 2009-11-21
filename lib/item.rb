@@ -84,24 +84,28 @@ class Item
   end
 
   def valid?
-    errors << "Currency invalid"    if self.currency != 'EUR'
-    errors << "DispoCode invalid"   if self.dispocode != 0
-    errors << "GrossPrice1 missing" if self.grossprice_1.nil?
-    errors << "GrossPrice2 invalid" if self.grossprice_2 != 0
-    errors << "ItemId missing"      if self.id.nil?
-    errors << "LanguageID invalid"  if self.language_id != 0
-    errors << "Locked-Flag invalid" if self.locked != 0
-    errors << "NetPrice1 missing"   if self.netprice_1.nil?
-    errors << "NetPrice2 invalid"   if self.netprice_2 != 0
-    errors << "QuantityUnitCode invalid" if self.quantity_unit_code != 1
-    errors << "ShortTitle missing" if self.short_title.nil? or self.short_title == ""
-    errors << "TaxCode invalid"    if self.tax_code.nil? or self.tax_code == ""
-    errors << "Title missing"      if self.title.nil? or self.title == ""
-    errors.length == 0
+    self.errors << "Currency invalid"    if self.currency != 'EUR'
+    self.errors << "DispoCode invalid"   if self.dispocode != 0
+    self.errors << "GrossPrice1 missing" if self.grossprice_1.nil?
+    self.errors << "GrossPrice2 invalid" if self.grossprice_2 != 0
+    self.errors << "ItemId missing"      if self.id.nil?
+    self.errors << "LanguageID invalid"  if self.language_id != 0
+    self.errors << "Locked-Flag invalid" if self.locked != 0
+    self.errors << "NetPrice1 missing"   if self.netprice_1.nil?
+    self.errors << "NetPrice2 invalid"   if self.netprice_2 != 0
+    self.errors << "QuantityUnitCode invalid" if self.quantity_unit_code != 1
+    self.errors << "ShortTitle missing" if self.short_title.nil? or self.short_title == ""
+    self.errors << "TaxCode invalid"    if self.tax_code.nil? or self.tax_code == ""
+    self.errors << "Title missing"      if self.title.nil? or self.title == ""
+    self.errors.length == 0
   end
 
   def type
-    "Item"
+    if self.errors.empty?
+      "Item"
+    else
+      "__ERROR_Item"
+    end
   end
 
   def xml_partial
@@ -124,14 +128,19 @@ PARTIAL
   def xml_title_descriptions
     titles = self.truncated_title[1..3]
     result = []
-    titles.each_with_index do |title,index|
-      result << "<description#{index+2}><![CDATA[#{title}]]></description#{index+2}>"
+    unless titles.nil?
+      titles.each_with_index do |title,index|
+        result << "<description#{index+2}><![CDATA[#{title}]]></description#{index+2}>"
+      end
+      return result.join("\n")
+    else
+      return ''
     end
-    result.join("\n")
   end
 
   def to_xml
-   return <<-XML
+    if self.valid?
+      return <<-XML
 <?xml version='1.0' encoding="UTF-8" ?>
 <Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///Item.xsd">
   <item>
@@ -153,5 +162,8 @@ PARTIAL
   </item>
 </Root>
 XML
+    else
+      return self.errors.join('\n')
+    end
   end
 end
