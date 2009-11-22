@@ -85,6 +85,7 @@ class Item
   end
 
   def valid?
+    return false if self.placeholder?
     self.errors << "Currency invalid"    if self.currency != 'EUR'
     self.errors << "DispoCode invalid"   if self.dispocode != 0
     self.errors << "GrossPrice1 missing" if self.grossprice_1.nil?
@@ -99,6 +100,15 @@ class Item
     self.errors << "TaxCode invalid"     if self.tax_code.nil? || !([0,1,2].include?(self.tax_code))
     self.errors << "Title missing"       if self.title.nil? or self.title == ""
     self.errors.empty?
+  end
+
+  def placeholder?
+    result = true
+    [:id, :grossprice, :quantity].each do |field|
+      e = self.send(field)
+      result &&= (e == "" || e.nil? || e == "0" || e == "0.00")
+    end
+    result
   end
 
   def clean?

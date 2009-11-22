@@ -6,8 +6,11 @@ class Order
   attr_accessor :additional_text, :is_delivery_note, :delivery_note, :is_invoice
   attr_accessor :representative, :order_number, :description, :order_type
   attr_accessor :order_confirmation_id, :delivery_note_id, :id, :deliverer_id
+  attr_accessor :errors, :warnings
 
   def initialize(order)
+    self.errors = []
+    self.warnings = []
     self.order                      = order
     ## Finde erst mal heraus was ich bin
     # Lieferschein oder Rechnung?
@@ -73,7 +76,33 @@ class Order
       return (self.delivery_note_id ? true : false)
     end
   end
- ### LIEFERSCHEINFINDUNG ende
+  ### LIEFERSCHEINFINDUNG ende
+
+  def valid?
+    self.errors << "customer_id is missing" unless self.customer && self.customer.id
+    self.errors << "deliveryCountryCode is missing" unless self.delivery_address && self.delivery_address.has_country_code?
+    self.errors << "deliveryTermsCode is missing"   unless self.delivery_terms_code
+    self.errors << "invoiceCountryCode is missing" unless self.address && self.address.has_country_code?
+    self.errors << "orderType is missing" unless self.order_type
+    self.errors << "paymentCode is missing" unless self.payment_code
+    self.errors << "paymentMode is missing" if self.payment_mode.nil?
+    self.errors << "shippingCode is missing" unless self.shipping_code
+    self.errors.empty?
+  end
+
+  def clean?
+    self.warnings.empty?
+  end
+
+  def to_error_log
+    return nil if self.errors.empty?
+    self.errors.flatten.join("\n")
+  end
+
+  def to_warning_log
+    return nil if self.warnings.empty?
+    self.warnings.flatten.join("\n")
+  end
 
   # Kundennummer, falls vorhanden
   def extract_deliverer_id
@@ -100,10 +129,13 @@ class Order
   def get_positions
     self.positions = []
     (self.order/:PosNr).each do |position|
-      self.positions << Item.new(position)
+      item = Item.new(position)
+      self.positions << item if !item.placeholder? && item.valid?
+      self.errors << item.to_error_log unless item.placeholder? || item.valid?
+      self.warnings << item.to_warning_log unless item.clean?
     end
   end
-  # Lieferkosten, Versicherung
+      # Lieferkosten, Versicherung
   def set_additional_costs
     if Converter.xml_get('Nebenleistungen', self.order)
       self.shipping = {
@@ -159,6 +191,37 @@ class Order
     invoice? ? "Invoice" : "DeliveryNote"
   end
 
+  def convert_date(date)
+    date_match = date.match /(\d\d|\d)\.(\d\d)\.(\d\d\d\d)/
+    if date_match && date_match.length == 4
+      "#{date_match[3]}-#{date_match[2]}-#{date_match[1]}"
+    else
+      date
+    end
+  end
+
+  def urgent?
+    self.description.downcase.match(%r{(eilt|eilig|urgent|schnell|asap|immed)})
+  end
+
+  def add_costs?
+    !!self.shipping
+  end
+
+  def delivery_country_code
+    if  self.delivery_address &&
+        self.delivery_address.country &&
+        self.delivery_address.country.code
+      self.delivery_address.country.code
+    else
+      this_id = self.id || self.delivery_note_id || self.order_confirmation_id
+      self.errors << "delivery_country_code missing for #{self.type} #{this_id} <<#{self.delivery_address.country.name}>>"
+      0
+    end
+  end
+
+  ## XML OUTPUT ##
+
   def add_costs_xml
     if self.add_costs?
       <<-COSTS
@@ -178,23 +241,6 @@ COSTS
     end
   end
 
-  def convert_date(date)
-    date_match = date.match /(\d\d)\.(\d\d)\.(\d\d\d\d)/
-    if date_match && date_match.length == 4
-      "#{date_match[3]}-#{date_match[2]}-#{date_match[1]}"
-    else
-      date
-    end
-  end
-
-  def urgent?
-    self.description.downcase.match(%r{(eilt|eilig|urgent|schnell|asap|immed)})
-  end
-
-  def add_costs?
-    !!self.shipping
-  end
-
   def xml_for(items)
     xmls = []
     items.each do |item|
@@ -205,7 +251,7 @@ COSTS
 
   def additional_text_xml
     unless self.additional_text.nil? || self.additional_text == ""
-      "<addText><![CDATA[#{self.additional_text[0..235]}]]></addText>"
+      "<addText><![CDATA[#{self.additional_text[0..249]}]]></addText>"
     end
   end
 
@@ -228,7 +274,7 @@ COSTS
     delivery_address_2 = company ? "Z.Hd. #{fullname}" : fullname
     delivery_address_3 = delivery_addition ? delivery_addition : invoice_addition
     delivery_place = place ? place : self.address.place
-    country_code   = country ? country : self.address.country
+    country_code   = country ? country : self.address.country.code
     gross_price_code = self.customer.pays_taxes? ? 1 : 0 # other than customer taxcode
     reference2 = "#{self.order_number} ; #{self.deliverer_id}"[0..39]
     return <<-XML
