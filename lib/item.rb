@@ -3,8 +3,9 @@ require 'bigdecimal'
 
 class Item
   attr_accessor :grossprice_1, :grossprice_2, :netprice_1, :netprice_2 # money stuff
-  attr_accessor :id, :tax_code, :title, :short_title, :quantity, :errors, :position_number # properties
+  attr_accessor :id, :tax_code, :title, :short_title, :quantity, :position_number # properties
   attr_accessor :language_id, :locked, :valid, :currency, :dispocode, :quantity_unit_code #defaults
+  attr_accessor :errors, :warnings
 
   def initialize(order)
 
@@ -94,18 +95,18 @@ class Item
     self.errors << "NetPrice1 missing"   if self.netprice_1.nil?
     self.errors << "NetPrice2 invalid"   if self.netprice_2 != 0
     self.errors << "QuantityUnitCode invalid" if self.quantity_unit_code != 1
-    self.errors << "ShortTitle missing" if self.short_title.nil? or self.short_title == ""
-    self.errors << "TaxCode invalid"    if self.tax_code.nil? or self.tax_code == ""
-    self.errors << "Title missing"      if self.title.nil? or self.title == ""
-    self.errors.length == 0
+    self.errors << "ShortTitle missing"  if self.short_title.nil? or self.short_title == ""
+    self.errors << "TaxCode invalid"     if self.tax_code.nil? || !([0,1,2].include?(self.tax_code))
+    self.errors << "Title missing"       if self.title.nil? or self.title == ""
+    self.errors.empty?
+  end
+
+  def clean?
+    self.warnings.empty?
   end
 
   def type
-    if self.errors.empty?
-      "Item"
-    else
-      "__ERROR_Item"
-    end
+    "Item"
   end
 
   def xml_partial
@@ -118,7 +119,7 @@ class Item
   <quantityUnitCode>#{self.quantity_unit_code}</quantityUnitCode>
 </position>
 PARTIAL
-    if self.grossprice_1 && self.id && self.quantity
+    if self.valid?
       return partial
     else
       return ""
@@ -139,8 +140,7 @@ PARTIAL
   end
 
   def to_xml
-    if self.valid?
-      return <<-XML
+    return <<-XML
 <?xml version='1.0' encoding="UTF-8" ?>
 <Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///Item.xsd">
   <item>
@@ -162,8 +162,15 @@ PARTIAL
   </item>
 </Root>
 XML
-    else
-      return self.errors.join('\n')
-    end
+  end
+
+  def to_error_log
+    return nil if self.errors.empty?
+    self.errors.flatten.join("\n")
+  end
+
+  def to_warning_log
+    return nil if self.warnings.empty?
+    self.warnings.flatten.join("\n")
   end
 end
