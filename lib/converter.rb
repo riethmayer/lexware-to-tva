@@ -4,14 +4,17 @@ require 'hpricot'
 
 class Converter
 
-  attr_accessor :file, :filename, :raw_orders, :errors, :tmp_directory, :tmp_filename
+  attr_accessor :file, :filename, :raw_orders, :tmp_directory, :tmp_filename
   attr_accessor :customers, :items, :invoices, :delivery_notes
   attr_accessor :customer_count, :item_count, :order_count
+  attr_accessor :errors, :warnings
 
-  BASE   = File.join(FileUtils.pwd,"..","tmp", "conversions")
+  BASE   = File.join(FileUtils.pwd,"tmp", "conversions")
   ## BASE   = File.join(FileUtils.pwd,"..","test", "data", "output")
 
   def initialize(filename)
+    self.errors = []
+    self.warnings = []
     self.filename            = filename
     self.file                = File.open(filename, 'r:windows-1252:utf-8')
     self.raw_orders          = import_raw_orders
@@ -36,7 +39,9 @@ class Converter
       self.items,
       self.invoices
     ].flatten.each_with_index do |element, element_number|
-        save_as_xml(element, element_number)
+      save_as_xml(element, element_number)
+      save_as_error_log(element, element_number)
+      save_as_warn_log(element,element_number)
     end
     return compressed_files
   end
@@ -55,7 +60,10 @@ class Converter
   def get_customers
     customers = []
     self.raw_orders.each do |order|
-      customers << Customer.new(order)
+      customer = Customer.new(order)
+      customers << customer if customer.valid?
+      self.errors << customer.to_error_log unless customer.valid?
+      self.warnings << customer.to_warning_log unless customer.clean?
     end
     uniquify(customers)
   end
@@ -63,7 +71,10 @@ class Converter
   def get_items
     items = []
     self.raw_orders.each do |order|
-      items << Order.new(order).positions
+      order = Order.new(order)
+      items << order.positions if order.valid?
+      self.errors << order.to_error_log unless order.valid?
+      self.warnings << order.to_warning_log unless customer.clean?
     end
     # 20 different orders each with 1 same item
     # each item has different price
@@ -86,7 +97,8 @@ class Converter
   def uniquify(items)
     unique_items = { }
     items.each do |item|
-      unique_items[item.id] = item
+      unique_items[item.id] = item unless unique_items[item.id] # first item
+      unique_items[item.id] = item if item.valid? # valid items take precedence
     end
     unique_items.values
   end
@@ -97,8 +109,24 @@ class Converter
     end
   end
 
-  def create_filename_for(element, element_number)
-    File.join(self.tmp_directory, "#{element.type}_#{element.id}_#{element_number}.xml")
+  def save_as_error_log(element, element_number)
+    error = element.to_error_log
+    self.errors << error
+    File.open(create_filename_for(element, element_number,'error.log'), 'w') do |f|
+      f.write(error)
+    end
+  end
+
+  def save_as_warning_log(element, element_number)
+    warning = element.to_warning_log
+    self.warnings << warning
+    File.open(create_filename_for(element, element_number,'warning.log'), 'w') do |f|
+      f.write(element.to_warning_log)
+    end
+  end
+
+  def create_filename_for(element, element_number, extension = 'xml')
+    File.join(self.tmp_directory, "#{element.type}_#{element.id}_#{element_number}.#{extension}")
   end
 
   # in case a file is already present in this directory, it will survive
@@ -110,7 +138,12 @@ class Converter
   def compressed_files
     FileUtils.cd(self.tmp_directory)
     `zip #{self.tmp_filename}.zip *.xml`
-    return File.new("#{self.tmp_filename}.zip")
+    `zip #{self.tmp_filename}_errors.zip *.error.log`
+    `zip #{self.tmp_filename}_warnings.zip *.warning.log`
+    xml_file = File.new("#{self.tmp_filename}.zip")
+    err_file = File.new("#{self.tmp_filename}_errors.zip")
+    wrn_file = File.new("#{self.tmp_filename}_warnings.zip")
+    return [xml_file,err_file,wrn_file]
   end
 
   def cleanup_temporary_files
@@ -121,7 +154,7 @@ class Converter
     if order.at(field)
       order.at(field).innerHTML.gsub(/\s/," ").gsub(/( )+/," ").strip
     else
-      # puts "Field #{field} not found at << #{order.at('Betreff_NR').innerHTML.strip} >>" if order.at('Betreff_NR') && ENV['VERBOSE']
+      self.errors << "Field #{field} not found at << #{order.at('Betreff_NR').innerHTML.strip} >>" if order.at('Betreff_NR')
       ""
     end
   end
