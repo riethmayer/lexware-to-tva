@@ -75,7 +75,7 @@
     </Auftragsbeschreibung>
     <Betreffbezug>Zu Auftragsbestätigung Nr.: 	2500 vom 11.11.2009
     </Betreffbezug>
-    <Zahlungsbedingung>Zahlbar per Überweisung innerhalb von 7 Tagen bei 2 % Skonto, innerhalb von 14 Tagen netto. Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben.
+    <Zahlungsbedingung>Bereitstellung der Ware für einen Testzeitraum von 30 Tagen. Für innerhalb des Testzeitraums zurückgesendete Ware gilt volles Remissionsrecht.
     </Zahlungsbedingung>
     <Lieferart>01 vers. Versand
     </Lieferart>
@@ -263,8 +263,7 @@
     </Auftragsbeschreibung>
     <Betreffbezug>Zu Lieferschein Nr.: 	5035 vom 11.11.2009
     </Betreffbezug>
-    <Zahlungsbedingung>Zahlbar bis 18.11.2009 mit 2 % Skonto: 173,24 EUR
-       Zahlbar bis 25.11.2009 ohne Abzug: 176,78 EUR
-    Bei Überweisungen bitte immer die Kunden- und Rechnungsnummer angeben.</Zahlungsbedingung><Lieferart>01 vers. Versand</Lieferart><Auftragspos><PosNr><PositionNr>1</PositionNr><Menge>10,00</Menge><Einheit>Stück</Einheit><Artikel_NR>36531</Artikel_NR><Artikel_Text>Wärmekissen | Die Katze Minina | NACKEN
+    <Zahlungsbedingung>Bereitstellung der Ware für einen Testzeitraum von 30 Tagen. Für innerhalb des Testzeitraums zurückgesendete Ware gilt volles Remissionsrecht.</Zahlungsbedingung>
+    <Lieferart>01 vers. Versand</Lieferart><Auftragspos><PosNr><PositionNr>1</PositionNr><Menge>10,00</Menge><Einheit>Stück</Einheit><Artikel_NR>36531</Artikel_NR><Artikel_Text>Wärmekissen | Die Katze Minina | NACKEN
     Purpur/Mitternacht</Artikel_Text><Artikel_EZP>9,50 </Artikel_EZP><Artikel_Rabatt></Artikel_Rabatt><Artikel_GSP>95,00 </Artikel_GSP><Zwischensumme>95,00 </Zwischensumme><Uebertrag>95,00 </Uebertrag><Ust-Proz>19,00 %</Ust-Proz><Pos_Gesamt_UST>18,05</Pos_Gesamt_UST></PosNr><PosNr><PositionNr>2</PositionNr><Menge>5,00</Menge><Einheit>Tier(e)</Einheit><Artikel_NR>36463</Artikel_NR><Artikel_Text>Kuschelkissen | Leschi Leschifant
     Morgenrot</Artikel_Text><Artikel_EZP>11,90 </Artikel_EZP><Artikel_Rabatt></Artikel_Rabatt><Artikel_GSP>59,50 </Artikel_GSP><Zwischensumme>154,50 </Zwischensumme><Uebertrag>154,50 </Uebertrag><Ust-Proz>19,00 %</Ust-Proz><Pos_Gesamt_UST>11,31</Pos_Gesamt_UST></PosNr></Auftragspos><RabattaufHauptleistung><ZWS_AUFTR_GESAUFTR_DEM>Zwischensumme</ZWS_AUFTR_GESAUFTR_DEM><AUFTR_GESAMT_HAUPTL_NET>154,50 </AUFTR_GESAMT_HAUPTL_NET></RabattaufHauptleistung><AUFTR_IST_GES_RAB_BETRAG_Text><AUFTR_IST_GES_RAB_BETRAG_Text>abzgl. 10,00% Gesamtrabatt</AUFTR_IST_GES_RAB_BETRAG_Text><AUFTR_RAB_GESAUFTR_DEM>- 15,45 </AUFTR_RAB_GESAUFTR_DEM><AUFTR_NET_HAUPTL_NACH_RAB_ABZUG>139,05 </AUFTR_NET_HAUPTL_NACH_RAB_ABZUG></AUFTR_IST_GES_RAB_BETRAG_Text><NBL><Nebenleistungen><Nebenleistungen_Text>zzgl. Versandkosten Handel DE</Nebenleistungen_Text><Nebenleistungen_Betrag>9,50 </Nebenleistungen_Betrag></Nebenleistungen></NBL><GesamtNettoText>Gesamt Netto</GesamtNettoText><GesamtNetto>148,55 </GesamtNetto><SteuerAusgabe><Steuersatz><SteuernAusgabeNBL>zzgl. 19,00 % Ust. auf</SteuernAusgabeNBL><SteuernAusgabe>139,05 </SteuernAusgabe><AusgabeSteuerBetrag>26,42 </AusgabeSteuerBetrag></Steuersatz><Steuersatz><SteuernAusgabeNBL>zzgl. 19,00 % Ust. auf Nebenleistungen</SteuernAusgabeNBL><SteuernAusgabe>9,50 </SteuernAusgabe><AusgabeSteuerBetrag>1,81 </AusgabeSteuerBetrag></Steuersatz></SteuerAusgabe><Gesamtbetragtext>Gesamtbetrag</Gesamtbetragtext><Gesamtbetrag> € 176,78</Gesamtbetrag></Auftrag></Data>

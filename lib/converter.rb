@@ -74,7 +74,7 @@ class Converter
       order = Order.new(order)
       items << order.positions if order.valid?
       self.errors << order.to_error_log unless order.valid?
-      self.warnings << order.to_warning_log unless customer.clean?
+      self.warnings << order.to_warning_log unless order.clean?
     end
     # 20 different orders each with 1 same item
     # each item has different price
@@ -117,7 +117,7 @@ class Converter
     end
   end
 
-  def save_as_warning_log(element, element_number)
+  def save_as_warn_log(element, element_number)
     warning = element.to_warning_log
     self.warnings << warning
     File.open(create_filename_for(element, element_number,'warning.log'), 'w') do |f|
@@ -150,12 +150,21 @@ class Converter
     FileUtils.rm_rf(self.tmp_directory)
   end
 
+  def error_report
+    self.errors.flatten.uniq.join("\n")
+  end
+
+  def warn_report
+    self.warnings.flatten.uniq.join("\n")
+  end
+
   def self.xml_get(field, order)
     if order.at(field)
       order.at(field).innerHTML.gsub(/\s/," ").gsub(/( )+/," ").strip
     else
-      self.errors << "Field #{field} not found at << #{order.at('Betreff_NR').innerHTML.strip} >>" if order.at('Betreff_NR')
-      ""
+      unless is_optional?(field)
+        raise "Field #{field} not found at << #{order.at('Betreff_NR').innerHTML.strip} >>" if order.at('Betreff_NR')
+      end
     end
   end
 
@@ -217,7 +226,9 @@ class Converter
       "Warensendung Maxi"                                                 => { :shipping_code =>24,  :delivery_terms_code =>  1},
       "Fedex"                                                             => { :shipping_code =>25,  :delivery_terms_code =>  1}
     }
-    delivery_code_map[str]
+    result = delivery_code_map[str]
+    raise "Undefined delivery '#{str}'" unless result
+    result
   end
 
   def self.payment_code(str)
@@ -267,6 +278,7 @@ class Converter
     }
 
     result = payment_code_map[str]
+    raise "Undefined payment '#{str}'" unless result
     result
   end
 
@@ -282,6 +294,12 @@ class Converter
       "5.3 VER3"  => 8,
       "6 TIL"     => 9,
       "7 JOK"     => 10 }
-    representatives[str]
+    result = representatives[str]
+    raise "Undefined representative '#{str}'" unless result
+    result
+  end
+
+  def self.is_optional?(field)
+    %w(Nachbem KdNrbeimLief Nebenleistungen Bestellnr AUFTR_IST_GES_RAB_BETRAG_Text Bezugsnummer).include?(field)
   end
 end

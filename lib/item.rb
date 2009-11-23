@@ -8,7 +8,8 @@ class Item
   attr_accessor :errors, :warnings
 
   def initialize(order)
-
+    self.errors   = []
+    self.warnings = []
     {
       :id= => 'Artikel_NR',
       :title= => 'Artikel_Text',
@@ -34,7 +35,6 @@ class Item
     self.netprice_1   = Converter.convert_value(self.netprice_1) || '0.00'
     self.tax_code     = Converter.convert_value(self.tax_code)   || '0.00'
     calculate_grossprice_1
-    self.errors = []
     # need taxcode
     if self.tax_code == '0.00'
       self.tax_code = 0
@@ -104,7 +104,7 @@ class Item
 
   def placeholder?
     result = true
-    [:id, :grossprice, :quantity].each do |field|
+    [:id, :grossprice_1, :quantity].each do |field|
       e = self.send(field)
       result &&= (e == "" || e.nil? || e == "0" || e == "0.00")
     end

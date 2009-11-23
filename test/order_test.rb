@@ -34,7 +34,7 @@ class OrderTest < Test::Unit::TestCase
   def test_order_type_must_be_valid
     @orders.each do |order|
       order_type = order.order_type
-      assert_equal 1, order_type, "OrderType must be set to 1 by default"
+      assert_equal "<orderType>1</orderType>", order_type, "OrderType must be set to 1 by default"
     end
   end
   # Wenn die Lieferadresse von der Rechnungsadresse abweicht, sollte
@@ -46,7 +46,7 @@ class OrderTest < Test::Unit::TestCase
     orders = @converter.invoices
     orders.each do |o|
       if Address.differs?(o.address, o.delivery_note.address)
-        assert ((o.delivery_print_code == 1) && (o.invoice_print_code == 0)), 'Invoice address differs from delivery address, but the invoice is packed within the delivered package'
+        assert ((o.delivery_print_code == "1") && (o.invoice_print_code == "0")), 'Invoice address differs from delivery address, but the invoice is packed within the delivered package'
       end
     end
   end
@@ -69,11 +69,11 @@ class OrderTest < Test::Unit::TestCase
   #  end
   #end
   # jede Rechnung sollte die Bezugsnummer in der xml unter referenz1 ausgeben
-  def test_invoice_with__number_has_this_value_at_reference_1
+  def test_invoice_with_number_has_this_value_at_reference_1
     @converter.convert
     order = @converter.invoices.first
     order.order_confirmation_id = 1337
-    assert_match /<reference1>1337<\/reference1>/, order.to_xml, "reference1 must include reference_number"
+    assert_match /<reference1><!\[CDATA\[1337\]\]><\/reference1>/, order.to_xml, "reference1 must include reference_number"
   end
 
   def test_deliverer_id_and_order_number_will_be_concatenated_in_reference2

@@ -22,7 +22,7 @@ class ConverterTest < Test::Unit::TestCase
     @converter = Converter.new(make_file("111_items"))
     assert_equal 111, @converter.item_count
     assert_equal 1, @converter.order_count
-    assert_equal 1, @converter.customer_count
+    assert @converter.customer_count == 1, "Expected one customer. #{@converter.error_report}"
     assert_match @converter.tmp_filename, @converter.tmp_directory
     assert_equal @converter.invoices.size, @converter.delivery_notes.size
   end

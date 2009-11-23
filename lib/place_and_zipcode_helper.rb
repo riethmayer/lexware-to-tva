@@ -70,7 +70,11 @@ module PlaceAndZipcodeHelper
         'Jordanien'                    => 96,
         'Vereinigte Arabische Emirate' => 97
       }
-      countries[name]
+      result = countries[name]
+      unless is_empty = !!name.to_s.downcase.length
+        raise "Undefined country '#{name}' #{is_empty}" unless result
+      end
+      result
     end
   end
 

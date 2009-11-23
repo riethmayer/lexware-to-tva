@@ -24,13 +24,13 @@ class CustomerTest < Test::Unit::TestCase
   #
   def test_default_currency_should_be_euro_for_all_customers
     @customers.each do |customer|
-      assert_equal 1, customer.currency_code
+      assert_equal "<currencyCode>1</currencyCode>", customer.currency_code
     end
   end
 
   def test_default_language_should_be_german_for_all_customers
     @customers.each do |customer|
-      assert_equal 0, customer.language_id
+      assert_equal "<languageId>0</languageId>", customer.language_id
     end
   end
 

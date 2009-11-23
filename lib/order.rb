@@ -2,7 +2,7 @@
 class Order
   attr_accessor :positions, :customer, :order, :address, :delivery_address
   attr_accessor :shipping, :payment_code, :payment_mode, :discount
-  attr_accessor :delivery_print_code, :invoice_print_code, :delivery_date, :shipping_code, :delivery_terms_code
+  attr_accessor :invoice_print_code, :delivery_date, :shipping_code, :delivery_terms_code
   attr_accessor :additional_text, :is_delivery_note, :delivery_note, :is_invoice
   attr_accessor :representative, :order_number, :description, :order_type
   attr_accessor :order_confirmation_id, :delivery_note_id, :id, :deliverer_id
@@ -24,15 +24,12 @@ class Order
     self.description                = Converter.xml_get('Auftragsbeschreibung', order)
     self.discount                   = Converter.xml_get('AUFTR_IST_GES_RAB_BETRAG_Text', order)
     extract_deliverer_id
-    self.order_type                 = 1 # fix
-    self.delivery_print_code        = 1 # always print delivery_note
-
     get_positions
     update_invoice_print_code
     set_delivery_codes
     set_payment_codes
     set_additional_costs
-    extract_discount
+    extract_discount if self.discount
   end
 
   ## Herausfinden ob es sich um ne Rechnung oder nen Lieferschein handelt.
@@ -79,14 +76,14 @@ class Order
   ### LIEFERSCHEINFINDUNG ende
 
   def valid?
-    self.errors << "customer_id is missing" unless self.customer && self.customer.id
-    self.errors << "deliveryCountryCode is missing" unless self.delivery_address && self.delivery_address.has_country_code?
-    self.errors << "deliveryTermsCode is missing"   unless self.delivery_terms_code
-    self.errors << "invoiceCountryCode is missing" unless self.address && self.address.has_country_code?
-    self.errors << "orderType is missing" unless self.order_type
-    self.errors << "paymentCode is missing" unless self.payment_code
-    self.errors << "paymentMode is missing" if self.payment_mode.nil?
-    self.errors << "shippingCode is missing" unless self.shipping_code
+#     self.errors << "customer_id is missing" unless self.customer && self.customer.id
+#     self.errors << "deliveryCountryCode is missing" unless self.delivery_address && self.delivery_address.has_country_code?
+#     self.errors << "deliveryTermsCode is missing"   unless self.delivery_terms_code
+#     self.errors << "invoiceCountryCode is missing" unless self.address && self.address.has_country_code?
+#     self.errors << "orderType is missing" unless self.order_type
+#     self.errors << "paymentCode is missing" unless self.payment_code
+#     self.errors << "paymentMode is missing" if self.payment_mode.nil?
+#     self.errors << "shippingCode is missing" unless self.shipping_code
     self.errors.empty?
   end
 
@@ -115,15 +112,19 @@ class Order
   # 0 : nein, 1 : ja, default : ja
   def update_invoice_print_code
     if self.delivery_note && Address.differs?(self.address, self.delivery_note.address)
-      self.invoice_print_code = 0
+      self.invoice_print_code = "0"
     else
-      self.invoice_print_code = 1
+      self.invoice_print_code = "1"
     end
   end
   # conversion from comma to point values
   def extract_discount
-    discount = self.discount.match(/abzgl. (\d\d),(\d\d)%/)
-    self.discount = "#{discount[1]}.#{discount[2]}" if discount
+    m = self.discount.match(/abzgl. (\d\d|\d),(\d\d)/)
+    if m
+      self.discount = "#{m[1]}.#{m[2]}"
+    else
+      self.discount = nil
+    end
   end
   # extrem wichtig, dass die einzelnen Positionen samt Preis gespeichert werden
   def get_positions
@@ -191,6 +192,10 @@ class Order
     invoice? ? "Invoice" : "DeliveryNote"
   end
 
+  def error_id
+    self.id || self.delivery_note_id || self.order_confirmation_id
+  end
+
   def convert_date(date)
     date_match = date.match /(\d\d|\d)\.(\d\d)\.(\d\d\d\d)/
     if date_match && date_match.length == 4
@@ -208,36 +213,305 @@ class Order
     !!self.shipping
   end
 
-  def delivery_country_code
-    if  self.delivery_address &&
-        self.delivery_address.country &&
-        self.delivery_address.country.code
-      self.delivery_address.country.code
-    else
-      this_id = self.id || self.delivery_note_id || self.order_confirmation_id
-      self.errors << "delivery_country_code missing for #{self.type} #{this_id} <<#{self.delivery_address.country.name}>>"
-      0
-    end
-  end
-
   ## XML OUTPUT ##
 
   def add_costs_xml
     if self.add_costs?
-      <<-COSTS
-<addCosts1>#{self.shipping[:text]}</addCosts1>
-<addCostsValue1>#{self.shipping[:value]}</addCostsValue1>
-COSTS
+      txt = self.shipping[:text]
+      val = self.shipping[:value]
+      if txt && val
+        return [xml_field('addCosts1', txt), xml_field('addCostsValue1', val, false)].join("\n")
+      else
+        raise_error("Shipping costs invalid: text => '#{txt}', value => '#{val}'")
+      end
+    else
+      ""
+    end
+  end
+
+  def additional_text_xml
+    result = self.additional_text.to_s.length > 0 ? self.additional_text : nil
+    if result
+      xml_field('addText', result, true, 250)
+    else
+      ""
+    end
+  end
+
+  def customer_id
+    result = self.customer ? self.customer.id : nil
+    if result
+      xml_field('customerId', result, false)
+    else
+      raise_error('CustomerId missing')
+    end
+  end
+
+  def delivery_country_code
+    if  self.delivery_address &&
+        self.delivery_address.country &&
+        self.delivery_address.country.code
+      result = self.delivery_address.country.code
+      xml_field('deliveryCountryCode', result, false)
+    elsif !self.delivery_address
+      if self.address && self.address.country && self.address.country.code
+        self.delivery_address = self.address
+        xml_field('deliveryCountryCode', self.address.country.code, false)
+      else
+        raise_error("Has neither valid invoice- nor delivery-address")
+      end
+    elsif !self.delivery_address.country
+      raise_error("delivery_address.country missing")
+    else
+      raise_error("delivery_address.country.code missing")
+    end
+  end
+
+  def delivery_date_xml
+    result = self.delivery_date
+    if result
+      xml_field('deliveryDate', result, false)
+    else
+      ""
+    end
+  end
+
+  def delivery_company
+    self.delivery_address ? self.delivery_address.company : nil
+  end
+
+  def delivery_salutation
+    result = self.delivery_address ? self.delivery_address.salutation : "Frau/Herr/Firma"
+  end
+
+  def delivery_fullname
+    self.delivery_address ? self.delivery_address.fullname : nil
+  end
+  def delivery_name_1
+    result = delivery_company ? "Firma #{delivery_company}" : delivery_salutation
+    xml_field('deliveryName1', result)
+  end
+
+  def delivery_name_2
+    result = delivery_company && delivery_fullname ? "Z.Hd. #{delivery_fullname}" : (delivery_fullname || nil)
+    if result
+      xml_field('deliveryName2', result)
+    else
+      ""
+    end
+  end
+
+  def delivery_name_3
+    result = self.delivery_address ? self.delivery_address.addition : nil
+    if result
+      xml_field('deliveryName3', result)
+    else
+      ""
+    end
+  end
+
+  def delivery_place
+    result = self.delivery_address ? self.delivery_address.place : nil
+    if result
+      xml_field('deliveryPlace', result)
+    else
+      ""
+    end
+  end
+
+  # is always 1
+  def delivery_print_code
+    "1"
+  end
+
+  def delivery_print_code_xml
+    xml_field('deliveryPrintCode', delivery_print_code, false)
+  end
+
+  def delivery_street
+    result = self.delivery_address ? self.delivery_address.street : nil
+    if result
+      xml_field('deliveryStreet', result)
+    else
+      ""
+    end
+  end
+
+  def delivery_codes
+    fst = self.shipping_code
+    snd = self.delivery_terms_code
+    if fst && snd
+      [
+       xml_field('shippingCode', fst, false),
+       xml_field('deliveryTermsCode', snd, false)
+      ].join("\n")
+    else
+      raise_error("deliveryTermsCode (#{fst}) or shippingCode (#{snd}) missing")
+    end
+  end
+
+  def delivery_zipcode
+    result = self.delivery_address ? self.delivery_address.zipcode : nil
+    if result
+      raise_error("deliveryZipCode is longer than 6 chars") if result.length > 6
+      xml_field('deliveryZipCode', result, true, 6)
     else
       ""
     end
   end
 
   def discount_xml
-    if self.discount
-      "<discount1>#{self.discount}</discount1>"
+    result = self.discount || nil
+    if result
+      xml_field('discount', result, false)
     else
       ""
+    end
+  end
+
+  def gross_price_code
+    result = self.customer && self.customer.pays_taxes? ? 1 : 0
+    xml_field('grossPriceCode', result, false)
+  end
+
+  def invoice_country_code
+    result = self.address && self.address.country ? self.address.country.code : nil
+    if result
+      xml_field('invoiceCountryCode', result, false)
+    else
+      raise_error('invoiceCountryCode missing')
+    end
+  end
+
+  def invoice_name_1
+    result = self.address ? self.address.salutation : "Frau/Herr/Firma"
+    xml_field('invoiceName1', result)
+  end
+
+  def invoice_name_2
+    result = self.address ? self.address.fullname : nil
+    if result
+      xml_field('invoiceName2', result)
+    else
+      ""
+    end
+  end
+
+  def invoice_name_3
+    result = self.address ? self.address.addition : nil
+    if result
+      xml_field('invoiceName3', result)
+    else
+      ""
+    end
+  end
+
+  def invoice_place
+    result = self.address ? self.address.place : nil
+    if result
+      xml_field('invoicePlace', result)
+    else
+      ""
+    end
+  end
+
+  def invoice_print_code_xml
+    xml_field('invoicePrintCode', self.invoice_print_code, false)
+  end
+
+  def invoice_street
+    result = self.address ? self.address.street : nil
+    if result
+      xml_field('invoiceStreet', result)
+    end
+  end
+
+  def invoice_zipcode
+    result = self.address ? self.address.zipcode : nil
+    if result
+      raise_error("invoiceZipCode ist too long") if result.length > 6
+      xml_field('invoiceZipCode', result, true, 6)
+    else
+      ""
+    end
+  end
+
+  # ist standardmaessig 1 bei uns
+  def order_type
+    xml_field('orderType', 1, false)
+  end
+
+  def payment_codes
+    if self.payment_code && %w(0 1 2 3 4).include?(self.payment_mode)
+      [
+       xml_field('paymentCode', self.payment_code, false),
+       xml_field('paymentMode', self.payment_mode, false)
+      ].join("\n")
+    else
+      raise_error("Payment invalid")
+    end
+  end
+
+
+  def reference_1
+    result = self.order_confirmation_id || nil
+    if result
+      xml_field('reference1', result.to_s)
+    else
+      ""
+    end
+  end
+
+  def reference_2
+    fst = self.order_number
+    snd = self.deliverer_id
+    if fst && snd
+      xml_field('reference2', "#{fst} ; #{snd}")
+    elsif fst
+      xml_field('reference2', fst)
+    elsif snd
+      xml_field('reference2', snd)
+    else
+      ""
+    end
+  end
+
+  def representative_1
+    result = self.representative || nil
+    if result
+      xml_field('representative1', result, false)
+    end
+  end
+
+  def short_name
+    result = self.customer ? self.customer.short_name : nil
+    if result
+      xml_field('shortName', result, true, 10)
+    else
+      ""
+    end
+  end
+
+  def urgent_code
+    urgency = self.urgent? ? 1 : 0
+    xml_field('urgentCode', urgency, false )
+  end
+
+  def raise_error(str)
+    raise "#{str} for #{self.type} #{self.error_id}"
+  end
+
+  # maxlength = 0 means no limitation (which is true for numbers only)
+  def xml_field(fieldname, content, cdata = true, maxlength = 40)
+    if(content.to_s.length > 0)
+      entry = if cdata
+                "<![CDATA[#{content[0..maxlength-1]}]]>"
+              else
+                content
+              end
+      return "<#{fieldname}>#{entry}</#{fieldname}>"
+    else
+      return ""
     end
   end
 
@@ -249,69 +523,48 @@ COSTS
     xmls.join("\n")
   end
 
-  def additional_text_xml
-    unless self.additional_text.nil? || self.additional_text == ""
-      "<addText><![CDATA[#{self.additional_text[0..249]}]]></addText>"
-    end
-  end
-
+  # ATT: delivery_country_code must have precedence before all other address related
+  #      methods, as this is a mandatory field and delivery_address will be
+  #      invoice address if no invoice address is specified
+  #      The order is important, as delivery notes update invoices, so this info
+  #      is the most recent
   def to_xml
-    company    = self.delivery_address.company if self.delivery_address
-    salutation = self.delivery_address.salutation if self.delivery_address
-    salutation = salutation || self.address.salutation
-    fullname   = self.delivery_address.fullname if self.delivery_address
-    fullname   = fullname || self.address.fullname
-    street     = self.delivery_address.street if self.delivery_address
-    street     = street || self.address.street
-    place      = self.delivery_address.place if self.delivery_address
-    place      = place || self.address.place
-    country    =  self.delivery_address.country.code if self.delivery_address && self.delivery_address.country
-    zipcode    = self.delivery_address.zipcode if self.delivery_address
-    zipcode    = zipcode || self.address.zipcode
-    invoice_addition   = self.address.addition
-    delivery_addition  = self.delivery_address.addition if self.delivery_address
-    delivery_address_1 = company ? "Firma #{company}" : salutation
-    delivery_address_2 = company ? "Z.Hd. #{fullname}" : fullname
-    delivery_address_3 = delivery_addition ? delivery_addition : invoice_addition
-    delivery_place = place ? place : self.address.place
-    country_code   = country ? country : self.address.country.code
-    gross_price_code = self.customer.pays_taxes? ? 1 : 0 # other than customer taxcode
-    reference2 = "#{self.order_number} ; #{self.deliverer_id}"[0..39]
     return <<-XML
 <?xml version="1.0"?>
 <Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///order.xsd">
-  <order>#{add_costs_xml}
-    #{self.additional_text_xml}
-    <customerId>#{self.customer.id}</customerId>
-    <deliveryCountryCode>#{country_code}</deliveryCountryCode>
-    <deliveryDate>#{self.delivery_date}</deliveryDate>
-    <deliveryName1><![CDATA[#{delivery_address_1[0..39]}]]></deliveryName1>
-    <deliveryName2><![CDATA[#{delivery_address_2[0..39]}]]></deliveryName2>
-    <deliveryName3><![CDATA[#{delivery_address_3[0..39]}]]></deliveryName3>
-    <deliveryPlace><![CDATA[#{place[0..39]}]]></deliveryPlace>
-    <deliveryPrintCode>1</deliveryPrintCode>
-    <deliveryStreet><![CDATA[#{street[0..39]}]]></deliveryStreet>
-    <deliveryTermsCode>#{self.delivery_terms_code}</deliveryTermsCode>
-    <deliveryZipCode><![CDATA[#{zipcode}]]></deliveryZipCode>
+  <order>
+    #{add_costs_xml}
+    #{additional_text_xml}
+    #{customer_id}
+    #{delivery_country_code}
+    #{delivery_date_xml}
+    #{delivery_name_1}
+    #{delivery_name_2}
+    #{delivery_name_3}
+    #{delivery_place}
+    #{delivery_print_code}
+    #{delivery_street}
+    #{delivery_codes}
+    #{delivery_zipcode}
     #{discount_xml}
-    <grossPriceCode>#{gross_price_code}</grossPriceCode>
-    <invoiceCountryCode>#{self.customer.address.country.code}</invoiceCountryCode>
-    <invoiceName1><![CDATA[#{self.address.salutation[0..39]}]]></invoiceName1>
-    <invoiceName2><![CDATA[#{self.address.fullname[0..39]}]]></invoiceName2>
-    <invoiceName3><![CDATA[#{self.address.addition[0..39]}]]></invoiceName3>
-    <invoicePlace><![CDATA[#{self.address.place}]]></invoicePlace>
-    <invoicePrintCode>#{self.invoice_print_code}</invoicePrintCode>
-    <invoiceStreet><![CDATA[#{self.address.street[0..39]}]]></invoiceStreet>
-    <invoiceZipCode><![CDATA[#{self.address.zipcode}]]></invoiceZipCode>
-    <orderType>#{self.order_type}</orderType>
-    <paymentCode>#{self.payment_code}</paymentCode>
-    <paymentMode>#{self.payment_mode}</paymentMode>
-    <reference1>#{self.order_confirmation_id}</reference1>
-    <reference2><![CDATA[#{reference2[0..39]}]]></reference2>
-    <representative1>#{self.representative}</representative1>
-    <shippingCode>#{self.shipping_code}</shippingCode>
-    <shortName><![CDATA[#{self.customer.short_name}]]></shortName>
-    <urgentCode>#{self.urgent? ? 1 : 0}</urgentCode>
+    #{gross_price_code}
+    #{invoice_country_code}
+    #{invoice_name_1}
+    #{invoice_name_2}
+    #{invoice_name_3}
+    #{invoice_place}
+    #{invoice_print_code_xml}
+    #{invoice_street}
+    #{invoice_zipcode}
+    #{order_type}
+    #{payment_codes}
+    #{reference_1}
+    #{reference_2}
+    #{representative_1}
+    #{shipping_code}
+    #{short_name}
+    #{urgent_code}
+
     <positionen AnzPos="#{positions.length}">
 
 #{xml_for(positions)}

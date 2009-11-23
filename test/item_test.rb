@@ -14,13 +14,16 @@ class ItemTest < Test::Unit::TestCase
   end
 
   def test_a_long_item_description_has_at_most_40_chars
+    assert @converter.errors.empty?, "Converter had #{@converter.errors.size} Errors: \n #{@converter.errors.flatten.join("\n")}"
     item = @items.first
+    assert item, "There is no first item in #{@items.size} Items <<#{@items}>>"
     assert item.title, "Item #{item.id} was expected to have a title"
     assert item.title.length <= 40, "Item #{item.id} was expected to have less or equal than 40 chars but had #{item.title.length}: #{item.title}"
   end
 
   def test_an_article_with_80_chars_title_has_a_description_2_field_with_40_chars
     item = @items.first
+    assert item, "There is no first item in #{@items.size} Items <<#{@items}>>"
     item.title = "This is a very fancy title with a length of exactly 80 beautiful chars in total."
     assert "This is a very fancy title with a length" == item.truncated_title[0], "This is a very fancy title with a length != #{item.truncated_title[0]}"
     assert "of exactly 80 beautiful chars in total." == item.truncated_title[1], "of exactly 80 beautiful chars in total. != #{item.truncated_title[1]}"
@@ -30,6 +33,7 @@ class ItemTest < Test::Unit::TestCase
 
   def test_an_article_with_160_chars_title_has_a_description_2_3_and_4field_with_40_chars
     item = @items.first
+    assert item, "There is no first item in #{@items.size} Items <<#{@items}>>"
     item.title = "This is a very fancy title with length of exactly 160 beautiful chars in total, again it's a very fancy title with length of exactly 160 beautiful chars in tot."
     assert "This is a very fancy title with length" == item.truncated_title[0], "This is a very fancy title with a length != #{item.truncated_title[0]}"
     assert "of exactly 160 beautiful chars in total," == item.truncated_title[1], "of exactly 80 beautiful chars in total. != #{item.truncated_title[1]}"
