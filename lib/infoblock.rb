@@ -6,7 +6,7 @@ class Infoblock
       :editor=        => 'Bearbeiter',
       :taxno=         => 'SteuerNr',
       :attachment_no= => 'Bezugsnummer',
-      :ustidnr=       => 'USTIDNR',
+      :ustidnr=       => 'KD_EG_ID_Nummer',
       :delivered_at=  => 'Lieferdatum',
       :invoiced_at=   => 'Belegdatum',
       :state=         => 'FreifeldKd1Bez',

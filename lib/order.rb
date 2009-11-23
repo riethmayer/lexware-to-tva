@@ -497,6 +497,13 @@ class Order
     xml_field('urgentCode', urgency, false )
   end
 
+  def order_release_code
+    result = self.payment_mode && self.payment_mode == "4"
+    if result
+      xml_field('orderReleaseCode', "1", false)
+    end
+  end
+
   def raise_error(str)
     raise "#{str} for #{self.type} #{self.error_id}"
   end
@@ -564,7 +571,7 @@ class Order
     #{shipping_code}
     #{short_name}
     #{urgent_code}
-
+    #{order_release_code}
     <positionen AnzPos="#{positions.length}">
 
 #{xml_for(positions)}
