@@ -76,14 +76,14 @@ class Order
   ### LIEFERSCHEINFINDUNG ende
 
   def valid?
-#     self.errors << "customer_id is missing" unless self.customer && self.customer.id
-#     self.errors << "deliveryCountryCode is missing" unless self.delivery_address && self.delivery_address.has_country_code?
-#     self.errors << "deliveryTermsCode is missing"   unless self.delivery_terms_code
-#     self.errors << "invoiceCountryCode is missing" unless self.address && self.address.has_country_code?
-#     self.errors << "orderType is missing" unless self.order_type
-#     self.errors << "paymentCode is missing" unless self.payment_code
-#     self.errors << "paymentMode is missing" if self.payment_mode.nil?
-#     self.errors << "shippingCode is missing" unless self.shipping_code
+    self.errors << "customer_id is missing" unless self.customer && self.customer.id
+    self.errors << "deliveryCountryCode is missing" unless self.delivery_address && self.delivery_address.has_country_code?
+    self.errors << "deliveryTermsCode is missing"   unless self.delivery_terms_code
+    self.errors << "invoiceCountryCode is missing" unless self.address && self.address.has_country_code?
+    self.errors << "orderType is missing" unless self.order_type
+    self.errors << "paymentCode is missing" unless self.payment_code
+    self.errors << "paymentMode is missing" if self.payment_mode.nil?
+    self.errors << "shippingCode is missing" unless self.shipping_code
     self.errors.empty?
   end
 

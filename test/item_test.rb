@@ -14,7 +14,7 @@ class ItemTest < Test::Unit::TestCase
   end
 
   def test_a_long_item_description_has_at_most_40_chars
-    assert @converter.errors.empty?, "Converter had #{@converter.errors.size} Errors: \n #{@converter.errors.flatten.join("\n")}"
+    assert @converter.errors.empty?, "Converter had #{@converter.errors.size} Errors: \n #{@converter.error_report} #{@items}"
     item = @items.first
     assert item, "There is no first item in #{@items.size} Items <<#{@items}>>"
     assert item.title, "Item #{item.id} was expected to have a title"
