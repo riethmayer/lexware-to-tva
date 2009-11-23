@@ -15,3 +15,9 @@ task :install do
   puts "installing hpricot"
   `gem install hpricot`
 end
+
+desc "Deletes temporary files"
+task :cleanup do
+  puts "cleaning up tmp/conversions"
+  FileUtils.rm_rf("./tmp/conversions/")
+end
