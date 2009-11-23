@@ -137,13 +137,9 @@ class Converter
 
   def compressed_files
     FileUtils.cd(self.tmp_directory)
-    `zip #{self.tmp_filename}.zip *.xml`
-    `zip #{self.tmp_filename}_errors.zip *.error.log`
-    `zip #{self.tmp_filename}_warnings.zip *.warning.log`
+    `zip #{self.tmp_filename}.zip *.*`
     xml_file = File.new("#{self.tmp_filename}.zip")
-    err_file = File.new("#{self.tmp_filename}_errors.zip")
-    wrn_file = File.new("#{self.tmp_filename}_warnings.zip")
-    return [xml_file,err_file,wrn_file]
+    return xml_file
   end
 
   def cleanup_temporary_files
