@@ -13,7 +13,7 @@ end
 desc "Installs all gems to this project"
 task :install do
   puts "installing hpricot"
-  `gem install hpricot`
+  `gem install hpricot mocha`
 end
 
 desc "Deletes temporary files"

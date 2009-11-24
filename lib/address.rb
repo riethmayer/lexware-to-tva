@@ -2,7 +2,12 @@
 class Address
   include PlaceAndZipcodeHelper
   attr_accessor :salutation, :company, :fullname, :addition, :street, :zipcode, :place, :country
-  def initialize(address)
+
+  def initialize(default = nil)
+    self.import(default) if default
+  end
+
+  def import(address)
     { :salutation= => 'KundeAnrede',
       :company=    => 'KundeFirma',
       :fullname=   => 'KundeNameVorname',
@@ -25,5 +30,9 @@ class Address
   end
   def self.differs?(a1,a2)
    ( a1.street != a2.street) || (a1.zipcode != a2.zipcode) || (a1.country != a2.country)
+  end
+
+  # to use factories
+  def save!
   end
 end

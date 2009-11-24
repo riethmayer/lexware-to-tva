@@ -1,14 +1,18 @@
 # -*- encoding: utf-8 -*-
 class Order
   attr_accessor :positions, :customer, :order, :address, :delivery_address
-  attr_accessor :shipping, :payment_code, :payment_mode, :discount
-  attr_accessor :invoice_print_code, :delivery_date, :shipping_code, :delivery_terms_code
+  attr_accessor :shipping, :discount
+  attr_accessor :invoice_print_code
   attr_accessor :additional_text, :is_delivery_note, :delivery_note, :is_invoice
-  attr_accessor :representative, :order_number, :description, :order_type
+  attr_accessor :order_number, :description, :order_type
   attr_accessor :order_confirmation_id, :delivery_note_id, :id, :deliverer_id
   attr_accessor :errors, :warnings
 
-  def initialize(order)
+  def initialize(default = nil)
+    self.import(default) if default
+  end
+
+  def import(order)
     self.errors = []
     self.warnings = []
     self.order                      = order
@@ -17,19 +21,14 @@ class Order
     invoice_or_delivery_note
     self.customer                   = Customer.new(order)
     self.address                    = self.customer.address
-    self.additional_text            = Converter.xml_get('Nachbem',order) ## !! 600+ chars
-    self.delivery_date = convert_date(Converter.xml_get('Lieferdatum', order))
+    self.additional_text            = Converter.xml_get('Nachbem',order)
     self.order_number               = Converter.xml_get('Bestellnr', order)
-    self.representative             = Converter.xml_get('Bearbeiter', order)
     self.description                = Converter.xml_get('Auftragsbeschreibung', order)
-    self.discount                   = Converter.xml_get('AUFTR_IST_GES_RAB_BETRAG_Text', order)
+    discount_wrapper                = order.at('AUFTR_IST_GES_RAB_BETRAG_Text')
+    self.discount                   = discount_wrapper ? Converter.xml_get('AUFTR_IST_GES_RAB_BETRAG_Text', discount_wrapper) : nil
     extract_deliverer_id
     get_positions
     update_invoice_print_code
-    set_delivery_codes
-    set_payment_codes
-    set_additional_costs
-    extract_discount if self.discount
   end
 
   ## Herausfinden ob es sich um ne Rechnung oder nen Lieferschein handelt.
@@ -78,12 +77,12 @@ class Order
   def valid?
     self.errors << "customer_id is missing" unless self.customer && self.customer.id
     self.errors << "deliveryCountryCode is missing" unless self.delivery_address && self.delivery_address.has_country_code?
-    self.errors << "deliveryTermsCode is missing"   unless self.delivery_terms_code
+    self.errors << "deliveryTermsCode is missing"   unless self.customer.delivery_terms_code
     self.errors << "invoiceCountryCode is missing" unless self.address && self.address.has_country_code?
     self.errors << "orderType is missing" unless self.order_type
-    self.errors << "paymentCode is missing" unless self.payment_code
-    self.errors << "paymentMode is missing" if self.payment_mode.nil?
-    self.errors << "shippingCode is missing" unless self.shipping_code
+    self.errors << "paymentCode is missing" unless self.customer.payment_code
+    self.errors << "paymentMode is missing" if self.customer.payment_mode.nil?
+    self.errors << "shippingCode is missing" unless self.customer.shipping_code
     self.errors.empty?
   end
 
@@ -120,12 +119,9 @@ class Order
   # conversion from comma to point values
   def extract_discount
     m = self.discount.match(/abzgl. (\d\d|\d),(\d\d)/)
-    if m
-      self.discount = "#{m[1]}.#{m[2]}"
-    else
-      self.discount = nil
-    end
+    m ? "#{m[1]}.#{m[2]}" : nil
   end
+
   # extrem wichtig, dass die einzelnen Positionen samt Preis gespeichert werden
   def get_positions
     self.positions = []
@@ -143,32 +139,11 @@ class Order
         :text => Converter.xml_get('Nebenleistungen_Text', self.order),
         :value => Converter.convert_value(Converter.xml_get('Nebenleistungen_Betrag', self.order))
       }
-      self.shipping = nil if "#{self.shipping[:text]}#{self.shipping[:value]}" == ""
+      self.shipping = nil if self.shipping[:text].length == 0 && self.shipping[:value].length == 0
     else
       self.shipping = nil
     end
   end
-
-  ## DELIVERY AND PAYMENT-CODES
-  #
-  def set_delivery_codes
-    description = Converter.xml_get('Lieferart', self.order)
-    if description
-      codes = Converter.delivery_code(description)
-      self.shipping_code        = codes[:shipping_code] if codes
-      self.delivery_terms_code  = codes[:delivery_terms_code] if codes
-    end
-  end
-  def set_payment_codes
-    payment = Converter.xml_get('Zahlungsbedingung', self.order)
-    if payment
-      codes = Converter.payment_code(payment)
-      self.payment_code        = codes[:payment_code] if codes
-      self.payment_mode        = codes[:payment_mode] if codes
-    end
-  end
-  #
-  ## END OF DELIVERY AND PAYMENT-CODES
 
   def invoice?
     self.is_invoice
@@ -196,17 +171,8 @@ class Order
     self.id || self.delivery_note_id || self.order_confirmation_id
   end
 
-  def convert_date(date)
-    date_match = date.match /(\d\d|\d)\.(\d\d)\.(\d\d\d\d)/
-    if date_match && date_match.length == 4
-      "#{date_match[3]}-#{date_match[2]}-#{date_match[1]}"
-    else
-      date
-    end
-  end
-
   def urgent?
-    self.description.downcase.match(%r{(eilt|eilig|urgent|schnell|asap|immed)})
+    self.description && self.description.downcase.match(%r{(eilt|eilig|urgent|schnell|asap|immed)})
   end
 
   def add_costs?
@@ -268,7 +234,7 @@ class Order
   end
 
   def delivery_date_xml
-    result = self.delivery_date
+    result = self.customer.infoblock.delivered_at
     if result
       xml_field('deliveryDate', result, false)
     else
@@ -338,8 +304,8 @@ class Order
   end
 
   def delivery_codes
-    fst = self.shipping_code
-    snd = self.delivery_terms_code
+    fst = self.customer.shipping_code
+    snd = self.customer.delivery_terms_code
     if fst && snd
       [
        xml_field('shippingCode', fst, false),
@@ -361,7 +327,7 @@ class Order
   end
 
   def discount_xml
-    result = self.discount || nil
+    result = self.discount ? extract_discount : nil
     if result
       xml_field('discount', result, false)
     else
@@ -442,16 +408,15 @@ class Order
   end
 
   def payment_codes
-    if self.payment_code && %w(0 1 2 3 4).include?(self.payment_mode)
+    if self.customer.payment_code && %w(0 1 2 3 4).include?(self.customer.payment_mode.to_s)
       [
-       xml_field('paymentCode', self.payment_code, false),
-       xml_field('paymentMode', self.payment_mode, false)
+       xml_field('paymentCode', self.customer.payment_code, false),
+       xml_field('paymentMode', self.customer.payment_mode, false)
       ].join("\n")
     else
       raise_error("Payment invalid")
     end
   end
-
 
   def reference_1
     result = self.order_confirmation_id || nil
@@ -477,7 +442,7 @@ class Order
   end
 
   def representative_1
-    result = self.representative || nil
+    result = Converter.representatives(self.customer.infoblock.editor) || nil
     if result
       xml_field('representative1', result, false)
     end
@@ -498,7 +463,7 @@ class Order
   end
 
   def order_release_code
-    result = self.payment_mode && self.payment_mode == "4"
+    result = self.customer.payment_mode && self.customer.payment_mode == "4"
     if result
       xml_field('orderReleaseCode', "1", false)
     end
@@ -536,49 +501,48 @@ class Order
   #      The order is important, as delivery notes update invoices, so this info
   #      is the most recent
   def to_xml
-    return <<-XML
-<?xml version="1.0"?>
-<Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///order.xsd">
-  <order>
-    #{add_costs_xml}
-    #{additional_text_xml}
-    #{customer_id}
-    #{delivery_country_code}
-    #{delivery_date_xml}
-    #{delivery_name_1}
-    #{delivery_name_2}
-    #{delivery_name_3}
-    #{delivery_place}
-    #{delivery_print_code}
-    #{delivery_street}
-    #{delivery_codes}
-    #{delivery_zipcode}
-    #{discount_xml}
-    #{gross_price_code}
-    #{invoice_country_code}
-    #{invoice_name_1}
-    #{invoice_name_2}
-    #{invoice_name_3}
-    #{invoice_place}
-    #{invoice_print_code_xml}
-    #{invoice_street}
-    #{invoice_zipcode}
-    #{order_type}
-    #{payment_codes}
-    #{reference_1}
-    #{reference_2}
-    #{representative_1}
-    #{shipping_code}
-    #{short_name}
-    #{urgent_code}
-    #{order_release_code}
-    <positionen AnzPos="#{positions.length}">
 
-#{xml_for(positions)}
+    prelude = "<?xml version='1.0'?>\n<Root xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='file:///order.xsd'>\n<order>"
+    str= [ add_costs_xml,
+           additional_text_xml,
+           customer_id,
+           delivery_country_code,
+           delivery_date_xml,
+           delivery_name_1,
+           delivery_name_2,
+           delivery_name_3,
+           delivery_place,
+           delivery_print_code,
+           delivery_street,
+           delivery_codes,
+           delivery_zipcode,
+           discount_xml,
+           gross_price_code,
+           invoice_country_code,
+           invoice_name_1,
+           invoice_name_2,
+           invoice_name_3,
+           invoice_place,
+           invoice_print_code_xml,
+           invoice_street,
+           invoice_zipcode,
+           order_type,
+           payment_codes,
+           reference_1,
+           reference_2,
+           representative_1,
+           short_name,
+           urgent_code,
+           order_release_code
+         ].compact
+    str.each do |s|
+      s = s.force_encoding('UTF-8')
+    end
+    all = str.join("\n")
+    ending = "<positionen AnzPos='#{positions.length}'>#{xml_for(positions)}</positionen>\n</order>\n</Root>"
+    prelude + all + ending
+  end
 
-    </positionen>
-  </order>
-</Root>
-XML
+  def save!
   end
 end

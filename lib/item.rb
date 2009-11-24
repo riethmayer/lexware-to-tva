@@ -3,11 +3,15 @@ require 'bigdecimal'
 
 class Item
   attr_accessor :grossprice_1, :grossprice_2, :netprice_1, :netprice_2 # money stuff
-  attr_accessor :id, :tax_code, :title, :short_title, :quantity, :position_number # properties
-  attr_accessor :language_id, :locked, :valid, :currency, :dispocode, :quantity_unit_code #defaults
+  attr_accessor :id, :item_tax, :tax_code, :title, :short_title, :quantity, :position_number # properties
+  attr_accessor :language_id, :locked, :currency, :dispocode, :quantity_unit_code #defaults
   attr_accessor :errors, :warnings
 
-  def initialize(order)
+  def initialize(default = nil)
+    self.import(default) if default
+  end
+
+  def import(order)
     self.errors   = []
     self.warnings = []
     {
@@ -17,34 +21,33 @@ class Item
       :grossprice_1= => 'Artikel_EZP',
       :netprice_1= => 'Artikel_EZP',
       :quantity= => 'Menge',
-      :position_number= => 'PositionNr',
-      :tax_code= => 'Ust-Proz'
-    }.each do |k, v|
-      self.send k, Converter.xml_get(v,order)
+      :item_tax= => 'Ust-Proz',
+      :position_number= => 'PositionNr'
+    }.each do |k,  v|
+      self.send k, Converter.xml_get(v, order)
     end
-    self.language_id= 0
-    self.locked= 0
-    self.valid= true
-    self.currency= 'EUR'
-    self.dispocode= 0
-    self.quantity_unit_code=1
-    self.grossprice_2= 0
-    self.netprice_2= 0
-    self.quantity     = Converter.convert_value(self.quantity)
-    self.grossprice_1 = Converter.convert_value(self.grossprice_1)
-    self.netprice_1   = Converter.convert_value(self.netprice_1) || '0.00'
-    self.tax_code     = Converter.convert_value(self.tax_code)   || '0.00'
+    self.language_id        = 0
+    self.locked             = 0
+    self.currency           = 'EUR'
+    self.dispocode          = 0
+    self.quantity_unit_code = 1
+    self.grossprice_2       = 0
+    self.netprice_2         = 0
+    self.quantity           = Converter.convert_value(self.quantity)
+    self.grossprice_1       = Converter.convert_value(self.grossprice_1)
+    self.netprice_1         = Converter.convert_value(self.netprice_1) || '0.00'
+    self.item_tax           = Converter.convert_value(self.item_tax)   || '19.00'
     calculate_grossprice_1
     # need taxcode
-    if self.tax_code == '0.00'
-      self.tax_code = 0
-    elsif self.tax_code == '7.00'
-      self.tax_code = 2
+    if self.item_tax == '0.00'
+      self.tax_code         = 0
+    elsif self.item_tax == '7.00' || self.item_tax == '07.00'
+      self.tax_code         = 2
     else
-      self.tax_code = 1 # 19%
+      self.tax_code         = 1 # 19%
     end
     # 40 chars restriction
-    self.short_title = self.short_title[0..39]
+    self.short_title        = self.short_title[0..39]
   end
 
   # steuersatz aus dem artikel (ist bindend)
@@ -52,7 +55,7 @@ class Item
     if(self.tax_code == '0.00')
       # do nothing, netprice is grossprice, as tax is 0
     else
-      taxs = self.tax_code
+      taxs = self.item_tax
       nets = self.netprice_1
       tax     = BigDecimal.new(taxs)
       tax     = (tax / 100) + 1
@@ -182,5 +185,8 @@ XML
   def to_warning_log
     return nil if self.warnings.empty?
     self.warnings.flatten.join("\n")
+  end
+
+  def save!
   end
 end

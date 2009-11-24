@@ -1,10 +1,14 @@
 class Infoblock
-  attr_accessor :customer_id, :editor, :taxno, :attachment_no, :ustidnr, :delivered_at, :invoiced_at, :state, :entry, :segment, :fax
+  attr_accessor :customer_id, :editor, :attachment_no, :ustidnr
+  attr_accessor :delivered_at, :invoiced_at, :state, :entry, :segment, :fax
 
-  def initialize(infoblock)
+  def initialize(default = nil)
+    self.import(default) if default
+  end
+
+  def import(infoblock)
     { :customer_id=   => 'Kundennr',
       :editor=        => 'Bearbeiter',
-      :taxno=         => 'SteuerNr',
       :attachment_no= => 'Bezugsnummer',
       :ustidnr=       => 'KD_EG_ID_Nummer',
       :delivered_at=  => 'Lieferdatum',
@@ -16,8 +20,9 @@ class Infoblock
     }.each do |k,v|
       self.send k, infoblock.at(v).innerHTML.strip if infoblock.at(v)
     end
+    self.delivered_at = Converter.convert_date(self.delivered_at)
+    self.invoiced_at  = Converter.convert_date(self.delivered_at)
     extract_attachment_no
-    cleanup_taxno
   end
 
   def extract_attachment_no
@@ -28,7 +33,6 @@ class Infoblock
     end
   end
 
-  def cleanup_taxno
-    self.taxno.gsub!(/\s+/,'')
+  def save!
   end
 end

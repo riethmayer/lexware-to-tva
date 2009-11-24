@@ -9,23 +9,28 @@ class Customer
   #    * terms and methods of delivery
   # these fields have to be provided within the order.
   attr_accessor :address, :delivery_address, :order_number
-  attr_accessor :payment_term, :payment_method, :delivery_term, :delivery_method
-  attr_accessor :inclusive_taxes, :ustid
+  attr_accessor :payment_term, :payment_mode, :payment_code
+  attr_accessor :delivery_term, :delivery_terms_code, :shipping_code
+  attr_accessor :gross_price_code, :ustid
   attr_accessor :errors, :warnings
 
-  def initialize(order)
+  def initialize(default = nil)
+    self.import(default) if default
+  end
+
+  def import(order)
     self.errors           = []
     self.warnings         = []
     self.address          = Address.new(order.at('Adresse'))
-    self.delivery_address = order.at('Lieferadresse')
-    self.delivery_address = DeliveryAddress.new(self.delivery_address) if delivery_address?
     self.infoblock        = Infoblock.new(order.at('Infoblock'))
     self.id               = infoblock.customer_id
     self.payment_term     = Converter.xml_get('Zahlungsbedingung', order)
-    deliver               = Converter.xml_get('Lieferart',order)
-    self.delivery_term    = Converter.delivery_code(deliver)[:delivery_terms_code]
-    self.delivery_method  = Converter.delivery_code(deliver)[:shipping_code]
-    self.inclusive_taxes  = 0   # wird unterschieden?
+    self.payment_mode     = Converter.payment_code(self.payment_term)[:payment_mode]
+    self.payment_code     = Converter.payment_code(self.payment_term)[:payment_code]
+    self.delivery_term    = Converter.xml_get('Lieferart',order)
+    self.delivery_terms_code = Converter.delivery_code(self.delivery_term)[:delivery_terms_code]
+    self.shipping_code    = Converter.delivery_code(self.delivery_term)[:shipping_code]
+    self.gross_price_code = 1   # wird unterschieden?
     self.ustid            = infoblock.ustidnr
     self.order_number     = Converter.xml_get('Bestellnr', order)
   end
@@ -35,7 +40,6 @@ class Customer
     self.errors << "customer_id is missing"   unless self.id
     self.errors << "address is missing"       unless self.address
     self.errors << "country is missing"       unless self.address && self.address.country
-    self.errors << "deliverycountry code is missing"  unless self.delivery_address && self.delivery_address.country && self.delivery_address.country.code
     self.errors << "invoice country code is missing"  unless self.address && self.address.country && self.address.country.code
     self.errors.flatten!
     self.errors.uniq!
@@ -43,11 +47,6 @@ class Customer
   end
 
   def clean?
-    self.warnings << "delivery address missing"  unless self.delivery_address
-    self.warnings << "delivery street missing"   unless self.delivery_address && self.delivery_address.street
-    self.warnings << "delivery addition missing" unless self.delivery_address && self.delivery_address.addition
-    self.warnings << "delivery zipcode missing"  unless self.delivery_address && self.delivery_address.zipcode
-    self.warnings << "delivery place missing"    unless self.delivery_address && self.delivery_address.place
     self.warnings << "invoice address missing"   unless self.address
     self.warnings << "invoice street missing"    unless self.address && self.address.street
     self.warnings << "invoice addition missing"  unless self.address && self.address.addition
@@ -59,7 +58,7 @@ class Customer
   end
 
   def delivery_address?
-    self.delivery_address.to_s.downcase =~ /[a-z]/
+    !!self.delivery_address
   end
 
   def to_error_log
@@ -85,7 +84,7 @@ class Customer
   end
 
   def is_german?
-    self.address.country.germany? or (self.delivery_address.country.germany?)
+    self.address.country.germany? or (self.delivery_address && self.delivery_address.country.germany?)
   end
 
   def has_ustid?
@@ -97,7 +96,7 @@ class Customer
     # Bischof-Gross AG = Schweiz, Geschäftskunde, Drittland, steuerfrei ohne ustid.
     return false unless is_eu?
     # German customers pay taxes even as business
-    return false if has_ustid? && self.address.country.germany? && !self.delivery_address.country.germany?
+    return false if has_ustid? && self.address.country.germany? && !(self.delivery_address && self.delivery_address.country.germany?)
     return true  if is_german?
     # Bluecon = Österreich, Geschäftskunde, EU, steuerfrei mit USt. ID Nr.
     return false if has_ustid?
@@ -129,43 +128,48 @@ class Customer
     end
   end
 
-  def company?
-    self.company
+  def delivery_company?
+    self.delivery_address ? self.delivery_address.company : false
   end
 
-  def company
-    return self.address.company if self.address
-    nil
+  def delivery_company
+    self.delivery_company ? self.delivery_address.company : nil
   end
 
-  def salutation
-    self.address.salutation || "Frau/Herr/Firma"
+  def invoice_company?
+    self.address && self.address.company ? true : false
+  end
+
+  def invoice_company
+    self.invoice_company? ? self.address.company : nil
+  end
+
+  def delivery_salutation
+    self.delivery_address ? delivery_address.salutation : nil
   end
 
   def delivery_address_1
-    if company? || salutation
-      result = company ? "Firma #{company}" : salutation
+    if delivery_company? || delivery_salutation
+      result = delivery_company? ? delivery_company : delivery_salutation
       xml_field('deliveryAddress1', result)
     else
-      raise_error('Neither company nor salutation exists')
+      ""
     end
   end
 
   def delivery_address_2
-    fullname   = self.address.fullname if self.address
-    fullname   ||= nil
+    fullname   = self.delivery_address ? self.delivery_address.fullname : nil
     if fullname
-      result = company? ? "Z.Hd. #{fullname}" : fullname
+      result = fullname
       xml_field('deliveryAddress2', result)
     else
-      raise_error("No fullname exists")
+      ""
     end
   end
 
   def delivery_address_3
-    invoice_addition   = self.address.addition if self.address
-    delivery_addition  = self.delivery_address.addition if self.delivery_address
-    if result = delivery_addition || invoice_addition
+    result  = self.delivery_address ? self.delivery_address.addition : nil
+    if result
       xml_field('deliveryAddress3', result)
     else
       ""
@@ -173,20 +177,23 @@ class Customer
   end
 
   def delivery_address_country_code
-    result = self.delivery_address.country.code if self.delivery_address &&
+    result = self.delivery_address &&
       self.delivery_address.country &&
-      self.delivery_address.country_code
-    result ||= nil
+      self.delivery_address.country_code ? self.delivery_address.country.code : nil
+    result || self.address.country.code
+  end
 
+  def delivery_address_country_code_xml
+    result = self.delivery_address_country_code
     if result
       xml_field('deliveryCountryCode', result, false)
     else
-      raise_error('No delivery country code exists')
+      raise_error('No delivery country code exists, even if there is no delivery country this field is mandatory and should default to invoice country code #{invoice_address_country_code}')
     end
   end
 
   def delivery_place
-    result = self.delivery_address.place if self.delivery_address
+    result = self.delivery_address ? self.delivery_address.place : nil
     if result
       xml_field('deliveryPlace', result)
     else
@@ -195,9 +202,7 @@ class Customer
   end
 
   def delivery_street
-    result = self.delivery_address.street if delivery_address
-    result ||= nil
-
+    result = delivery_address ? self.delivery_address.street :  nil
     if result
       xml_field('deliveryStreet', result)
     else
@@ -224,8 +229,8 @@ class Customer
     end
   end
 
-  def gross_price_code
-    result = self.inclusive_taxes
+  def gross_price_code_xml
+    result = self.gross_price_code
     if result
       xml_field('grossPriceCode', result, false)
     else
@@ -260,8 +265,12 @@ class Customer
     end
   end
 
-  def invoice_country_code
-    result = self.address && self.address.country ? self.address.country.code : nil
+  def invoice_address_country_code
+    self.address && self.address.country ? self.address.country.code : nil
+  end
+
+  def invoice_address_country_code_xml
+    result = self.invoice_address_country_code
     if result
       xml_field('invoiceCountryCode', result, false)
     else
@@ -301,16 +310,6 @@ class Customer
     xml_field('languageId', 0, false)
   end
 
-  def tax_number
-    result = self.infoblock ? self.infoblock.taxno : nil
-    if result
-      raise_error('taxNumber is too long') if result.length > 20
-      xml_field('taxNumber', result, true, 20)
-    else
-      ""
-    end
-  end
-
   def vat_number
     result = self.ustid || nil
     if result
@@ -339,10 +338,10 @@ class Customer
   def xml_field(fieldname, content, cdata = true, maxlength = 40)
     if(content.to_s.length > 0)
       entry = if cdata
-              "<![CDATA[#{content[0..maxlength-1]}]]>"
-            else
-              content
-            end
+                "<![CDATA[#{content[0..maxlength-1]}]]>"
+              else
+                content
+              end
       return "<#{fieldname}>#{entry}</#{fieldname}>"
     else
       return ""
@@ -350,7 +349,7 @@ class Customer
   end
 
   def raise_error(str)
-    raise "#{str} for #{self.type} #{self.id}"
+    raise "#{str} for #{self.type} #{error_id}"
   end
 
   def to_xml
@@ -363,26 +362,28 @@ class Customer
   #{delivery_address_1}
   #{delivery_address_2}
   #{delivery_address_3}
-  #{delivery_address_country_code}
+  #{delivery_address_country_code_xml}
   #{delivery_place}
   #{delivery_street}
   #{delivery_zipcode}
   #{delivery_terms_code}
-  #{gross_price_code}
+  #{gross_price_code_xml}
   #{invoice_address_1}
   #{invoice_address_2}
   #{invoice_address_3}
-  #{invoice_country_code}
+  #{invoice_address_country_code_xml}
   #{invoice_place}
   #{invoice_street}
   #{invoice_zipcode}
   #{language_id}
-  #{tax_number}
   #{tax_code}
   #{vat_number}
   #{text_1}
 </customer>
 </Root>
 XML
+  end
+
+  def save!
   end
 end

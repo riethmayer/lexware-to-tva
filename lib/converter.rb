@@ -12,7 +12,11 @@ class Converter
   BASE   = File.join(FileUtils.pwd,"tmp", "conversions")
   ## BASE   = File.join(FileUtils.pwd,"..","test", "data", "output")
 
-  def initialize(filename)
+  def initialize(default = nil)
+    self.import(default) if default
+  end
+
+  def import(filename)
     self.errors = []
     self.warnings = []
     self.filename            = filename
@@ -69,12 +73,18 @@ class Converter
   end
 
   def get_items
-    items = []
+    all_items = []
     self.raw_orders.each do |order|
       order = Order.new(order)
-      items << order.positions if order.valid?
-      self.errors << order.to_error_log unless order.valid?
-      self.warnings << order.to_warning_log unless order.clean?
+      all_items << order.positions
+    end
+    items = []
+    all_items.each do |positions|
+      positions.each do |item|
+        items << item if item.valid?
+        self.errors << item.to_error_log   unless item.valid?
+        self.errors << item.to_warning_log unless item.clean?
+      end
     end
     # 20 different orders each with 1 same item
     # each item has different price
@@ -105,7 +115,8 @@ class Converter
 
   def save_as_xml(element, element_number)
     File.open(create_filename_for(element, element_number), 'w') do |f|
-      f.write(element.to_xml)
+      res = element.to_xml
+      f.write(res)
     end
   end
 
@@ -297,5 +308,17 @@ class Converter
 
   def self.is_optional?(field)
     %w(Nachbem KdNrbeimLief Nebenleistungen Bestellnr AUFTR_IST_GES_RAB_BETRAG_Text Bezugsnummer).include?(field)
+  end
+
+  def self.convert_date(date)
+    date_match = date.match /(\d\d|\d)\.(\d\d)\.(\d\d\d\d)/
+    if date_match && date_match.length == 4
+      "#{date_match[3]}-#{date_match[2]}-#{date_match[1]}"
+    else
+      date
+    end
+  end
+
+  def save!
   end
 end
