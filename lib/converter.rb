@@ -122,17 +122,21 @@ class Converter
 
   def save_as_error_log(element, element_number)
     error = element.to_error_log
-    self.errors << error
-    File.open(create_filename_for(element, element_number,'error.log'), 'w') do |f|
-      f.write(error)
+    unless element.valid?
+      self.errors << error
+      File.open(create_filename_for(element, element_number,'error.log'), 'w') do |f|
+        f.write(error)
+      end
     end
   end
 
   def save_as_warn_log(element, element_number)
     warning = element.to_warning_log
-    self.warnings << warning
-    File.open(create_filename_for(element, element_number,'warning.log'), 'w') do |f|
-      f.write(element.to_warning_log)
+    unless element.clean?
+      self.warnings << warning
+      File.open(create_filename_for(element, element_number,'warning.log'), 'w') do |f|
+        f.write(element.to_warning_log)
+      end
     end
   end
 
