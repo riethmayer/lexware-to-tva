@@ -191,6 +191,7 @@ class Converter
       "günstigster Versand"                                               => { :shipping_code =>2,   :delivery_terms_code =>  1},
       "02 DHL National - versandkostenfrei"                               => { :shipping_code =>3,   :delivery_terms_code =>  1},
       "02 DHL National"                                                   => { :shipping_code =>3,   :delivery_terms_code =>  1},
+      "03 Express"                                                        => { :shipping_code =>26,  :delivery_terms_code =>  1},
       "DPD Paket - versandkostenfrei"                                     => { :shipping_code =>4,   :delivery_terms_code =>  1},
       "DPD Paket"                                                         => { :shipping_code =>4,   :delivery_terms_code =>  1},
       "DPD Int - versandkostenfrei"                                       => { :shipping_code =>4,   :delivery_terms_code =>  1},
