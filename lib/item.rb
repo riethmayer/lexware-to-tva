@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # rabatte fuer privatkunden werden schon so als festpreis uebergeben
 require 'bigdecimal'
 
@@ -162,6 +163,7 @@ PARTIAL
     <grossPrice1>#{self.grossprice_1}</grossPrice1>
     <grossPrice2>#{self.grossprice_2}</grossPrice2>
     <itemId>#{self.id}</itemId>
+    <itemGroup>3</itemGroup>
     <languageId>#{self.language_id}</languageId>
     <locked>#{self.locked}</locked>
     <netPrice1>#{self.netprice_1}</netPrice1>

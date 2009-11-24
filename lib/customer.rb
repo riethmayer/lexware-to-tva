@@ -121,8 +121,8 @@ class Customer
 
   def short_name
     if self.address
-      name = self.address.fullname || self.address.company
-      name.split(' ').last[0..9]
+      name = self.address.company || self.address.fullname
+      name[0..9]
     else
       raise_error("Neither fullname nor company exists")
     end
@@ -331,7 +331,14 @@ class Customer
 
   def tax_code
     result = self.pays_taxes? ? 0 : 1
-    xml_field('taxCode', result, false)
+    [
+     xml_field('taxCode', result, false),
+     xml_field('invoiceCode', result, false)
+    ].join("\n")
+  end
+
+  def credit_worthiness
+    xml_field('creditWorthiness', 1, false)
   end
 
   # maxlength = 0 means no limitation (which is true for numbers only)
@@ -375,7 +382,8 @@ class Customer
               language_id,
               tax_code,
               vat_number,
-              text_1
+              text_1,
+              credit_worthiness
              ].compact.join("\n")
 
     return <<-XML

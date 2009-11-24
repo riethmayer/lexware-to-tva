@@ -158,6 +158,7 @@ class Order
       if (d.delivery_note_id == self.delivery_note_id) && d.delivery_note?
         self.delivery_note = d
         self.delivery_address = d.address
+        self.order_confirmation_id = d.order_confirmation_id
       end
     end
     update_invoice_print_code
