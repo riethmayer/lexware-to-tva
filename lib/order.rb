@@ -502,7 +502,7 @@ class Order
   #      is the most recent
   def to_xml
 
-    prelude = "<?xml version='1.0'?>\n<Root xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='file:///order.xsd'>\n<order>"
+    prelude = "<?xml version='1.0'?>\n<Root xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='file:///order.xsd'>\n<Order>"
     str= [ add_costs_xml,
            additional_text_xml,
            customer_id,
@@ -512,7 +512,7 @@ class Order
            delivery_name_2,
            delivery_name_3,
            delivery_place,
-           delivery_print_code,
+           delivery_print_code_xml,
            delivery_street,
            delivery_codes,
            delivery_zipcode,
@@ -539,7 +539,7 @@ class Order
       s = s.force_encoding('UTF-8')
     end
     all = str.join("\n")
-    ending = "<positionen AnzPos='#{positions.length}'>#{xml_for(positions)}</positionen>\n</order>\n</Root>"
+    ending = "<positionen AnzPos='#{positions.length}'>#{xml_for(positions)}</positionen>\n</Order>\n</Root>"
     prelude + all + ending
   end
 

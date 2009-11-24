@@ -153,7 +153,7 @@ class Customer
       result = delivery_company? ? delivery_company : delivery_salutation
       xml_field('deliveryAddress1', result)
     else
-      ""
+      nil
     end
   end
 
@@ -163,7 +163,7 @@ class Customer
       result = fullname
       xml_field('deliveryAddress2', result)
     else
-      ""
+      nil
     end
   end
 
@@ -172,7 +172,7 @@ class Customer
     if result
       xml_field('deliveryAddress3', result)
     else
-      ""
+      nil
     end
   end
 
@@ -197,7 +197,7 @@ class Customer
     if result
       xml_field('deliveryPlace', result)
     else
-      ""
+      nil
     end
   end
 
@@ -206,7 +206,7 @@ class Customer
     if result
       xml_field('deliveryStreet', result)
     else
-      ""
+      nil
     end
   end
 
@@ -216,16 +216,16 @@ class Customer
       raise_error('deliveryZipCode is too long') if result.length > 6
       xml_field('deliveryZipCode', result, true, 6)
     else
-      ""
+      nil
     end
   end
 
-  def delivery_terms_code
-    result = self.delivery_term
+  def delivery_terms_code_xml
+    result = self.delivery_terms_code
     if result
       xml_field('deliveryTermsCode',result, false)
     else
-      ""
+      nil
     end
   end
 
@@ -234,7 +234,7 @@ class Customer
     if result
       xml_field('grossPriceCode', result, false)
     else
-      ""
+      nil
     end
   end
 
@@ -243,7 +243,7 @@ class Customer
     if result
       xml_field('invoiceAddress1', result)
     else
-      ""
+      nil
     end
   end
 
@@ -252,7 +252,7 @@ class Customer
     if result
       xml_field('invoiceAddress2', result)
     else
-      ""
+      nil
     end
   end
 
@@ -261,7 +261,7 @@ class Customer
     if result
       xml_field('invoiceAddress3', result)
     else
-      ""
+      nil
     end
   end
 
@@ -283,7 +283,7 @@ class Customer
     if result
       xml_field('invoicePlace', result)
     else
-      ""
+      nil
     end
   end
 
@@ -292,7 +292,7 @@ class Customer
     if result
       xml_field('invoiceStreet', result)
     else
-      ""
+      nil
     end
   end
 
@@ -302,7 +302,7 @@ class Customer
       raise_error('invoiceZipCode is too long') if result.length > 6
       xml_field('invoiceZipCode', result, true, 6)
     else
-      ""
+      nil
     end
   end
 
@@ -316,7 +316,7 @@ class Customer
       raise_error('vatNumber is too long') if result.length > 14
       xml_field('vatNumber', result, true, 14)
     else
-      ""
+      nil
     end
   end
 
@@ -325,7 +325,7 @@ class Customer
     if result
       xml_field('text1', result, true, 20)
     else
-      ""
+      nil
     end
   end
 
@@ -344,7 +344,7 @@ class Customer
               end
       return "<#{fieldname}>#{entry}</#{fieldname}>"
     else
-      return ""
+      return nil
     end
   end
 
@@ -353,32 +353,36 @@ class Customer
   end
 
   def to_xml
+    middle = [
+              currency_code,
+              customer_id,
+              delivery_address_1,
+              delivery_address_2,
+              delivery_address_3,
+              delivery_address_country_code_xml,
+              delivery_place,
+              delivery_street,
+              delivery_zipcode,
+              delivery_terms_code_xml,
+              gross_price_code_xml,
+              invoice_address_1,
+              invoice_address_2,
+              invoice_address_3,
+              invoice_address_country_code_xml,
+              invoice_place,
+              invoice_street,
+              invoice_zipcode,
+              language_id,
+              tax_code,
+              vat_number,
+              text_1
+             ].compact.join("\n")
+
     return <<-XML
 <?xml version="1.0" encoding="UTF-8"?>
 <Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///Customer.xsd">
 <customer>
-  #{currency_code}
-  #{customer_id}
-  #{delivery_address_1}
-  #{delivery_address_2}
-  #{delivery_address_3}
-  #{delivery_address_country_code_xml}
-  #{delivery_place}
-  #{delivery_street}
-  #{delivery_zipcode}
-  #{delivery_terms_code}
-  #{gross_price_code_xml}
-  #{invoice_address_1}
-  #{invoice_address_2}
-  #{invoice_address_3}
-  #{invoice_address_country_code_xml}
-  #{invoice_place}
-  #{invoice_street}
-  #{invoice_zipcode}
-  #{language_id}
-  #{tax_code}
-  #{vat_number}
-  #{text_1}
+  #{middle}
 </customer>
 </Root>
 XML
