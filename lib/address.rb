@@ -21,7 +21,6 @@ class Address
     end
     extract_zipcode
     extract_place
-    set_salutation
     self.country = Country.new(self.country)
   end
 

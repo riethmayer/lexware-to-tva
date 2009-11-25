@@ -76,7 +76,6 @@ class ConverterTest < Test::Unit::TestCase
     invoice = @converter.invoices[0]
     xml = invoice.to_xml
     assert /<invoiceCountryCode>49<\/invoiceCountryCode>/                    =~ xml
-    assert /<invoiceName1><!\[CDATA\[Frau\/Herr\/Firma\]\]><\/invoiceName1>/ =~ xml, "Salutation missing in invoiceName1"
     assert /<invoiceName2><!\[CDATA\[Ali .+?\]\]><\/invoiceName2>/        =~ xml, "Expected Ali in invoiceName2"
     assert /<invoiceName3><!\[CDATA\[Testspezialist\]\]><\/invoiceName3>/    =~ xml, "Expected Testspezialist in invoiceName3"
     assert /<invoicePlace><!\[CDATA\[Berlin\]\]><\/invoicePlace>/            =~ xml, "Expected Berlin in invoicePlace"
@@ -90,8 +89,8 @@ class ConverterTest < Test::Unit::TestCase
     invoice = @converter.invoices[0]
     xml = invoice.to_xml
     assert /<deliveryCountryCode>49<\/deliveryCountryCode>/                          =~ xml
-    assert /<deliveryName1><!\[CDATA\[Firma Versandfirma\]\]><\/deliveryName1>/      =~ xml
-    assert /<deliveryName2><!\[CDATA\[Z\.Hd\. Peter Hoffmann\]\]><\/deliveryName2>/    =~ xml
+    assert /<deliveryName1><!\[CDATA\[Versandfirma\]\]><\/deliveryName1>/      =~ xml, "VersandFirma erwartet: #{xml}"
+    assert /<deliveryName2><!\[CDATA\[Peter Hoffmann\]\]><\/deliveryName2>/    =~ xml
     assert /<deliveryName3><!\[CDATA\[Versandspezialist\]\]><\/deliveryName3>/       =~ xml
     assert /<deliveryPlace><!\[CDATA\[Berlin\]\]><\/deliveryPlace>/                  =~ xml
     assert /<deliveryStreet><!\[CDATA\[Kreuzbergstra.+?e 61\]\]><\/deliveryStreet>/  =~ xml

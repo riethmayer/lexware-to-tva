@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///Customer.xsd">
+<customer>
+  <currencyCode>1</currencyCode>
+<customerId>23689</customerId>
+<deliveryCountryCode>49</deliveryCountryCode>
+<deliveryTermsCode>6</deliveryTermsCode>
+<grossPriceCode>1</grossPriceCode>
+<invoiceAddress2><![CDATA[Ali Gündüz]]></invoiceAddress2>
+<invoiceAddress3><![CDATA[Testspezialist]]></invoiceAddress3>
+<invoiceCountryCode>49</invoiceCountryCode>
+<invoicePlace><![CDATA[Berlin]]></invoicePlace>
+<invoiceStreet><![CDATA[Reichenbergerstraße 123]]></invoiceStreet>
+<invoiceZipCode><![CDATA[10999]]></invoiceZipCode>
+<languageId>0</languageId>
+<taxCode>0</taxCode>
+<invoiceCode>0</invoiceCode>
+<text1><![CDATA[245245ff]]></text1>
+<creditWorthiness>1</creditWorthiness>
+</customer>
+</Root>

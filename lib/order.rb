@@ -192,7 +192,7 @@ class Order
         raise_error("Shipping costs invalid: text => '#{txt}', value => '#{val}'")
       end
     else
-      ""
+      nil
     end
   end
 
@@ -201,7 +201,7 @@ class Order
     if result
       xml_field('addText', result, true, 250)
     else
-      ""
+      nil
     end
   end
 
@@ -239,7 +239,7 @@ class Order
     if result
       xml_field('deliveryDate', result, false)
     else
-      ""
+      nil
     end
   end
 
@@ -256,8 +256,12 @@ class Order
   end
 
   def delivery_name_1
-    result = delivery_company ? delivery_company : delivery_salutation
-    xml_field('deliveryName1', result)
+    result = delivery_company ? delivery_company : (delivery_salutation || nil )
+    if result
+      xml_field('deliveryName1', result)
+    else
+      nil
+    end
   end
 
   def delivery_name_2
@@ -283,7 +287,7 @@ class Order
     if result
       xml_field('deliveryPlace', result)
     else
-      ""
+      nil
     end
   end
 
