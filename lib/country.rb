@@ -37,6 +37,7 @@ class Country
       'Finnland'                     => 35,
       'Ungarn'                       => 36,
       'Jugoslawien'                  => 38,
+      'Slowenien'                    => 38,
       'Italien'                      => 39,
       'Schweiz'                      => 41,
       'Tschechische Republik'        => 42,
