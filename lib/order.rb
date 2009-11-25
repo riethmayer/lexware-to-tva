@@ -248,23 +248,24 @@ class Order
   end
 
   def delivery_salutation
-    result = self.delivery_address ? self.delivery_address.salutation : "Frau/Herr/Firma"
+    result = self.delivery_address ? self.delivery_address.salutation : nil
   end
 
   def delivery_fullname
     self.delivery_address ? self.delivery_address.fullname : nil
   end
+
   def delivery_name_1
-    result = delivery_company ? "Firma #{delivery_company}" : delivery_salutation
+    result = delivery_company ? delivery_company : delivery_salutation
     xml_field('deliveryName1', result)
   end
 
   def delivery_name_2
-    result = delivery_company && delivery_fullname ? "Z.Hd. #{delivery_fullname}" : (delivery_fullname || nil)
+    result = delivery_company && delivery_fullname ? delivery_fullname : nil
     if result
       xml_field('deliveryName2', result)
     else
-      ""
+      nil
     end
   end
 
@@ -273,7 +274,7 @@ class Order
     if result
       xml_field('deliveryName3', result)
     else
-      ""
+      nil
     end
   end
 
@@ -300,7 +301,7 @@ class Order
     if result
       xml_field('deliveryStreet', result)
     else
-      ""
+      nil
     end
   end
 
@@ -323,7 +324,7 @@ class Order
       raise_error("deliveryZipCode is longer than 6 chars") if result.length > 6
       xml_field('deliveryZipCode', result, true, 6)
     else
-      ""
+      nil
     end
   end
 
@@ -332,7 +333,7 @@ class Order
     if result
       xml_field('discount', result, false)
     else
-      ""
+      nil
     end
   end
 
@@ -351,7 +352,7 @@ class Order
   end
 
   def invoice_name_1
-    result = self.address ? self.address.salutation : "Frau/Herr/Firma"
+    result = self.address ? self.address.salutation : nil
     xml_field('invoiceName1', result)
   end
 
@@ -360,7 +361,7 @@ class Order
     if result
       xml_field('invoiceName2', result)
     else
-      ""
+      nil
     end
   end
 
@@ -369,7 +370,7 @@ class Order
     if result
       xml_field('invoiceName3', result)
     else
-      ""
+      nil
     end
   end
 
@@ -378,7 +379,7 @@ class Order
     if result
       xml_field('invoicePlace', result)
     else
-      ""
+      nil
     end
   end
 
@@ -399,7 +400,7 @@ class Order
       raise_error("invoiceZipCode ist too long") if result.length > 6
       xml_field('invoiceZipCode', result, true, 6)
     else
-      ""
+      nil
     end
   end
 
@@ -424,7 +425,7 @@ class Order
     if result
       xml_field('reference1', result.to_s)
     else
-      ""
+      nil
     end
   end
 
@@ -438,7 +439,7 @@ class Order
     elsif snd
       xml_field('reference2', snd)
     else
-      ""
+      nil
     end
   end
 
@@ -454,7 +455,7 @@ class Order
     if result
       xml_field('shortName', result, true, 10)
     else
-      ""
+      nil
     end
   end
 
@@ -484,7 +485,7 @@ class Order
               end
       return "<#{fieldname}>#{entry}</#{fieldname}>"
     else
-      return ""
+      return nil
     end
   end
 
