@@ -547,7 +547,7 @@ class Order
            representative_1,
            short_name,
            urgent_code,
-           tax_code
+           tax_code,
            order_release_code
          ].compact
     str.each do |s|
