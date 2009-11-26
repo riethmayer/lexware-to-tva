@@ -335,7 +335,7 @@ class Order
   def discount_xml
     result = self.discount ? extract_discount : nil
     if result
-      xml_field('discount', result, false)
+      xml_field('discount1', result, false)
     else
       nil
     end
