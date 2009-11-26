@@ -346,6 +346,14 @@ class Order
     xml_field('grossPriceCode', 0, false)
   end
 
+  def tax_code
+    result = self.customer && self.customer.pays_taxes? 1 : 0
+    [
+      xml_field('taxCode', result, false),
+      xml_field('netInvoicingCode', result, false)
+    ].join("\n")
+  end
+
   def invoice_country_code
     result = self.address && self.address.country ? self.address.country.code : nil
     if result
@@ -539,6 +547,7 @@ class Order
            representative_1,
            short_name,
            urgent_code,
+           tax_code
            order_release_code
          ].compact
     str.each do |s|
