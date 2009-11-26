@@ -347,7 +347,7 @@ class Order
   end
 
   def tax_code
-    result = self.customer && self.customer.pays_taxes? 1 : 0
+    result = self.customer && self.customer.pays_taxes? ? 1 : 0
     [
       xml_field('taxCode', result, false),
       xml_field('netInvoicingCode', result, false)
