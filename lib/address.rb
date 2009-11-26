@@ -27,10 +27,17 @@ class Address
   def has_country_code?
     self.country && self.country.code
   end
+
   def self.differs?(a1,a2)
-   ( a1.street != a2.street) || (a1.zipcode != a2.zipcode) || (a1.country != a2.country)
+    ( simple(a1.street)  != simple(a2.street)) ||
+     (simple(a1.zipcode) != simple(a2.zipcode)) ||
+     (simple(a1.country.name) != simple(a2.country.name))
   end
 
+  # imagine a simple version of the string
+  def self.simple str
+    str.downcase.gsub(/^[a-z]/,"")
+  end
   # to use factories
   def save!
   end

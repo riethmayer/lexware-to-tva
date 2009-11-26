@@ -69,5 +69,12 @@ class AddressTest < Test::Unit::TestCase
     assert_equal 49, Country.new('Deutschland').code
     assert_equal 45, Country.new('Dänemark').code
     assert_equal 43, Country.new('Österreich').code
+    assert_equal 44, Country.new('Großbritannien').code
+  end
+
+  def test_differs_works_for_utf8_strings
+    addr1 = Factory(:address, :street => "Österreich")
+    addr2 = Factory(:address, :street => "Österreich")
+    assert_equal false, Address.differs?(addr1,addr2)
   end
 end

@@ -54,7 +54,7 @@ class OrderTest < Test::Unit::TestCase
   # So wird in das Packstück ein Lieferschein gelegt und die Rechnung
   # an den Kunden getrennt versendet.
   def test_assert_difference_in_delivery_and_invoice_address_triggers_delivery_notes
-    invoice_address  = Factory(:invoice_address)
+    invoice_address  = Factory(:invoice_address, :street => "Österreichische Strasse")
     delivery_address = Factory(:delivery_address)
     @invoice.delivery_note = @delivery_note
     @invoice.address = invoice_address
