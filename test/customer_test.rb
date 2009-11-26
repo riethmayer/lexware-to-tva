@@ -58,7 +58,25 @@ class CustomerTest < Test::Unit::TestCase
     File.open(file, 'w') {|f| f.write(c.to_xml) }
   end
 
-  def test_invoice_address_salutation
+  def test_short_name_has_maximum_of_10_chars
+    @customer = Factory(:customer)
+    assert @customer.address
+    assert @customer.address.company
+    @customer.address.company = "aCompanyWithALoooongName"
+    assert @customer.address.company.length == 24
+    assert @customer.short_name
+    assert_equal 10, @customer.short_name.size
+  end
+
+  def test_short_name_has_maximum_of_10_chars
+    @customer = Factory(:customer)
+    assert @customer.address
+    assert @customer.address.company
+    @customer.address.company = nil
+    @customer.address.fullname = "customerWithALoooongName"
+    assert @customer.address.fullname.length == 24
+    assert @customer.short_name
+    assert_equal 10, @customer.short_name.size
   end
 
 end

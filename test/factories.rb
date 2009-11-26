@@ -64,10 +64,10 @@ Factory.define :item do |f|
   f.sequence(:id) { |n| n + 9000 }
   f.title { |a| "Item_#{a.id}"}
   f.short_title { |a| "Item_#{a.id}"}
-  f.grossprice1 "19,99"
-  f.grossprice2 "0"
-  f.netprice1   "19,00"
-  f.netprice2   "0"
+  f.grossprice_1 "19.99"
+  f.grossprice_2 "0"
+  f.netprice_1   "19.00"
+  f.netprice_2   "0"
   f.quantity    1
   f.language_id 0
   f.locked 0

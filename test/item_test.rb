@@ -48,12 +48,44 @@ class ItemTest < Test::Unit::TestCase
     assert_match /length of exactly 160 beautiful chars in/,item.to_xml
   end
 
-   def test_file_with_invalid_positions
-     @converter = Converter.new(make_file('Test'))
-     assert @converter.convert
-     assert @items     = @converter.items
-   end
+  def test_file_with_invalid_positions
+    @converter = Converter.new(make_file('Test'))
+    assert @converter.convert
+    assert @items     = @converter.items
+  end
 
+  def test_grossprice_calculation
+    @item = Factory(:item)
+
+    # netto = brutto
+    @item.tax_code   = 0
+    @item.item_tax   = '0.00'
+    @item.netprice_1 = '5.00'
+    @item.calculate_grossprice_1
+    assert_equal '5.00', @item.grossprice_1
+
+    # brutto = netto * 1.07 if item_tax == 7.00
+    @item.tax_code   = 2
+    @item.item_tax   = '7.00'
+    @item.netprice_1 = '5.00'
+    @item.calculate_grossprice_1
+    assert_equal '5.35', @item.grossprice_1
+
+
+    # brutto = netto * 1.19 if item_tax == 19.00
+    @item.tax_code   = 1
+    @item.item_tax   = '19.00'
+    @item.netprice_1 = '5.00'
+    @item.calculate_grossprice_1
+    assert_equal '5.95', @item.grossprice_1
+
+    # brutto = netto * 1.19 if item_tax == 19.00
+    @item.tax_code   = 1
+    @item.item_tax   = '19.00'
+    @item.netprice_1 = '9.99'
+    @item.calculate_grossprice_1
+    assert_equal '11.89', @item.grossprice_1 # mitm Taschenrechner 11,8881
+  end
 
 
 #   def test_items_are_sorted_by_position_nr

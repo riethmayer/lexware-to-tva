@@ -28,6 +28,9 @@ class Country
   end
 
   def replace_country_with_code(name)
+    return 43 if name =~ /sterreich/
+    return 45 if name =~ /nemark/
+    return 44 if name =~ /britannien/
     countries = {
       'Luxemburg'                    => 18,
       'Niederlande'                  => 31,

@@ -57,8 +57,9 @@ class Item
   # steuersatz aus dem artikel (ist bindend)
   def calculate_grossprice_1
     set_tax_code
-    if(self.tax_code == '0.00')
+    if(self.tax_code == 0)
       # do nothing, netprice is grossprice, as tax is 0
+      self.grossprice_1 = self.netprice_1
     else
       taxs = self.item_tax
       nets = self.netprice_1

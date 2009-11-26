@@ -54,7 +54,7 @@ class OrderTest < Test::Unit::TestCase
   # So wird in das Packstück ein Lieferschein gelegt und die Rechnung
   # an den Kunden getrennt versendet.
   def test_assert_difference_in_delivery_and_invoice_address_triggers_delivery_notes
-    invoice_address  = Factory(:invoice_address)
+    invoice_address  = Factory(:invoice_address, :street => "Österreichische Strasse")
     delivery_address = Factory(:delivery_address)
     @invoice.delivery_note = @delivery_note
     @invoice.address = invoice_address
@@ -181,6 +181,25 @@ class OrderTest < Test::Unit::TestCase
     assert customer.is_eu?, "European customer expected"
     assert customer.is_german?, "German customer expected"
     assert_equal true, customer.pays_taxes?, "Expected to pay taxes"
+  end
+
+  def test_invoice_has_a_company_short_name_of_maximum_10_chars
+    invoice = @invoice
+    assert @invoice.customer
+    @invoice.customer.address.company = "aCompanyWithALoooongName"
+    assert @invoice.customer.address.company.size == 24
+    assert @invoice.customer.short_name.size == 10
+    assert @invoice.short_name == "<shortName><![CDATA[aCompanyWi]]></shortName>", "shortName did not match #{@invoice.short_name}"
+  end
+
+  def test_invoice_has_a_company_short_name_of_maximum_10_chars
+    invoice = @invoice
+    assert @invoice.customer
+    @invoice.customer.address.company = nil
+    @invoice.customer.address.fullname = "customerWithALoooongName"
+    assert @invoice.customer.address.fullname.size == 24
+    assert @invoice.customer.short_name.size == 10
+    assert @invoice.short_name == "<shortName><![CDATA[customerWi]]></shortName>", "shortName did not match #{@invoice.short_name}"
   end
 
   # helper files for testing
