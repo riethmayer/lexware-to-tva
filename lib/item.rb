@@ -39,6 +39,12 @@ class Item
     self.netprice_1         = Converter.convert_value(self.netprice_1) || '0.00'
     self.item_tax           = Converter.convert_value(self.item_tax)   || '19.00'
     calculate_grossprice_1
+    # 40 chars restriction
+    self.short_title        = self.short_title[0..39]
+  end
+
+  # steuersatz aus dem artikel (ist bindend)
+  def calculate_grossprice_1
     # need taxcode
     if self.item_tax == '0.00'
       self.tax_code         = 0
@@ -47,14 +53,10 @@ class Item
     else
       self.tax_code         = 1 # 19%
     end
-    # 40 chars restriction
-    self.short_title        = self.short_title[0..39]
-  end
 
-  # steuersatz aus dem artikel (ist bindend)
-  def calculate_grossprice_1
-    if(self.tax_code == '0.00')
+    if(self.tax_code == 0)
       # do nothing, netprice is grossprice, as tax is 0
+      self.grossprice_1 = self.netprice_1
     else
       taxs = self.item_tax
       nets = self.netprice_1
