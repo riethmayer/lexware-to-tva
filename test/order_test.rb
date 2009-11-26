@@ -183,6 +183,25 @@ class OrderTest < Test::Unit::TestCase
     assert_equal true, customer.pays_taxes?, "Expected to pay taxes"
   end
 
+  def test_invoice_has_a_company_short_name_of_maximum_10_chars
+    invoice = @invoice
+    assert @invoice.customer
+    @invoice.customer.address.company = "aCompanyWithALoooongName"
+    assert @invoice.customer.address.company.size == 24
+    assert @invoice.customer.short_name.size == 10
+    assert @invoice.short_name == "<shortName><![CDATA[aCompanyWi]]></shortName>", "shortName did not match #{@invoice.short_name}"
+  end
+
+  def test_invoice_has_a_company_short_name_of_maximum_10_chars
+    invoice = @invoice
+    assert @invoice.customer
+    @invoice.customer.address.company = nil
+    @invoice.customer.address.fullname = "customerWithALoooongName"
+    assert @invoice.customer.address.fullname.size == 24
+    assert @invoice.customer.short_name.size == 10
+    assert @invoice.short_name == "<shortName><![CDATA[customerWi]]></shortName>", "shortName did not match #{@invoice.short_name}"
+  end
+
   # helper files for testing
   def german_customer(customer)
     customer.address.country.code  = 49
