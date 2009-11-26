@@ -183,14 +183,11 @@ class Order
   ## XML OUTPUT ##
 
   def add_costs_xml
-    if self.add_costs?
-      txt = self.shipping[:text]
-      val = self.shipping[:value]
-      if txt && val
-        return [xml_field('addCosts1', txt), xml_field('addCostsValue1', val, false)].join("\n")
-      else
-        raise_error("Shipping costs invalid: text => '#{txt}', value => '#{val}'")
-      end
+    set_additional_costs
+    txt = self.shipping[:text]
+    val = self.shipping[:value]
+    if txt && val
+      return [xml_field('addCosts1', txt), xml_field('addCostsValue1', val, false)].join("\n")
     else
       nil
     end
@@ -347,7 +344,7 @@ class Order
   end
 
   def tax_code
-    result = self.customer && self.customer.pays_taxes? ? 1 : 0
+    result = self.customer && self.customer.pays_taxes? ? 0 : 1
     [
       xml_field('taxCode', result, false),
       xml_field('netInvoicingCode', result, false)
