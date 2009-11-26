@@ -356,7 +356,7 @@ class Order
   end
 
   def invoice_name_1
-    result = self.address ? self.address.salutation : nil
+    result = self.address ? self.address.company : (self.address.salutation || nil)
     xml_field('invoiceName1', result)
   end
 
