@@ -508,7 +508,7 @@ class Order
   #      is the most recent
   def to_xml
 
-    prelude = "<?xml version='1.0'?>\n<Root xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='file:///order.xsd'>\n<Order>"
+    prelude = "<?xml version='1.0'?>\n<Root xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='file:///order.xsd'>\n<order>"
     str= [ add_costs_xml,
            additional_text_xml,
            customer_id,
@@ -545,7 +545,7 @@ class Order
       s = s.force_encoding('UTF-8')
     end
     all = str.join("\n")
-    ending = "<positionen AnzPos='#{positions.length}'>#{xml_for(positions)}</positionen>\n</Order>\n</Root>"
+    ending = "<positionen AnzPos='#{positions.length}'>#{xml_for(positions)}</positionen>\n</order>\n</Root>"
     prelude + all + ending
   end
 
