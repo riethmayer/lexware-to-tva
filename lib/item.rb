@@ -27,6 +27,7 @@ class Item
     }.each do |k,  v|
       self.send k, Converter.xml_get(v, order)
     end
+
     self.language_id        = 0
     self.locked             = 0
     self.currency           = 'EUR'
@@ -36,10 +37,15 @@ class Item
     self.netprice_2         = 0
     self.quantity           = Converter.convert_value(self.quantity)
     self.grossprice_1       = Converter.convert_value(self.grossprice_1)
-    self.netprice_1         = Converter.convert_value(self.netprice_1) || '0.00'
+    self.netprice_1         = Converter.convert_value(self.netprice_1)
     self.item_tax           = Converter.convert_value(self.item_tax)   || '19.00'
-    calculate_grossprice_1
-    # need taxcode
+    set_tax_code
+    # calculate_grossprice_1
+    # 40 chars restriction
+    self.short_title        = self.short_title[0..39]
+  end
+
+  def set_tax_code
     if self.item_tax == '0.00'
       self.tax_code         = 0
     elsif self.item_tax == '7.00' || self.item_tax == '07.00'
@@ -47,12 +53,10 @@ class Item
     else
       self.tax_code         = 1 # 19%
     end
-    # 40 chars restriction
-    self.short_title        = self.short_title[0..39]
   end
-
   # steuersatz aus dem artikel (ist bindend)
   def calculate_grossprice_1
+    set_tax_code
     if(self.tax_code == '0.00')
       # do nothing, netprice is grossprice, as tax is 0
     else

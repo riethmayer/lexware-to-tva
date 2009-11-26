@@ -342,8 +342,8 @@ class Order
   end
 
   def gross_price_code
-    result = self.customer && self.customer.pays_taxes? ? 1 : 0
-    xml_field('grossPriceCode', result, false)
+    #result = self.customer && self.customer.pays_taxes? ? 1 : 0
+    xml_field('grossPriceCode', 0, false)
   end
 
   def invoice_country_code
