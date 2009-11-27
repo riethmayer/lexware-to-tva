@@ -184,12 +184,14 @@ class Order
 
   def add_costs_xml
     set_additional_costs
-    txt = self.shipping[:text]
-    val = self.shipping[:value]
-    if txt && val
-      return [xml_field('addCosts1', txt), xml_field('addCostsValue1', val, false)].join("\n")
-    else
-      nil
+    if self.shipping
+      txt = self.shipping[:text]
+      val = self.shipping[:value]
+      if txt && val
+        return [xml_field('addCosts1', txt), xml_field('addCostsValue1', val, false)].join("\n")
+      else
+        nil
+      end
     end
   end
 
