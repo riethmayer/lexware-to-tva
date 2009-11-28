@@ -202,6 +202,28 @@ class OrderTest < Test::Unit::TestCase
     assert @invoice.short_name == "<shortName><![CDATA[customerWi]]></shortName>", "shortName did not match #{@invoice.short_name}"
   end
 
+  def test_invoice_order_release_code_is_1_if_payment_mode_is_4
+    @invoice.customer.payment_mode = 4
+    assert @invoice.order_release_code == "<orderReleaseCode>1</orderReleaseCode>", "orderReleaseCode didn't match, it looked like this: #{@invoice.order_release_code}"
+  end
+
+  def test_invoice_order_release_code_is_0_if_payment_mode_is_not_4
+    [0,1,2,3,5].each do |mode|
+      @invoice.customer.payment_mode = mode
+      assert @invoice.order_release_code == "<orderReleaseCode>0</orderReleaseCode>", "orderReleaseCode didn't match, it looked like this: #{@invoice.order_release_code}"
+    end
+  end
+
+  def test_additional_costs
+    converter = Converter.new(make_file('Test'))
+    converter.convert
+    invoice    = converter.invoices[0]
+    text = invoice.shipping[:text]
+    value = invoice.shipping[:value]
+    assert text == "zzgl. Shipping costs business EURO1", "Expected EURO1, but was #{text}"
+    assert value == "166.10", "expected 166.10, but was #{value}"
+  end
+
   # helper files for testing
   def german_customer(customer)
     customer.address.country.code  = 49

@@ -29,6 +29,7 @@ class Order
     extract_deliverer_id
     get_positions
     update_invoice_print_code
+    set_additional_costs
   end
 
   ## Herausfinden ob es sich um ne Rechnung oder nen Lieferschein handelt.
@@ -183,7 +184,6 @@ class Order
   ## XML OUTPUT ##
 
   def add_costs_xml
-    set_additional_costs
     if self.shipping
       txt = self.shipping[:text]
       val = self.shipping[:value]
@@ -476,9 +476,15 @@ class Order
   end
 
   def order_release_code
-    result = self.customer.payment_mode && self.customer.payment_mode == "4"
+    result = self.customer.payment_mode.to_s
     if result
-      xml_field('orderReleaseCode', "1", false)
+      if result == "4"
+        xml_field('orderReleaseCode', "1", false)
+      else
+        xml_field('orderReleaseCode', "0", false)
+      end
+    else
+      raise_error("PaymentMode missing, orderReleaseCode not decidable.")
     end
   end
 
