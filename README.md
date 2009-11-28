@@ -1,6 +1,6 @@
 # Conversion tool for xml data
 
-This tool converts xml data from the Laxware online shop Faktura to
+This tool converts xml data from Lexware Faktura to
 a consumable xml-format for the logistics company TVA.
 
 Faktura has an export tool, that generates one file with all transactions.
@@ -11,7 +11,7 @@ this script generates these resources based on the exporter.
 Once TVA has items and customers within their database, it's possible to send
 orders only.
 
-Laxware Faktura is a piece of windows software, so the exported files are
+Lexware Faktura is a piece of windows software, so the exported files are
 encoded in windows-1252. TVA needs UTF-8 or ISO-8859-1, we use UTF-8.
 
 To enable encoding features on a various platforms, we use Ruby1.9.
