@@ -492,9 +492,14 @@ class Order
     raise "#{str} for #{self.type} #{self.error_id}"
   end
 
+  def remove_amp_for(content)
+    content.gsub(/&amp;/,'&')
+  end
+
   # maxlength = 0 means no limitation (which is true for numbers only)
   def xml_field(fieldname, content, cdata = true, maxlength = 40)
     if(content.to_s.length > 0)
+      content = remove_amp_for(content)
       entry = if cdata
                 "<![CDATA[#{content[0..maxlength-1]}]]>"
               else

@@ -232,6 +232,15 @@ class OrderTest < Test::Unit::TestCase
     assert_match %r{<position><discount1>15.00</discount1>}, invoice.to_xml
   end
 
+  def test_amp_is_escaped
+    with_amp = "Optimiere.com &amp; riethmayer.de"
+    invoice = Factory(:invoice)
+    assert invoice.delivery_address
+    assert invoice.delivery_address.company
+    invoice.delivery_address.company = with_amp
+    assert_match %r{<!\[CDATA\[Optimiere\.com & riethmayer\.de\]\]>}, invoice.delivery_name_1
+  end
+
   # helper files for testing
   def german_customer(customer)
     customer.address.country.code  = 49
