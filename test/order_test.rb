@@ -224,6 +224,14 @@ class OrderTest < Test::Unit::TestCase
     assert value == "166.10", "expected 166.10, but was #{value}"
   end
 
+  def test_discount_in_invoice_will_trigger_discount_in_partial
+    invoice = Factory(:invoice)
+    invoice.positions = [Factory(:item)]
+    invoice.discount = "abzgl. 15,00"
+    assert_match %r{<discount1>15.00</discount1>}, invoice.discount_xml
+    assert_match %r{<position><discount1>15.00</discount1>}, invoice.to_xml
+  end
+
   # helper files for testing
   def german_customer(customer)
     customer.address.country.code  = 49

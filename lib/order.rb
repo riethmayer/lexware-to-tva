@@ -509,7 +509,7 @@ class Order
   def xml_for(items)
     xmls = []
     items.each do |item|
-      xmls << item.xml_partial
+      xmls << item.xml_partial(discount_xml)
     end
     xmls.join("\n")
   end

@@ -133,11 +133,11 @@ class Item
     "Item"
   end
 
-  def xml_partial
+  def xml_partial(discount = nil)
     if self.valid?
       partial =  <<-PARTIAL
 
-<position>
+<position>#{discount.to_s}
   <grossPrice>#{self.grossprice_1}</grossPrice>
   <itemId>#{self.id}</itemId>
   <orderedQuantity>#{self.quantity}</orderedQuantity>
