@@ -87,6 +87,17 @@ class ItemTest < Test::Unit::TestCase
     assert_equal '11.89', @item.grossprice_1 # mitm Taschenrechner 11,8881
   end
 
+  def test_item_with_grossprice_0_is_valid
+    item = Factory(:item, :grossprice_1 => 0)
+    assert_match %r{<grossPrice>0</grossPrice>}, item.xml_partial, item.errors.join(", ")
+  end
+
+  def test_item_with_empty_string_grossprice_is_valid
+    item = Factory(:item, :grossprice_1 => "")
+    assert_match %r{<grossPrice>0</grossPrice>}, item.xml_partial, item.errors.join(", ")
+  end
+
+
 
 #   def test_items_are_sorted_by_position_nr
 #     assert true

@@ -93,8 +93,13 @@ class Item
     result
   end
 
+  def update_blank_fields
+    self.grossprice_1 = "0" if self.grossprice_1 == "" || self.grossprice_1 == 0 || self.grossprice_1.nil?
+  end
+
   def valid?
     return false if self.placeholder?
+    update_blank_fields
     self.errors << "Currency invalid"    if self.currency != 'EUR'
     self.errors << "DispoCode invalid"   if self.dispocode != 0
     self.errors << "GrossPrice1 missing" if self.grossprice_1.nil?
@@ -129,7 +134,8 @@ class Item
   end
 
   def xml_partial
-    partial =  <<-PARTIAL
+    if self.valid?
+      partial =  <<-PARTIAL
 
 <position>
   <grossPrice>#{self.grossprice_1}</grossPrice>
@@ -138,7 +144,7 @@ class Item
   <quantityUnitCode>#{self.quantity_unit_code}</quantityUnitCode>
 </position>
 PARTIAL
-    if self.valid?
+
       return partial
     else
       return ""

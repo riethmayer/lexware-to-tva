@@ -180,6 +180,8 @@ class Converter
   end
 
   def self.convert_value(str)
+    str = str.to_s
+    str = "0" if str == ""
     str.gsub!(/,/,".")  # 23,24  => 23.24
     str.gsub!(/%/,"")   # 19.00% => 19.00
     str.strip!
