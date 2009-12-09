@@ -493,6 +493,7 @@ class Order
   end
 
   def remove_amp_for(content)
+    content = content.to_s
     content.gsub(/&amp;/,'&')
   end
 
